@@ -1,0 +1,95 @@
+.profile__back {
+  display: flex;
+  width: 64px;
+  border-right: $border-col 1px solid;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: $second-bg;
+}
+
+.profile__arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  background-color: $blue;
+}
+
+.profile__component {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.profile__main {
+  position: relative;
+  width: calc(100% - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__container {
+  width: 510px;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  top: 60px;
+}
+
+.profile__image {
+  border-radius: 100%;
+  width: 130px;
+  height: 130px;
+  background-color: $border-col;
+  margin-bottom: 20px;
+}
+
+.profile__name {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  color: $font-primary;
+  margin-bottom: 60px;
+}
+
+
+.profile__items {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.profile__box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: $border-col 1px solid;
+}
+
+
+
+.profile__action__container {
+  width: 100%;
+}
+
+.profile__action__header {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $blue;
+  margin-bottom: 10px;
+}
+
+.profile__action__exit {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $red;
+  margin-bottom: 10px;
+}
+
+.profile__last {
+  border-bottom: 0;
+}

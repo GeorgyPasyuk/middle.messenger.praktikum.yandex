@@ -1,0 +1,21 @@
+{{#each chatData}}
+<div class="{{../itemStyle}}">
+    <div class="{{../avatarStyle}}"></div>
+    <div class="{{../nameContainer}}">
+        <h class="{{../nameStyle}}">
+            {{name}}
+        </h>
+        <p class="{{../messageStyle}}">
+            {{latest_message}}
+        </p>
+    </div>
+    <div class="{{../notesStyle}}">
+        <p class="{{../timeStyle}}">
+            {{time}}
+        </p>
+        <div class="{{../notificationStyle}}">
+            {{notes}}
+        </div>
+    </div>
+</div>
+{{/each}}

@@ -1,0 +1,8 @@
+{{#each profileData}}
+        <div class="{{../profileBoxStyle}}">
+            {{#each this}}
+            <h class="{{../../headerStyle}}">{{@key}}</h>
+            <p class="{{../../headerInfo}}">{{this}}</p>
+            {{/each}}
+        </div>
+{{/each}}
