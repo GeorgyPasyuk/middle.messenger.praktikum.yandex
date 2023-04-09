@@ -12139,10 +12139,10 @@ const inputTemplate = ()=>{
 exports.default = inputTemplate;
 
 },{"./input.module.Style.scss":"iwNKf","./inputTemplate.hbs":"1WHPq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iwNKf":[function(require,module,exports) {
-module.exports["login__input"] = `i8dLWq_login__input`;
-module.exports["login__container"] = `i8dLWq_login__container`;
-module.exports["login__info"] = `i8dLWq_login__info`;
 module.exports["login__containerLast"] = `i8dLWq_login__containerLast`;
+module.exports["login__input"] = `i8dLWq_login__input`;
+module.exports["login__info"] = `i8dLWq_login__info`;
+module.exports["login__container"] = `i8dLWq_login__container`;
 
 },{}],"1WHPq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -12340,10 +12340,10 @@ const signInTemplateModule = ()=>{
 exports.default = signInTemplateModule;
 
 },{"./signIn.module.Style.scss":"xa05z","./signInTemplate.hbs":"bTLOP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xa05z":[function(require,module,exports) {
-module.exports["signIn__last"] = `yr15oa_signIn__last`;
-module.exports["signIn__input"] = `yr15oa_signIn__input`;
-module.exports["signup__container"] = `yr15oa_signup__container`;
 module.exports["signIn__info"] = `yr15oa_signIn__info`;
+module.exports["signIn__last"] = `yr15oa_signIn__last`;
+module.exports["signup__container"] = `yr15oa_signup__container`;
+module.exports["signIn__input"] = `yr15oa_signIn__input`;
 
 },{}],"bTLOP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -12885,10 +12885,10 @@ const profileTemplateModule = ()=>{
 exports.default = profileTemplateModule;
 
 },{"./profile.module.style.scss":"3NT6I","./profileTemplate.hbs":"8x9DJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3NT6I":[function(require,module,exports) {
-module.exports["profile__header__info"] = `w_gZuq_profile__header__info`;
-module.exports["profile__box"] = `w_gZuq_profile__box`;
 module.exports["save__button"] = `w_gZuq_save__button`;
+module.exports["profile__box"] = `w_gZuq_profile__box`;
 module.exports["profile__header"] = `w_gZuq_profile__header`;
+module.exports["profile__header__info"] = `w_gZuq_profile__header__info`;
 
 },{}],"8x9DJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13231,8 +13231,8 @@ const inputTemplateModule = ()=>{
 exports.default = inputTemplateModule;
 
 },{"./input.module.style.scss":"fcSRG","./inputTemplate.hbs":"kBfZV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fcSRG":[function(require,module,exports) {
-module.exports["search__profile"] = `PT4PRG_search__profile`;
 module.exports["search__input"] = `PT4PRG_search__input`;
+module.exports["search__profile"] = `PT4PRG_search__profile`;
 
 },{}],"kBfZV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13419,14 +13419,14 @@ const feedTemplateModule = ()=>{
 exports.default = feedTemplateModule;
 
 },{"./feed.module.style.scss":"jK7wW","./feedTemplate.hbs":"Z9d7E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK7wW":[function(require,module,exports) {
-module.exports["user__notification"] = `_5V7iwG_user__notification`;
 module.exports["user__name"] = `_5V7iwG_user__name`;
-module.exports["user__notes"] = `_5V7iwG_user__notes`;
 module.exports["chat__item"] = `_5V7iwG_chat__item`;
 module.exports["user__time"] = `_5V7iwG_user__time`;
 module.exports["user__message"] = `_5V7iwG_user__message`;
-module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
+module.exports["user__notification"] = `_5V7iwG_user__notification`;
 module.exports["user__info"] = `_5V7iwG_user__info`;
+module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
+module.exports["user__notes"] = `_5V7iwG_user__notes`;
 
 },{}],"Z9d7E":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13545,12 +13545,12 @@ const timeTemplateModule = ()=>{
 exports.default = timeTemplateModule;
 
 },{"../messages.module.style.scss":"16etJ","./timeTemplate.hbs":"jwV9L","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"16etJ":[function(require,module,exports) {
-module.exports["to__container"] = `qY_a6a_to__container`;
-module.exports["main__time"] = `qY_a6a_main__time`;
-module.exports["message__time"] = `qY_a6a_message__time`;
-module.exports["from__container"] = `qY_a6a_from__container`;
 module.exports["from__item"] = `qY_a6a_from__item`;
+module.exports["main__time"] = `qY_a6a_main__time`;
+module.exports["to__container"] = `qY_a6a_to__container`;
+module.exports["message__time"] = `qY_a6a_message__time`;
 module.exports["to__item"] = `qY_a6a_to__item`;
+module.exports["from__container"] = `qY_a6a_from__container`;
 
 },{}],"jwV9L":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
