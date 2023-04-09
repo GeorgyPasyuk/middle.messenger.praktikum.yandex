@@ -1,4 +1,4 @@
-import profileStyle from "./profile.module.style.scss"
+import * as profileStyle from "./profile.module.style.scss"
 import profileTemplate from "./profileTemplate.hbs"
 
 const profileTemplateModule = () => {

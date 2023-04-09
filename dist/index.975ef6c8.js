@@ -662,23 +662,26 @@ const Login = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginFooter/footerModule":"fR34v","../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginInput/inputModule":"1jkKZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fR34v":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _footerModuleLoginStyleScss = require("./footer.module.LoginStyle.scss");
 var _footerTemplateHbs = require("./footerTemplate.hbs");
 var _footerTemplateHbsDefault = parcelHelpers.interopDefault(_footerTemplateHbs);
-var _footerModuleLoginStyleScss = require("./footer.module.LoginStyle.scss");
-var _footerModuleLoginStyleScssDefault = parcelHelpers.interopDefault(_footerModuleLoginStyleScss);
 const footerModule = ()=>{
     const context = {
         buttonTitle: "Вход",
         linkTitle: "Нет аккаунта?",
         login__link: "#/SignIn",
-        login__btnStyle: (0, _footerModuleLoginStyleScssDefault.default).welcome__footer__btn,
-        login__linkStyle: (0, _footerModuleLoginStyleScssDefault.default).footer__link
+        login__btnStyle: _footerModuleLoginStyleScss.welcome__footer__btn,
+        login__linkStyle: _footerModuleLoginStyleScss.footer__link
     };
     return (0, _footerTemplateHbsDefault.default)(context);
 };
 exports.default = footerModule;
 
-},{"./footerTemplate.hbs":"1XKTO","./footer.module.LoginStyle.scss":"jlBc4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1XKTO":[function(require,module,exports) {
+},{"./footer.module.LoginStyle.scss":"jlBc4","./footerTemplate.hbs":"1XKTO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jlBc4":[function(require,module,exports) {
+module.exports["welcome__footer__btn"] = `e6apNa_welcome__footer__btn`;
+module.exports["footer__link"] = `e6apNa_footer__link`;
+
+},{}],"1XKTO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12116,31 +12119,32 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"jlBc4":[function(require,module,exports) {
-module.exports["welcome__footer__btn"] = `e6apNa_welcome__footer__btn`;
-module.exports["footer__link"] = `e6apNa_footer__link`;
-
 },{}],"1jkKZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _inputModuleStyleScss = require("./input.module.Style.scss");
 var _inputTemplateHbs = require("./inputTemplate.hbs");
 var _inputTemplateHbsDefault = parcelHelpers.interopDefault(_inputTemplateHbs);
-var _inputModuleStyleScss = require("./input.module.Style.scss");
-var _inputModuleStyleScssDefault = parcelHelpers.interopDefault(_inputModuleStyleScss);
 const inputTemplate = ()=>{
     const context = {
         login: "Логин",
         password: "Пароль",
-        InputHeaderStyle: (0, _inputModuleStyleScssDefault.default).login__info,
-        InputStyle: (0, _inputModuleStyleScssDefault.default).login__input,
-        ContainerStyle: (0, _inputModuleStyleScssDefault.default).login__container,
-        ContainerMixin: (0, _inputModuleStyleScssDefault.default).login__containerLast
+        InputHeaderStyle: _inputModuleStyleScss.login__info,
+        InputStyle: _inputModuleStyleScss.login__input,
+        ContainerStyle: _inputModuleStyleScss.login__container,
+        ContainerMixin: _inputModuleStyleScss.login__containerLast
     };
     return (0, _inputTemplateHbsDefault.default)(context);
 };
 exports.default = inputTemplate;
 
-},{"./inputTemplate.hbs":"1WHPq","./input.module.Style.scss":"iwNKf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1WHPq":[function(require,module,exports) {
+},{"./input.module.Style.scss":"iwNKf","./inputTemplate.hbs":"1WHPq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iwNKf":[function(require,module,exports) {
+module.exports["login__containerLast"] = `i8dLWq_login__containerLast`;
+module.exports["login__input"] = `i8dLWq_login__input`;
+module.exports["login__container"] = `i8dLWq_login__container`;
+module.exports["login__info"] = `i8dLWq_login__info`;
+
+},{}],"1WHPq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12287,13 +12291,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iwNKf":[function(require,module,exports) {
-module.exports["login__containerLast"] = `i8dLWq_login__containerLast`;
-module.exports["login__info"] = `i8dLWq_login__info`;
-module.exports["login__container"] = `i8dLWq_login__container`;
-module.exports["login__input"] = `i8dLWq_login__input`;
-
-},{}],"bQCxR":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bQCxR":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignIn", ()=>SignIn);
@@ -12320,10 +12318,9 @@ const SignIn = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInMain/signInTemplateScript":"lGfRB","../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInFooter/signInFooter":"l4g4O","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lGfRB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _signInModuleStyleScss = require("./signIn.module.Style.scss");
 var _signInTemplateHbs = require("./signInTemplate.hbs");
 var _signInTemplateHbsDefault = parcelHelpers.interopDefault(_signInTemplateHbs);
-var _signInModuleStyleScss = require("./signIn.module.Style.scss");
-var _signInModuleStyleScssDefault = parcelHelpers.interopDefault(_signInModuleStyleScss);
 const signInTemplateModule = ()=>{
     const context = {
         email: "Почта",
@@ -12333,16 +12330,22 @@ const signInTemplateModule = ()=>{
         phone: "Номер телефона",
         password: "Пароль",
         passwordConfirm: "Пароль (еще раз)",
-        signInContainer: (0, _signInModuleStyleScssDefault.default).signup__container,
-        signInHeader: (0, _signInModuleStyleScssDefault.default).signIn__info,
-        signInInput: (0, _signInModuleStyleScssDefault.default).signIn__input,
-        signInMixin: (0, _signInModuleStyleScssDefault.default).signIn__last
+        signInContainer: _signInModuleStyleScss.signup__container,
+        signInHeader: _signInModuleStyleScss.signIn__info,
+        signInInput: _signInModuleStyleScss.signIn__input,
+        signInMixin: _signInModuleStyleScss.signIn__last
     };
     return (0, _signInTemplateHbsDefault.default)(context);
 };
 exports.default = signInTemplateModule;
 
-},{"./signInTemplate.hbs":"bTLOP","./signIn.module.Style.scss":"xa05z","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bTLOP":[function(require,module,exports) {
+},{"./signIn.module.Style.scss":"xa05z","./signInTemplate.hbs":"bTLOP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xa05z":[function(require,module,exports) {
+module.exports["signup__container"] = `yr15oa_signup__container`;
+module.exports["signIn__last"] = `yr15oa_signIn__last`;
+module.exports["signIn__input"] = `yr15oa_signIn__input`;
+module.exports["signIn__info"] = `yr15oa_signIn__info`;
+
+},{}],"bTLOP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12769,32 +12772,25 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xa05z":[function(require,module,exports) {
-module.exports["signIn__last"] = `yr15oa_signIn__last`;
-module.exports["signup__container"] = `yr15oa_signup__container`;
-module.exports["signIn__info"] = `yr15oa_signIn__info`;
-module.exports["signIn__input"] = `yr15oa_signIn__input`;
-
-},{}],"l4g4O":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l4g4O":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _footerModuleLoginStyleScss = require("../../loginModule/loginFooter/footer.module.LoginStyle.scss");
 var _footerTemplateHbs = require("../../loginModule/loginFooter/footerTemplate.hbs");
 var _footerTemplateHbsDefault = parcelHelpers.interopDefault(_footerTemplateHbs);
-var _footerModuleLoginStyleScss = require("../../loginModule/loginFooter/footer.module.LoginStyle.scss");
-var _footerModuleLoginStyleScssDefault = parcelHelpers.interopDefault(_footerModuleLoginStyleScss);
 const footerSignInTemplate = ()=>{
     const context = {
         buttonTitle: "Войти",
         linkTitle: "Зарегестрироваться",
         login__link: "#/Login",
-        login__btnStyle: (0, _footerModuleLoginStyleScssDefault.default).welcome__footer__btn,
-        login__linkStyle: (0, _footerModuleLoginStyleScssDefault.default).footer__link
+        login__btnStyle: _footerModuleLoginStyleScss.welcome__footer__btn,
+        login__linkStyle: _footerModuleLoginStyleScss.footer__link
     };
     return (0, _footerTemplateHbsDefault.default)(context);
 };
 exports.default = footerSignInTemplate;
 
-},{"../../loginModule/loginFooter/footerTemplate.hbs":"1XKTO","../../loginModule/loginFooter/footer.module.LoginStyle.scss":"jlBc4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8Zom":[function(require,module,exports) {
+},{"../../loginModule/loginFooter/footer.module.LoginStyle.scss":"jlBc4","../../loginModule/loginFooter/footerTemplate.hbs":"1XKTO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8Zom":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Profile", ()=>Profile);
@@ -12841,10 +12837,9 @@ const Profile = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/profileModule":"aow73","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aow73":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _profileModuleStyleScss = require("./profile.module.style.scss");
 var _profileTemplateHbs = require("./profileTemplate.hbs");
 var _profileTemplateHbsDefault = parcelHelpers.interopDefault(_profileTemplateHbs);
-var _profileModuleStyleScss = require("./profile.module.style.scss");
-var _profileModuleStyleScssDefault = parcelHelpers.interopDefault(_profileModuleStyleScss);
 const profileTemplateModule = ()=>{
     const context = {
         link: "#/Profile",
@@ -12881,15 +12876,21 @@ const profileTemplateModule = ()=>{
                 value: "+7 (909) 999 99 99"
             }
         ],
-        profileBoxStyle: (0, _profileModuleStyleScssDefault.default).profile__box,
-        headerStyle: (0, _profileModuleStyleScssDefault.default).profile__header,
-        headerInfo: (0, _profileModuleStyleScssDefault.default).profile__header__info
+        profileBoxStyle: _profileModuleStyleScss.profile__box,
+        headerStyle: _profileModuleStyleScss.profile__header,
+        headerInfo: _profileModuleStyleScss.profile__header__info
     };
     return (0, _profileTemplateHbsDefault.default)(context);
 };
 exports.default = profileTemplateModule;
 
-},{"./profileTemplate.hbs":"8x9DJ","./profile.module.style.scss":"3NT6I","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8x9DJ":[function(require,module,exports) {
+},{"./profile.module.style.scss":"3NT6I","./profileTemplate.hbs":"8x9DJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3NT6I":[function(require,module,exports) {
+module.exports["profile__box"] = `w_gZuq_profile__box`;
+module.exports["profile__header"] = `w_gZuq_profile__header`;
+module.exports["profile__header__info"] = `w_gZuq_profile__header__info`;
+module.exports["save__button"] = `w_gZuq_save__button`;
+
+},{}],"8x9DJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12962,13 +12963,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3NT6I":[function(require,module,exports) {
-module.exports["profile__box"] = `w_gZuq_profile__box`;
-module.exports["save__button"] = `w_gZuq_save__button`;
-module.exports["profile__header__info"] = `w_gZuq_profile__header__info`;
-module.exports["profile__header"] = `w_gZuq_profile__header`;
-
-},{}],"9lIMW":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9lIMW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "changeProfile", ()=>changeProfile);
@@ -13002,20 +12997,19 @@ const changeProfile = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileInputs/profileChangeInfo":"1qalo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"liUkc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _profileModuleStyleScss = require("../../profile.module.style.scss");
 var _profileChangeTemplateHbs = require("./profileChangeTemplate.hbs");
 var _profileChangeTemplateHbsDefault = parcelHelpers.interopDefault(_profileChangeTemplateHbs);
-var _profileModuleStyleScss = require("../../profile.module.style.scss");
-var _profileModuleStyleScssDefault = parcelHelpers.interopDefault(_profileModuleStyleScss);
 const profileButtonTemplateModule = ()=>{
     const context = {
-        buttonStyle: (0, _profileModuleStyleScssDefault.default).save__button,
+        buttonStyle: _profileModuleStyleScss.save__button,
         title: "Сохранить"
     };
     return (0, _profileChangeTemplateHbsDefault.default)(context);
 };
 exports.default = profileButtonTemplateModule;
 
-},{"./profileChangeTemplate.hbs":"iOAzz","../../profile.module.style.scss":"3NT6I","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iOAzz":[function(require,module,exports) {
+},{"../../profile.module.style.scss":"3NT6I","./profileChangeTemplate.hbs":"iOAzz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iOAzz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13067,10 +13061,9 @@ exports.default = templateFunction;
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1qalo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _profileModuleStyleScss = require("../../profile.module.style.scss");
 var _profileChangeInfoTemplateHbs = require("./profileChangeInfoTemplate.hbs");
 var _profileChangeInfoTemplateHbsDefault = parcelHelpers.interopDefault(_profileChangeInfoTemplateHbs);
-var _profileModuleStyleScss = require("../../profile.module.style.scss");
-var _profileModuleStyleScssDefault = parcelHelpers.interopDefault(_profileModuleStyleScss);
 const profileChangeInfoTemplateModule = ()=>{
     const context = {
         link: "#/Profile",
@@ -13107,15 +13100,15 @@ const profileChangeInfoTemplateModule = ()=>{
                 value: "+7 (909) 999 99 99"
             }
         ],
-        profileBoxStyle: (0, _profileModuleStyleScssDefault.default).profile__box,
-        headerStyle: (0, _profileModuleStyleScssDefault.default).profile__header,
-        headerInfo: (0, _profileModuleStyleScssDefault.default).profile__header__info
+        profileBoxStyle: _profileModuleStyleScss.profile__box,
+        headerStyle: _profileModuleStyleScss.profile__header,
+        headerInfo: _profileModuleStyleScss.profile__header__info
     };
     return (0, _profileChangeInfoTemplateHbsDefault.default)(context);
 };
 exports.default = profileChangeInfoTemplateModule;
 
-},{"./profileChangeInfoTemplate.hbs":"inVyj","../../profile.module.style.scss":"3NT6I","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"inVyj":[function(require,module,exports) {
+},{"../../profile.module.style.scss":"3NT6I","./profileChangeInfoTemplate.hbs":"inVyj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"inVyj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13255,22 +13248,25 @@ const Chat = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule":"ev1Qc","../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule":"eHNfd","../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/timeModule/timeModule":"jT7y2","../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/sendingMessagesModule/sendingModule":"2OTdB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ev1Qc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _inputModuleStyleScss = require("./input.module.style.scss");
 var _inputTemplateHbs = require("./inputTemplate.hbs");
 var _inputTemplateHbsDefault = parcelHelpers.interopDefault(_inputTemplateHbs);
-var _inputModuleStyleScss = require("./input.module.style.scss");
-var _inputModuleStyleScssDefault = parcelHelpers.interopDefault(_inputModuleStyleScss);
 const inputTemplateModule = ()=>{
     const context = {
         link: "#/Profile",
         goToProfile: "Профиль",
-        searchStyle: (0, _inputModuleStyleScssDefault.default).search__input,
-        linkStyle: (0, _inputModuleStyleScssDefault.default).search__profile
+        searchStyle: _inputModuleStyleScss.search__input,
+        linkStyle: _inputModuleStyleScss.search__profile
     };
     return (0, _inputTemplateHbsDefault.default)(context);
 };
 exports.default = inputTemplateModule;
 
-},{"./inputTemplate.hbs":"kBfZV","./input.module.style.scss":"fcSRG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kBfZV":[function(require,module,exports) {
+},{"./input.module.style.scss":"fcSRG","./inputTemplate.hbs":"kBfZV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fcSRG":[function(require,module,exports) {
+module.exports["search__profile"] = `PT4PRG_search__profile`;
+module.exports["search__input"] = `PT4PRG_search__input`;
+
+},{}],"kBfZV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13347,27 +13343,22 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fcSRG":[function(require,module,exports) {
-module.exports["search__profile"] = `PT4PRG_search__profile`;
-module.exports["search__input"] = `PT4PRG_search__input`;
-
-},{}],"eHNfd":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eHNfd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _feedModuleStyleScss = require("./feed.module.style.scss");
 var _feedTemplateHbs = require("./feedTemplate.hbs");
 var _feedTemplateHbsDefault = parcelHelpers.interopDefault(_feedTemplateHbs);
-var _feedModuleStyleScss = require("./feed.module.style.scss");
-var _feedModuleStyleScssDefault = parcelHelpers.interopDefault(_feedModuleStyleScss);
 const feedTemplateModule = ()=>{
     const context = {
-        itemStyle: (0, _feedModuleStyleScssDefault.default).chat__item,
-        avatarStyle: (0, _feedModuleStyleScssDefault.default).chat__avatar,
-        nameContainer: (0, _feedModuleStyleScssDefault.default).user__info,
-        nameStyle: (0, _feedModuleStyleScssDefault.default).user__name,
-        messageStyle: (0, _feedModuleStyleScssDefault.default).user__message,
-        notesStyle: (0, _feedModuleStyleScssDefault.default).user__notes,
-        timeStyle: (0, _feedModuleStyleScssDefault.default).user__time,
-        notificationStyle: (0, _feedModuleStyleScssDefault.default).user__notification,
+        itemStyle: _feedModuleStyleScss.chat__item,
+        avatarStyle: _feedModuleStyleScss.chat__avatar,
+        nameContainer: _feedModuleStyleScss.user__info,
+        nameStyle: _feedModuleStyleScss.user__name,
+        messageStyle: _feedModuleStyleScss.user__message,
+        notesStyle: _feedModuleStyleScss.user__notes,
+        timeStyle: _feedModuleStyleScss.user__time,
+        notificationStyle: _feedModuleStyleScss.user__notification,
         chatData: {
             0: {
                 name: "andrey",
@@ -13459,7 +13450,17 @@ const feedTemplateModule = ()=>{
 };
 exports.default = feedTemplateModule;
 
-},{"./feedTemplate.hbs":"Z9d7E","./feed.module.style.scss":"jK7wW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Z9d7E":[function(require,module,exports) {
+},{"./feed.module.style.scss":"jK7wW","./feedTemplate.hbs":"Z9d7E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK7wW":[function(require,module,exports) {
+module.exports["user__message"] = `_5V7iwG_user__message`;
+module.exports["user__notification"] = `_5V7iwG_user__notification`;
+module.exports["user__info"] = `_5V7iwG_user__info`;
+module.exports["chat__item"] = `_5V7iwG_chat__item`;
+module.exports["user__notes"] = `_5V7iwG_user__notes`;
+module.exports["user__name"] = `_5V7iwG_user__name`;
+module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
+module.exports["user__time"] = `_5V7iwG_user__time`;
+
+},{}],"Z9d7E":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13560,33 +13561,30 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK7wW":[function(require,module,exports) {
-module.exports["user__message"] = `_5V7iwG_user__message`;
-module.exports["user__info"] = `_5V7iwG_user__info`;
-module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
-module.exports["user__time"] = `_5V7iwG_user__time`;
-module.exports["user__name"] = `_5V7iwG_user__name`;
-module.exports["chat__item"] = `_5V7iwG_chat__item`;
-module.exports["user__notification"] = `_5V7iwG_user__notification`;
-module.exports["user__notes"] = `_5V7iwG_user__notes`;
-
-},{}],"jT7y2":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jT7y2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _messagesModuleStyleScss = require("../messages.module.style.scss");
 var _timeTemplateHbs = require("./timeTemplate.hbs");
 var _timeTemplateHbsDefault = parcelHelpers.interopDefault(_timeTemplateHbs);
-var _messagesModuleStyleScss = require("../messages.module.style.scss");
-var _messagesModuleStyleScssDefault = parcelHelpers.interopDefault(_messagesModuleStyleScss);
 const timeTemplateModule = ()=>{
     const context = {
         time: "12 июня",
-        timeStyle: (0, _messagesModuleStyleScssDefault.default).main__time
+        timeStyle: _messagesModuleStyleScss.main__time
     };
     return (0, _timeTemplateHbsDefault.default)(context);
 };
 exports.default = timeTemplateModule;
 
-},{"./timeTemplate.hbs":"jwV9L","../messages.module.style.scss":"16etJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwV9L":[function(require,module,exports) {
+},{"../messages.module.style.scss":"16etJ","./timeTemplate.hbs":"jwV9L","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"16etJ":[function(require,module,exports) {
+module.exports["to__item"] = `qY_a6a_to__item`;
+module.exports["to__container"] = `qY_a6a_to__container`;
+module.exports["from__container"] = `qY_a6a_from__container`;
+module.exports["from__item"] = `qY_a6a_from__item`;
+module.exports["main__time"] = `qY_a6a_main__time`;
+module.exports["message__time"] = `qY_a6a_message__time`;
+
+},{}],"jwV9L":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13635,21 +13633,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"16etJ":[function(require,module,exports) {
-module.exports["from__item"] = `qY_a6a_from__item`;
-module.exports["message__time"] = `qY_a6a_message__time`;
-module.exports["from__container"] = `qY_a6a_from__container`;
-module.exports["main__time"] = `qY_a6a_main__time`;
-module.exports["to__item"] = `qY_a6a_to__item`;
-module.exports["to__container"] = `qY_a6a_to__container`;
-
-},{}],"2OTdB":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2OTdB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _messagesModuleStyleScss = require("../messages.module.style.scss");
 var _sendingTemplateHbs = require("./sendingTemplate.hbs");
 var _sendingTemplateHbsDefault = parcelHelpers.interopDefault(_sendingTemplateHbs);
-var _messagesModuleStyleScss = require("../messages.module.style.scss");
-var _messagesModuleStyleScssDefault = parcelHelpers.interopDefault(_messagesModuleStyleScss);
 const sendingTemplateModule = ()=>{
     const context = {
         time: "12 июня",
@@ -13662,17 +13651,17 @@ const sendingTemplateModule = ()=>{
             "Привет)",
             "Круто!"
         ],
-        fromContainerStyle: (0, _messagesModuleStyleScssDefault.default).from__container,
-        toContainerStyle: (0, _messagesModuleStyleScssDefault.default).to__container,
-        fromItemStyle: (0, _messagesModuleStyleScssDefault.default).from__item,
-        toItemStyle: (0, _messagesModuleStyleScssDefault.default).to__item,
-        currentTimeStyle: (0, _messagesModuleStyleScssDefault.default).message__time
+        fromContainerStyle: _messagesModuleStyleScss.from__container,
+        toContainerStyle: _messagesModuleStyleScss.to__container,
+        fromItemStyle: _messagesModuleStyleScss.from__item,
+        toItemStyle: _messagesModuleStyleScss.to__item,
+        currentTimeStyle: _messagesModuleStyleScss.message__time
     };
     return (0, _sendingTemplateHbsDefault.default)(context);
 };
 exports.default = sendingTemplateModule;
 
-},{"./sendingTemplate.hbs":"66llv","../messages.module.style.scss":"16etJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"66llv":[function(require,module,exports) {
+},{"../messages.module.style.scss":"16etJ","./sendingTemplate.hbs":"66llv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"66llv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -13828,10 +13817,9 @@ const changePassword = {
 },{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule":"bREN0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bREN0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _profileModuleStyleScss = require("../../profile.module.style.scss");
 var _changePasswordTemplateHbs = require("./changePasswordTemplate.hbs");
 var _changePasswordTemplateHbsDefault = parcelHelpers.interopDefault(_changePasswordTemplateHbs);
-var _profileModuleStyleScss = require("../../profile.module.style.scss");
-var _profileModuleStyleScssDefault = parcelHelpers.interopDefault(_profileModuleStyleScss);
 const profileChangePasswordTemplateModule = ()=>{
     const context = {
         profileData: [
@@ -13851,15 +13839,15 @@ const profileChangePasswordTemplateModule = ()=>{
                 value: "123"
             }
         ],
-        profileBoxStyle: (0, _profileModuleStyleScssDefault.default).profile__box,
-        headerStyle: (0, _profileModuleStyleScssDefault.default).profile__header,
-        headerInfo: (0, _profileModuleStyleScssDefault.default).profile__header__info
+        profileBoxStyle: _profileModuleStyleScss.profile__box,
+        headerStyle: _profileModuleStyleScss.profile__header,
+        headerInfo: _profileModuleStyleScss.profile__header__info
     };
     return (0, _changePasswordTemplateHbsDefault.default)(context);
 };
 exports.default = profileChangePasswordTemplateModule;
 
-},{"./changePasswordTemplate.hbs":"ayyOW","../../profile.module.style.scss":"3NT6I","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ayyOW":[function(require,module,exports) {
+},{"../../profile.module.style.scss":"3NT6I","./changePasswordTemplate.hbs":"ayyOW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ayyOW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");

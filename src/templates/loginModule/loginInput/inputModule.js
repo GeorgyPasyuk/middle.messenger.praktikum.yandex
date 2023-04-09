@@ -1,4 +1,4 @@
-import inputStyle from "./input.module.Style.scss"
+import * as inputStyle from "./input.module.Style.scss"
 import loginTemplate from "./inputTemplate.hbs"
 
 const inputTemplate = () => {

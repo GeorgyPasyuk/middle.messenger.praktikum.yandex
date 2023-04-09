@@ -1,4 +1,4 @@
-import messagesStyle from "../messages.module.style.scss"
+import * as messagesStyle from "../messages.module.style.scss"
 import timeTemplate from "./timeTemplate.hbs"
 
 const timeTemplateModule = () => {

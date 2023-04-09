@@ -1,4 +1,4 @@
-import footerStyle from "../../loginModule/loginFooter/footer.module.LoginStyle.scss"
+import * as footerStyle from "../../loginModule/loginFooter/footer.module.LoginStyle.scss"
 import footerLoginTemplate from "../../loginModule/loginFooter/footerTemplate.hbs"
 
 const footerSignInTemplate = () => {

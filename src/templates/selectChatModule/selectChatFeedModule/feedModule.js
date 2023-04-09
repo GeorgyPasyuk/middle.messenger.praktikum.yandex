@@ -1,4 +1,4 @@
-import feedStyle from "./feed.module.style.scss"
+import * as feedStyle from "./feed.module.style.scss"
 import feedTemplate from "./feedTemplate.hbs"
 
 const feedTemplateModule = () => {

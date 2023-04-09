@@ -1,4 +1,4 @@
-import signInStyle from "./signIn.module.Style.scss"
+import * as signInStyle from "./signIn.module.Style.scss"
 import signInTemplate from "./signInTemplate.hbs"
 
 const signInTemplateModule = () => {

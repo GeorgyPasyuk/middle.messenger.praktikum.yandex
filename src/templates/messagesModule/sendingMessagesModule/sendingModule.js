@@ -1,4 +1,4 @@
-import messagesStyle from "../messages.module.style.scss"
+import * as messagesStyle from "../messages.module.style.scss"
 import sendingTemplate from "./sendingTemplate.hbs"
 
 const sendingTemplateModule = () => {
