@@ -1,4 +1,4 @@
-@import "../../../scss/_variables";
+@import "../../../../../sprint_1/src/scss/_variables";
 
 
 .search__profile {
@@ -19,5 +19,5 @@
   left: 0;
   border-radius: 5px;
   text-align: center;
-  background: url("../../../static/icons/search.svg") 35% no-repeat $input-bg;
+  background: url("../../../../../sprint_1/src/static/icons/search.svg") 35% no-repeat $input-bg;
 }

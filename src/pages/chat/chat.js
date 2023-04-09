@@ -1,8 +1,8 @@
-import inputTemplateModule from "../../templates/selectChatModule/selectChatInputModule/inputSelectChatModule";
-import feedTemplateModule from "../../templates/selectChatModule/selectChatFeedModule/feedModule";
-import messagesTemplateModule from "../../templates/messagesModule/timeModule/timeModule";
-import timeTemplateModule from "../../templates/messagesModule/timeModule/timeModule";
-import sendingModule from "../../templates/messagesModule/sendingMessagesModule/sendingModule";
+import inputTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule";
+import feedTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule";
+import messagesTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/timeModule/timeModule";
+import timeTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/timeModule/timeModule";
+import sendingModule from "../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/sendingMessagesModule/sendingModule";
 
 export const Chat = {
     render: () => {

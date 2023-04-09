@@ -1,5 +1,5 @@
-import inputTemplateModule from "../../templates/selectChatModule/selectChatInputModule/inputSelectChatModule";
-import feedTemplateModule from "../../templates/selectChatModule/selectChatFeedModule/feedModule";
+import inputTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule";
+import feedTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule";
 
 export const SelectChat = {
     render: () => {
