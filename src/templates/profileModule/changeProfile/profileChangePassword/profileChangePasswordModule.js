@@ -1,5 +1,5 @@
-import changePasswordTemplate from "./changePasswordTemplate.hbs"
 import profileStyle from "../../profile.module.style.scss"
+import changePasswordTemplate from "./changePasswordTemplate.hbs"
 
 const profileChangePasswordTemplateModule = () => {
     const context = {

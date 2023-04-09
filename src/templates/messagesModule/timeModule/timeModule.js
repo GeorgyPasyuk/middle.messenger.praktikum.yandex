@@ -1,5 +1,5 @@
-import timeTemplate from "./timeTemplate.hbs"
 import messagesStyle from "../messages.module.style.scss"
+import timeTemplate from "./timeTemplate.hbs"
 
 const timeTemplateModule = () => {
     const context = {

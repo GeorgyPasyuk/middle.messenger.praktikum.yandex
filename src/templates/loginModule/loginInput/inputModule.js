@@ -1,5 +1,5 @@
-import loginTemplate from "./inputTemplate.hbs"
 import inputStyle from "./input.module.Style.scss"
+import loginTemplate from "./inputTemplate.hbs"
 
 const inputTemplate = () => {
     const context = {

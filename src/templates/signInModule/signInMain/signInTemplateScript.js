@@ -1,5 +1,5 @@
-import signInTemplate from "./signInTemplate.hbs"
 import signInStyle from "./signIn.module.Style.scss"
+import signInTemplate from "./signInTemplate.hbs"
 
 const signInTemplateModule = () => {
     const context = {

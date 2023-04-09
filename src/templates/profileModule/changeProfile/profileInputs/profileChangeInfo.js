@@ -1,5 +1,5 @@
-import profileChangeInfoTemplate from "./profileChangeInfoTemplate.hbs"
 import profileStyle from "../../profile.module.style.scss"
+import profileChangeInfoTemplate from "./profileChangeInfoTemplate.hbs"
 
 const profileChangeInfoTemplateModule = () => {
     const context = {

@@ -1,5 +1,5 @@
-import profileButtonTemplate from "./profileChangeTemplate.hbs"
 import profileStyle from "../../profile.module.style.scss"
+import profileButtonTemplate from "./profileChangeTemplate.hbs"
 
 const profileButtonTemplateModule = () => {
     const context = {

@@ -1,5 +1,5 @@
-import sendingTemplate from "./sendingTemplate.hbs"
 import messagesStyle from "../messages.module.style.scss"
+import sendingTemplate from "./sendingTemplate.hbs"
 
 const sendingTemplateModule = () => {
     const context = {

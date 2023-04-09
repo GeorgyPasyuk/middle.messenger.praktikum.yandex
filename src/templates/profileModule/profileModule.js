@@ -1,5 +1,5 @@
-import profileTemplate from "./profileTemplate.hbs"
 import profileStyle from "./profile.module.style.scss"
+import profileTemplate from "./profileTemplate.hbs"
 
 const profileTemplateModule = () => {
     const context = {

@@ -1,5 +1,5 @@
-import feedTemplate from "./feedTemplate.hbs"
 import feedStyle from "./feed.module.style.scss"
+import feedTemplate from "./feedTemplate.hbs"
 
 const feedTemplateModule = () => {
     const context = {
