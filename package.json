@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel src/index.html --port 3000 --no-cache",
+    "start": "parcel build src/index.html parcel src/index.html --port 3000 --no-cache",
     "build": "parcel build src/index.html"
   },
   "author": "pasyukgeorgy@yandex.ru",
