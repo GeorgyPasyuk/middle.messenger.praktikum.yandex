@@ -6,7 +6,7 @@ import {Chat} from "../pages/chat/chat";
 import {SelectChat} from "../pages/selectChat/selectChat";
 import {err404, err500} from "../pages/errs/errs";
 import {changePassword} from "../pages/profile/changePassword";
-//routes
+
 export const routes = [
     { path: '/Login', component: Login, },
     { path: '/SignIn', component: SignIn, },
@@ -16,6 +16,5 @@ export const routes = [
     { path: '/Chat', component: Chat, },
     { path: '/SelectChat', component: SelectChat, },
     { path: '/err404', component: err404, },
-    { path: '/err500', component: err500, },
     { path: '/err500', component: err500, },
 ];
