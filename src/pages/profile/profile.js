@@ -1,4 +1,4 @@
-import profileTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/profileModule";
+import profileTemplateModule from "../../../src/templates/profileModule/profileModule";
 
 export const Profile = {
     render: () => {

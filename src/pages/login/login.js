@@ -1,5 +1,5 @@
-import footerModule from "../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginFooter/footerModule";
-import inputTemplate from "../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginInput/inputModule";
+import footerModule from "../../../src/templates/loginModule/loginFooter/footerModule";
+import inputTemplate from "../../../src/templates/loginModule/loginInput/inputModule";
 
 export const Login = {
     render: () => {

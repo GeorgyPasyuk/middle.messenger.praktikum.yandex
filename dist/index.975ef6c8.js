@@ -637,9 +637,9 @@ const routes = [
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Login", ()=>Login);
-var _footerModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginFooter/footerModule");
+var _footerModule = require("../../../src/templates/loginModule/loginFooter/footerModule");
 var _footerModuleDefault = parcelHelpers.interopDefault(_footerModule);
-var _inputModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginInput/inputModule");
+var _inputModule = require("../../../src/templates/loginModule/loginInput/inputModule");
 var _inputModuleDefault = parcelHelpers.interopDefault(_inputModule);
 const Login = {
     render: ()=>{
@@ -659,7 +659,7 @@ const Login = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginFooter/footerModule":"fR34v","../../../../middle.messenger.praktikum.yandex/src/templates/loginModule/loginInput/inputModule":"1jkKZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fR34v":[function(require,module,exports) {
+},{"../../../src/templates/loginModule/loginFooter/footerModule":"fR34v","../../../src/templates/loginModule/loginInput/inputModule":"1jkKZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fR34v":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _footerModuleLoginStyleScss = require("./footer.module.LoginStyle.scss");
@@ -12139,9 +12139,9 @@ const inputTemplate = ()=>{
 exports.default = inputTemplate;
 
 },{"./input.module.Style.scss":"iwNKf","./inputTemplate.hbs":"1WHPq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iwNKf":[function(require,module,exports) {
-module.exports["login__containerLast"] = `i8dLWq_login__containerLast`;
-module.exports["login__input"] = `i8dLWq_login__input`;
 module.exports["login__info"] = `i8dLWq_login__info`;
+module.exports["login__input"] = `i8dLWq_login__input`;
+module.exports["login__containerLast"] = `i8dLWq_login__containerLast`;
 module.exports["login__container"] = `i8dLWq_login__container`;
 
 },{}],"1WHPq":[function(require,module,exports) {
@@ -12295,9 +12295,9 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignIn", ()=>SignIn);
-var _signInTemplateScript = require("../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInMain/signInTemplateScript");
+var _signInTemplateScript = require("../../../src/templates/signInModule/signInMain/signInTemplateScript");
 var _signInTemplateScriptDefault = parcelHelpers.interopDefault(_signInTemplateScript);
-var _signInFooter = require("../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInFooter/signInFooter");
+var _signInFooter = require("../../../src/templates/signInModule/signInFooter/signInFooter");
 var _signInFooterDefault = parcelHelpers.interopDefault(_signInFooter);
 const SignIn = {
     render: ()=>{
@@ -12315,7 +12315,7 @@ const SignIn = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInMain/signInTemplateScript":"lGfRB","../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInFooter/signInFooter":"l4g4O","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lGfRB":[function(require,module,exports) {
+},{"../../../src/templates/signInModule/signInMain/signInTemplateScript":"lGfRB","../../../src/templates/signInModule/signInFooter/signInFooter":"l4g4O","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lGfRB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _signInModuleStyleScss = require("./signIn.module.Style.scss");
@@ -12341,9 +12341,9 @@ exports.default = signInTemplateModule;
 
 },{"./signIn.module.Style.scss":"xa05z","./signInTemplate.hbs":"bTLOP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xa05z":[function(require,module,exports) {
 module.exports["signIn__info"] = `yr15oa_signIn__info`;
+module.exports["signIn__input"] = `yr15oa_signIn__input`;
 module.exports["signIn__last"] = `yr15oa_signIn__last`;
 module.exports["signup__container"] = `yr15oa_signup__container`;
-module.exports["signIn__input"] = `yr15oa_signIn__input`;
 
 },{}],"bTLOP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -12794,7 +12794,7 @@ exports.default = footerSignInTemplate;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Profile", ()=>Profile);
-var _profileModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/profileModule");
+var _profileModule = require("../../../src/templates/profileModule/profileModule");
 var _profileModuleDefault = parcelHelpers.interopDefault(_profileModule);
 const Profile = {
     render: ()=>{
@@ -12834,7 +12834,7 @@ const Profile = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/profileModule":"aow73","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aow73":[function(require,module,exports) {
+},{"../../../src/templates/profileModule/profileModule":"aow73","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aow73":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _profileModuleStyleScss = require("./profile.module.style.scss");
@@ -12885,10 +12885,10 @@ const profileTemplateModule = ()=>{
 exports.default = profileTemplateModule;
 
 },{"./profile.module.style.scss":"3NT6I","./profileTemplate.hbs":"8x9DJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3NT6I":[function(require,module,exports) {
-module.exports["save__button"] = `w_gZuq_save__button`;
-module.exports["profile__box"] = `w_gZuq_profile__box`;
 module.exports["profile__header"] = `w_gZuq_profile__header`;
 module.exports["profile__header__info"] = `w_gZuq_profile__header__info`;
+module.exports["save__button"] = `w_gZuq_save__button`;
+module.exports["profile__box"] = `w_gZuq_profile__box`;
 
 },{}],"8x9DJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -12967,9 +12967,9 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "changeProfile", ()=>changeProfile);
-var _profileChangeModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule");
+var _profileChangeModule = require("../../../src/templates/profileModule/changeProfile/profileButton/profileChangeModule");
 var _profileChangeModuleDefault = parcelHelpers.interopDefault(_profileChangeModule);
-var _profileChangeInfo = require("../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileInputs/profileChangeInfo");
+var _profileChangeInfo = require("../../../src/templates/profileModule/changeProfile/profileInputs/profileChangeInfo");
 var _profileChangeInfoDefault = parcelHelpers.interopDefault(_profileChangeInfo);
 const changeProfile = {
     render: ()=>{
@@ -12994,7 +12994,7 @@ const changeProfile = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileInputs/profileChangeInfo":"1qalo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"liUkc":[function(require,module,exports) {
+},{"../../../src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../src/templates/profileModule/changeProfile/profileInputs/profileChangeInfo":"1qalo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"liUkc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _profileModuleStyleScss = require("../../profile.module.style.scss");
@@ -13167,13 +13167,13 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Chat", ()=>Chat);
-var _inputSelectChatModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule");
+var _inputSelectChatModule = require("../../../src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule");
 var _inputSelectChatModuleDefault = parcelHelpers.interopDefault(_inputSelectChatModule);
-var _feedModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule");
+var _feedModule = require("../../../src/templates/selectChatModule/selectChatFeedModule/feedModule");
 var _feedModuleDefault = parcelHelpers.interopDefault(_feedModule);
-var _timeModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/timeModule/timeModule");
+var _timeModule = require("../../../src/templates/messagesModule/timeModule/timeModule");
 var _timeModuleDefault = parcelHelpers.interopDefault(_timeModule);
-var _sendingModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/sendingMessagesModule/sendingModule");
+var _sendingModule = require("../../../src/templates/messagesModule/sendingMessagesModule/sendingModule");
 var _sendingModuleDefault = parcelHelpers.interopDefault(_sendingModule);
 const Chat = {
     render: ()=>{
@@ -13213,7 +13213,7 @@ const Chat = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule":"ev1Qc","../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule":"eHNfd","../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/timeModule/timeModule":"jT7y2","../../../../middle.messenger.praktikum.yandex/src/templates/messagesModule/sendingMessagesModule/sendingModule":"2OTdB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ev1Qc":[function(require,module,exports) {
+},{"../../../src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule":"ev1Qc","../../../src/templates/selectChatModule/selectChatFeedModule/feedModule":"eHNfd","../../../src/templates/messagesModule/timeModule/timeModule":"jT7y2","../../../src/templates/messagesModule/sendingMessagesModule/sendingModule":"2OTdB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ev1Qc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _inputModuleStyleScss = require("./input.module.style.scss");
@@ -13231,8 +13231,8 @@ const inputTemplateModule = ()=>{
 exports.default = inputTemplateModule;
 
 },{"./input.module.style.scss":"fcSRG","./inputTemplate.hbs":"kBfZV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fcSRG":[function(require,module,exports) {
-module.exports["search__input"] = `PT4PRG_search__input`;
 module.exports["search__profile"] = `PT4PRG_search__profile`;
+module.exports["search__input"] = `PT4PRG_search__input`;
 
 },{}],"kBfZV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13419,14 +13419,14 @@ const feedTemplateModule = ()=>{
 exports.default = feedTemplateModule;
 
 },{"./feed.module.style.scss":"jK7wW","./feedTemplate.hbs":"Z9d7E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK7wW":[function(require,module,exports) {
+module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
+module.exports["user__info"] = `_5V7iwG_user__info`;
+module.exports["user__message"] = `_5V7iwG_user__message`;
+module.exports["user__notes"] = `_5V7iwG_user__notes`;
+module.exports["user__notification"] = `_5V7iwG_user__notification`;
+module.exports["user__time"] = `_5V7iwG_user__time`;
 module.exports["user__name"] = `_5V7iwG_user__name`;
 module.exports["chat__item"] = `_5V7iwG_chat__item`;
-module.exports["user__time"] = `_5V7iwG_user__time`;
-module.exports["user__message"] = `_5V7iwG_user__message`;
-module.exports["user__notification"] = `_5V7iwG_user__notification`;
-module.exports["user__info"] = `_5V7iwG_user__info`;
-module.exports["chat__avatar"] = `_5V7iwG_chat__avatar`;
-module.exports["user__notes"] = `_5V7iwG_user__notes`;
 
 },{}],"Z9d7E":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13545,12 +13545,12 @@ const timeTemplateModule = ()=>{
 exports.default = timeTemplateModule;
 
 },{"../messages.module.style.scss":"16etJ","./timeTemplate.hbs":"jwV9L","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"16etJ":[function(require,module,exports) {
-module.exports["from__item"] = `qY_a6a_from__item`;
-module.exports["main__time"] = `qY_a6a_main__time`;
-module.exports["to__container"] = `qY_a6a_to__container`;
-module.exports["message__time"] = `qY_a6a_message__time`;
 module.exports["to__item"] = `qY_a6a_to__item`;
+module.exports["to__container"] = `qY_a6a_to__container`;
+module.exports["from__item"] = `qY_a6a_from__item`;
+module.exports["message__time"] = `qY_a6a_message__time`;
 module.exports["from__container"] = `qY_a6a_from__container`;
+module.exports["main__time"] = `qY_a6a_main__time`;
 
 },{}],"jwV9L":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13701,9 +13701,9 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SelectChat", ()=>SelectChat);
-var _inputSelectChatModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule");
+var _inputSelectChatModule = require("../../../src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule");
 var _inputSelectChatModuleDefault = parcelHelpers.interopDefault(_inputSelectChatModule);
-var _feedModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule");
+var _feedModule = require("../../../src/templates/selectChatModule/selectChatFeedModule/feedModule");
 var _feedModuleDefault = parcelHelpers.interopDefault(_feedModule);
 const SelectChat = {
     render: ()=>{
@@ -13723,7 +13723,7 @@ const SelectChat = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule":"ev1Qc","../../../../middle.messenger.praktikum.yandex/src/templates/selectChatModule/selectChatFeedModule/feedModule":"eHNfd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3M2Sy":[function(require,module,exports) {
+},{"../../../src/templates/selectChatModule/selectChatInputModule/inputSelectChatModule":"ev1Qc","../../../src/templates/selectChatModule/selectChatFeedModule/feedModule":"eHNfd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3M2Sy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "err404", ()=>err404);
@@ -13755,9 +13755,9 @@ const err500 = {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "changePassword", ()=>changePassword);
-var _profileChangeModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule");
+var _profileChangeModule = require("../../../src/templates/profileModule/changeProfile/profileButton/profileChangeModule");
 var _profileChangeModuleDefault = parcelHelpers.interopDefault(_profileChangeModule);
-var _profileChangePasswordModule = require("../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule");
+var _profileChangePasswordModule = require("../../../src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule");
 var _profileChangePasswordModuleDefault = parcelHelpers.interopDefault(_profileChangePasswordModule);
 const changePassword = {
     render: ()=>{
@@ -13782,7 +13782,7 @@ const changePassword = {
     }
 };
 
-},{"../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule":"bREN0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bREN0":[function(require,module,exports) {
+},{"../../../src/templates/profileModule/changeProfile/profileButton/profileChangeModule":"liUkc","../../../src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule":"bREN0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bREN0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _profileModuleStyleScss = require("../../profile.module.style.scss");

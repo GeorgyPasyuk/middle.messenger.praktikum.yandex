@@ -1,5 +1,5 @@
-import signInTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInMain/signInTemplateScript";
-import footerSignInTemplate from "../../../../middle.messenger.praktikum.yandex/src/templates/signInModule/signInFooter/signInFooter";
+import signInTemplateModule from "../../../src/templates/signInModule/signInMain/signInTemplateScript";
+import footerSignInTemplate from "../../../src/templates/signInModule/signInFooter/signInFooter";
 
 
 export const SignIn = {
