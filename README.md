@@ -1,3 +1,10 @@
+В проекте используются технологии: handlebars,scss,parcel, express, node.js
+Хостинг проекта располагается на сайте netlify, ссылка: https://middle-messenger-yandex-yandex.netlify.app/
+Для запуска проекта выполните команду - npm run start
+Для сборки проекта выполните команду - npm run build
+Ссылка на pr https://github.com/GeorgyPasyuk/middle.messenger.praktikum.yandex/pull/2
+
+
 ### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
 
 ### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
