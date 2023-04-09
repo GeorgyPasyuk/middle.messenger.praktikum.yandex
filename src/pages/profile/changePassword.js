@@ -1,5 +1,5 @@
-import profileButtonTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileButton/profileChangeModule";
-import profileChangePasswordModule from "../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule";
+import profileButtonTemplateModule from "../../../src/templates/profileModule/changeProfile/profileButton/profileChangeModule";
+import profileChangePasswordModule from "../../../src/templates/profileModule/changeProfile/profileChangePassword/profileChangePasswordModule";
 
 
 export const changePassword = {
