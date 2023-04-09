@@ -15,5 +15,8 @@
     "parcel": "^2.8.3",
     "parcel-transformer-hbs": "^1.0.4"
   },
-  "engines" : { "node" : ">=12" }
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "engines": {
+    "node": ">12.0.0"
+  }
 }
