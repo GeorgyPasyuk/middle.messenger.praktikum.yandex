@@ -74,6 +74,12 @@
   width: 100%;
 }
 
+.action__change {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profile__action__header {
   font-weight: 500;
   font-size: 13px;

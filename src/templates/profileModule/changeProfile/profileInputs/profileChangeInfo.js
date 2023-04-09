@@ -1,7 +1,7 @@
-import profileTemplate from "./profileTemplate.hbs"
-import profileStyle from "./profile.module.style.scss"
+import profileChangeInfoTemplate from "./profileChangeInfoTemplate.hbs"
+import profileStyle from "../../profile.module.style.scss"
 
-const profileTemplateModule = () => {
+const profileChangeInfoTemplateModule = () => {
     const context = {
         link: "#/Profile",
         goToProfile: "Профиль",
@@ -18,8 +18,8 @@ const profileTemplateModule = () => {
         headerInfo: profileStyle.profile__header__info
 
     };
-    return profileTemplate(context);
+    return profileChangeInfoTemplate(context);
 };
 
 
-export default profileTemplateModule;
+export default profileChangeInfoTemplateModule;

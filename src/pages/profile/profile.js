@@ -1,4 +1,4 @@
-import profileTemplateModule from "../../templates/profileModule/profileModule";
+import profileTemplateModule from "../../../../middle.messenger.praktikum.yandex/src/templates/profileModule/profileModule";
 
 export const Profile = {
     render: () => {
@@ -14,23 +14,23 @@ export const Profile = {
                 <div class="profile__items">
                     ${profileTemplateModule()}
                 </div>
-                <div class="profile__action__container">
+                <footer class="profile__action__container">
                     <div class="profile__box">
-                        <h class="profile__action__header">
+                        <a class="profile__action__header" href="#/ChangeProfile">
                             Изменить данные
-                        </h>
+                        </a>
                     </div>
                     <div class="profile__box">
-                        <h class="profile__action__header">
+                        <a class="profile__action__header" href="#/ChangePassword"> 
                             Изменить пароль
-                        </h>
+                        </a>
                     </div>
                     <div class="profile__box profile__last">
                         <h class="profile__action__exit">
                             Выход
                         </h>
                     </div>
-                </div>
+                </footer>
             </div>
         </div>
         </section>
