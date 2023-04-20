@@ -1,17 +1,16 @@
-import loginTemplate from "./inputTemplate.hbs"
-import inputStyle from "./input.module.Style.scss"
-
-const inputTemplate = () => {
-    const context = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var inputTemplate_hbs_1 = require("./inputTemplate.hbs");
+var input_module_Style_scss_1 = require("./input.module.Style.scss");
+var inputTemplate = function () {
+    var context = {
         login: "Логин",
         password: "Пароль",
-        InputHeaderStyle: inputStyle.login__info,
-        InputStyle: inputStyle.login__input,
-        ContainerStyle: inputStyle.login__container,
-        ContainerMixin: inputStyle.login__containerLast,
+        InputHeaderStyle: input_module_Style_scss_1.default.login__info,
+        InputStyle: input_module_Style_scss_1.default.login__input,
+        ContainerStyle: input_module_Style_scss_1.default.login__container,
+        ContainerMixin: input_module_Style_scss_1.default.login__containerLast,
     };
-    return loginTemplate(context);
+    return (0, inputTemplate_hbs_1.default)(context);
 };
-
-
-export default inputTemplate;
+exports.default = inputTemplate;

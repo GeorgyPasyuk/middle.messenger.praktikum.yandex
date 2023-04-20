@@ -1,15 +1,14 @@
-import inputTemplate from "./inputTemplate.hbs"
-import inputStyle from "./input.module.style.scss"
-
-const inputTemplateModule = () => {
-    const context = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var inputTemplate_hbs_1 = require("./inputTemplate.hbs");
+var input_module_style_scss_1 = require("./input.module.style.scss");
+var inputTemplateModule = function () {
+    var context = {
         link: "#/Profile",
         goToProfile: "Профиль",
-        searchStyle: inputStyle.search__input,
-        linkStyle: inputStyle.search__profile,
+        searchStyle: input_module_style_scss_1.default.search__input,
+        linkStyle: input_module_style_scss_1.default.search__profile,
     };
-    return inputTemplate(context);
+    return (0, inputTemplate_hbs_1.default)(context);
 };
-
-
-export default inputTemplateModule;
+exports.default = inputTemplateModule;

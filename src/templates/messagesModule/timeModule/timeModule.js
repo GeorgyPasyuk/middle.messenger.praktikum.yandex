@@ -1,13 +1,12 @@
-import timeTemplate from "./timeTemplate.hbs"
-import messagesStyle from "../messages.module.style.scss"
-
-const timeTemplateModule = () => {
-    const context = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var timeTemplate_hbs_1 = require("./timeTemplate.hbs");
+var messages_module_style_scss_1 = require("../messages.module.style.scss");
+var timeTemplateModule = function () {
+    var context = {
         time: "12 июня",
-        timeStyle: messagesStyle.main__time,
+        timeStyle: messages_module_style_scss_1.default.main__time,
     };
-    return timeTemplate(context);
+    return (0, timeTemplate_hbs_1.default)(context);
 };
-
-
-export default timeTemplateModule;
+exports.default = timeTemplateModule;

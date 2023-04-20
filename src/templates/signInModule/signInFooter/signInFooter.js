@@ -1,16 +1,15 @@
-import footerLoginTemplate from "../../loginModule/loginFooter/footerTemplate.hbs"
-import footerStyle from "../../loginModule/loginFooter/footer.module.LoginStyle.scss"
-
-const footerSignInTemplate = () => {
-    const context = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var footerTemplate_hbs_1 = require("../../loginModule/loginFooter/footerTemplate.hbs");
+var footer_module_LoginStyle_scss_1 = require("../../loginModule/loginFooter/footer.module.LoginStyle.scss");
+var footerSignInTemplate = function () {
+    var context = {
         buttonTitle: "Войти",
         linkTitle: "Зарегестрироваться",
         login__link: "#/Login",
-        login__btnStyle: footerStyle.welcome__footer__btn,
-        login__linkStyle: footerStyle.footer__link
+        login__btnStyle: footer_module_LoginStyle_scss_1.default.welcome__footer__btn,
+        login__linkStyle: footer_module_LoginStyle_scss_1.default.footer__link
     };
-    return footerLoginTemplate(context);
+    return (0, footerTemplate_hbs_1.default)(context);
 };
-
-
-export default footerSignInTemplate;
+exports.default = footerSignInTemplate;

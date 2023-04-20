@@ -1,25 +1,23 @@
-import profileTemplate from "./profileTemplate.hbs"
-import profileStyle from "./profile.module.style.scss"
-
-const profileTemplateModule = () => {
-    const context = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var profileTemplate_hbs_1 = require("./profileTemplate.hbs");
+var profile_module_style_scss_1 = require("./profile.module.style.scss");
+var profileTemplateModule = function () {
+    var context = {
         link: "#/Profile",
         goToProfile: "Профиль",
         profileData: [
-            { name: 'email', label:'Почта', value: 'pochta@yandex.ru'},
-            { name: 'login', label:'Логин', value: 'ivanivanov'},
-            { name: 'first_name', label:'Имя', value: 'Иван'},
-            { name: 'second_name', label:'Фамилия', value: 'Иванов'},
-            { name: 'display_name', label:'Имя в чате', value: 'Иван'},
-            { name: 'phone', label:'Телефон', value: '+7 (909) 999 99 99'},
+            { name: 'email', label: 'Почта', value: 'pochta@yandex.ru' },
+            { name: 'login', label: 'Логин', value: 'ivanivanov' },
+            { name: 'first_name', label: 'Имя', value: 'Иван' },
+            { name: 'second_name', label: 'Фамилия', value: 'Иванов' },
+            { name: 'display_name', label: 'Имя в чате', value: 'Иван' },
+            { name: 'phone', label: 'Телефон', value: '+7 (909) 999 99 99' },
         ],
-        profileBoxStyle: profileStyle.profile__box,
-        headerStyle: profileStyle.profile__header,
-        headerInfo: profileStyle.profile__header__info
-
+        profileBoxStyle: profile_module_style_scss_1.default.profile__box,
+        headerStyle: profile_module_style_scss_1.default.profile__header,
+        headerInfo: profile_module_style_scss_1.default.profile__header__info
     };
-    return profileTemplate(context);
+    return (0, profileTemplate_hbs_1.default)(context);
 };
-
-
-export default profileTemplateModule;
+exports.default = profileTemplateModule;
