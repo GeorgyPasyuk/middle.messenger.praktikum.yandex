@@ -1,9 +1,10 @@
 import {routes} from "./routes";
+import {Error} from "../pages/Error";
 
-
+const err404 = new Error()
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
-const findComponentByPath = (path: string, routes: Array<object>) => routes.find(r =>
+const findComponentByPath = (path: string, routes: Array<any>) => routes.find(r =>
     r.path.match(new RegExp(`${path}`, 'gmi')));
 
 

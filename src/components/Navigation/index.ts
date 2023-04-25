@@ -5,6 +5,7 @@ import styles from './navigation.module.scss';
 interface NavigationProps {
   link?: string,
   title: string,
+  isExit?: boolean
   events: {
    click: (e: any)=> void
   }

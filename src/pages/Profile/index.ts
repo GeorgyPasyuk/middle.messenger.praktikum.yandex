@@ -3,6 +3,8 @@ import template from "./profile.hbs"
 import styles from './profile.module.scss';
 import { Label } from '../../components/Label';
 import { Navigation } from '../../components/Navigation';
+import {Button} from "../../components/Button";
+
 
 export class ProfilePage extends Block {
   constructor() {
@@ -10,6 +12,15 @@ export class ProfilePage extends Block {
   }
 
   init() {
+    console.log(this.children)
+    this.children.button = new Button({
+      type: "button",
+      label: "Авторизоваться",
+      events:  {
+        click: ()=> console.log("isClicked")
+      }
+    })
+
     this.children.mail = new Label({
       name: "email",
       title: "Почта",
@@ -51,6 +62,8 @@ export class ProfilePage extends Block {
       events: { click: ()=> console.log('Изменить данные')
       }
     })
+
+
     this.children.changePassword = new Navigation({
       title: "Сменить пароль",
       link: "#/ChangePassword",
@@ -59,6 +72,7 @@ export class ProfilePage extends Block {
     })
     this.children.exit = new Navigation({
       title: "Выход",
+      isExit: true,
       link: "#/SelectChat",
       events: { click: ()=> console.log("Выход")
       }
@@ -68,6 +82,9 @@ export class ProfilePage extends Block {
   render() {
     return this.compile(template, {
       styles,
+      accountName: "Григорий",
+      defaultProfile: true,
+      goToChangeData: false
     })
   }
 }

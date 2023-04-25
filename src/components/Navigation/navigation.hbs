@@ -1,5 +1,10 @@
 <div class="{{styles.profile__box}}">
-    <a class="{{styles.profile__action__header}} href='{{link}}'">
+    <a class="
+    {{styles.profile__action__header}}
+        {{#if isExit}}
+        {{styles.profile__action__exit}}
+        {{/if}}
+    " href='{{link}}'>
         {{title}}
     </a>
 </div>

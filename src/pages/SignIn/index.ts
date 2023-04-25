@@ -6,6 +6,16 @@ import { Input } from '../../components/Input';
 import { Link } from '../../components/Link';
 
 
+let userInfo = {
+  mail: "",
+  login: "",
+  name: "",
+  surname: "",
+  phone: "",
+  password: "",
+  passwordAgain: ""
+}
+
 export class SingInPage extends Block {
   constructor() {
     super('section');
@@ -15,47 +25,163 @@ export class SingInPage extends Block {
     this.children.button  = new Button({
       label: "Зарегестрироваться",
       events: {
-        click: () => console.log("Зарегестрироваться кликнуто")
+        click: () => console.log(
+            "User mail = " + userInfo.mail,
+            "\nUser login = " + userInfo.login,
+            "\nUser name = " + userInfo.name,
+            "\nUser surname = " + userInfo.surname,
+            "\nUser phone = " + userInfo.phone,
+            "\nUser password = " + userInfo.password,
+            "\nUser passwordAgain = " + userInfo.passwordAgain,)
       },
     });
 
     this.children.mailInput = new Input({
       name: "mail",
-      type: "text"
+      type: "text",
+      events: {
+        keydown: (e) => {
+          userInfo.mail = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.loginInput = new Input({
       name: "login",
-      type: "text"
+      type: "text",
+      events: {
+        keydown: (e) => {
+          userInfo.login = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.nameInput = new Input({
       name: "name",
-      type: "text"
+      type: "text",
+      events: {
+        keydown: (e) => {
+          userInfo.name = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.surnameInput = new Input({
       name: "surname",
-      type: "text"
+      type: "text",
+      events: {
+        keydown: (e) => {
+          userInfo.surname = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.phoneInput = new Input({
       name: "phone",
-      type: "text"
+      type: "text",
+      events: {
+        keydown: (e) => {
+          userInfo.phone = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.passwordInput = new Input({
       name: "password",
       type: "password",
       events: {
-        input: (e) => console.log(e.target.value)
+        keydown: (e) => {
+          userInfo.password = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
       }
     })
 
 
     this.children.passwordInputAgain = new Input({
       name: "passwordagain",
-      type: "text"
+      type: "password",
+      events: {
+        keydown: (e) => {
+          userInfo.passwordAgain = e.target.value
+          if (e.keyCode === 13) {
+            console.log(
+                "User mail = " + userInfo.mail,
+                "\nUser login = " + userInfo.login,
+                "\nUser name = " + userInfo.name,
+                "\nUser surname = " + userInfo.surname,
+                "\nUser phone = " + userInfo.phone,
+                "\nUser password = " + userInfo.password,
+                "\nUser passwordAgain = " + userInfo.passwordAgain,
+            )
+          }
+        },
+      }
     })
 
     this.children.link = new Link({

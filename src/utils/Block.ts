@@ -12,7 +12,7 @@ class Block<P extends Record<string, any> = any> {
 
   public id = nanoid(6);
   protected props: P;
-  public children: Record<string, Block | Block[]>;
+  public children: Record<string, any>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
@@ -110,7 +110,7 @@ class Block<P extends Record<string, any> = any> {
     }
   }
 
-  setProps = (nextProps: Partial<P>) => {
+  public setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }

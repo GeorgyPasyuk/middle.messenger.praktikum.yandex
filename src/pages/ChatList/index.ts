@@ -4,7 +4,6 @@ import styles from './chatList.module.scss';
 import { Chat } from '../../components/Chat';
 
 
-let isClicked = false
 
 
 export class ChatList extends Block {
@@ -15,14 +14,13 @@ export class ChatList extends Block {
   init() {
     this.children.chat = new Chat({
       name: "Леша",
-      isSelected: isClicked,
+      isSelected: false,
       latestMessage: "Hello there!",
       time: "11:20",
       notes: 1,
       events: {
         click: () => {
-          isClicked = !isClicked;
-          console.log(isClicked);
+          this.children.chat.setProps({ isSelected: true })
         }
       }
     })

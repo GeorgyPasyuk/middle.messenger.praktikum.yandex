@@ -3,9 +3,9 @@ import template from './label.hbs';
 import styles from './label.module.scss';
 
 interface LabelProps {
-  name: string,
-  title: string,
-  value: string | number
+  name: string | Array<string>,
+  title: string | Array<string>,
+  value: any
 }
 
 export class Label extends Block<LabelProps> {
