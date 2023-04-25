@@ -1,0 +1,25 @@
+@import "../../scss/_variables";
+
+.profile__box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: $border-col 1px solid;
+}
+
+
+.profile__header {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  color: $font-primary;
+  padding-bottom: 10px;
+}
+
+.profile__header__info {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $font-secondary;
+  padding-bottom: 10px;
+}

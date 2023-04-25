@@ -1,0 +1,19 @@
+<div class="{{styles.chat__item}}  {{#if isSelected }}{{ styles.chat__selected }}{{/if}}">
+    <div class="{{styles.chat__avatar}}"></div>
+    <div class="{{styles.user__info}}">
+        <h class="{{styles.user__name}}">
+            {{name}}
+        </h>
+        <p class="{{styles.user__message}}">
+            {{latestMessage}}
+        </p>
+    </div>
+    <div class="{{styles.user__notes}}">
+        <p class="{{styles.user__time}}">
+            {{time}}
+        </p>
+        <div class="{{styles.user__notification}}">
+            {{notes}}
+        </div>
+    </div>
+</div>
