@@ -1,6 +1,7 @@
 import  EventBus  from './EventBus';
 import { nanoid } from 'nanoid';
 
+
 // Нельзя создавать экземпляр данного класса
 class Block<P extends Record<string, any> = any> {
   static EVENTS = {
@@ -15,6 +16,7 @@ class Block<P extends Record<string, any> = any> {
   public children: Record<string, any>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
+  protected _setUpdate: boolean = false
 
   /** JSDoc
    * @param {string} tagName
@@ -60,6 +62,14 @@ class Block<P extends Record<string, any> = any> {
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents() {
+    const {events = {}} = this.props as P & { events: Record<string, () => void> };
+
+    Object.keys(events).forEach(eventName => {
+      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -110,14 +120,6 @@ class Block<P extends Record<string, any> = any> {
     }
   }
 
-  public setProps = (nextProps: Partial<P>) => {
-    if (!nextProps) {
-      return;
-    }
-
-    Object.assign(this.props, nextProps);
-  };
-
   get element() {
     return this._element;
   }
@@ -134,6 +136,8 @@ class Block<P extends Record<string, any> = any> {
     this._element = newElement;
 
     this._addEvents();
+
+    console.log("render");
   }
 
   protected compile(template: (context: any) => string, context: any) {
@@ -184,8 +188,28 @@ class Block<P extends Record<string, any> = any> {
     return this.element;
   }
 
+  public setProps = (nextProps: P) => {
+    if (!nextProps) {
+      return;
+    }
+    this._setUpdate = false
+    const oldValue = { ... this.props}
+    const {children, props} = this._getChildrenAndProps(nextProps)
+    if(Object.values(children).length) {
+      Object.assign(this.children, children)
+    }
+    if(Object.values(props).length) {
+      Object.assign(this.props, props)
+    }
+    if(this._setUpdate) {
+      this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldValue, nextProps);
+      this._setUpdate = false
+    }
+
+    Object.assign(this.props, nextProps);
+  };
+
   _makePropsProxy(props: P) {
-    // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
     const self = this;
 
     return new Proxy(props, {
@@ -193,14 +217,12 @@ class Block<P extends Record<string, any> = any> {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop: string, value) {
-        const oldTarget = {...target}
+      set(target: Record<string, any>, prop: string, value) {
+        if(target[prop] !== value) {
+          target[prop] = value
+          self._setUpdate = true
+        }
 
-        target[prop as keyof P] = value;
-
-        // Запускаем обновление компоненты
-        // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
       deleteProperty() {
