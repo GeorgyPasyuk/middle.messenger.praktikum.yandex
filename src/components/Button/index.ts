@@ -5,14 +5,18 @@ import styles from './button.module.scss';
 interface ButtonProps {
   type?: string;
   label: string | Array<string>;
-  events: {
+  events?: {
     click: () => void;
   };
+  style?: any
 }
 
 export class Button extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
-    super({ type: 'button', ...props });
+    super(props);
+    if (this.props.style) {
+    this.element?.setAttribute("class", `${this.props.style}`)
+    }
   }
 
   render() {

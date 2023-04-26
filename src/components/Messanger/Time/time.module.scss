@@ -1,0 +1,11 @@
+@import "../../../scss/_variables";
+
+.main__time {
+  position: relative;
+  top: 0;
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: 42px;
+  margin-bottom: 30px;
+  color: $font-secondary;
+}

@@ -9,11 +9,15 @@ interface InputProps {
   events?: {
     keydown: (e: any) => void
   }
+  style?: any
 }
 
 export class Input extends Block<InputProps> {
   constructor(props: InputProps) {
     super(props);
+    if (this.props.style) {
+      this.element?.setAttribute("class", `${this.props.style}`)
+    }
   }
 
 

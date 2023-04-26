@@ -4,7 +4,7 @@ import {ErrorsComponent} from "../../components/Errors";
 
 export class Error extends Block {
     constructor() {
-        super('section');
+        super({});
     }
 
     init() {

@@ -8,11 +8,10 @@ import {Button} from "../../components/Button";
 
 export class ProfilePage extends Block {
   constructor() {
-    super('section');
+    super({});
   }
 
   init() {
-    console.log(this.children)
     this.children.button = new Button({
       type: "button",
       label: "Авторизоваться",

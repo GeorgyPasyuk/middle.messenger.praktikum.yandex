@@ -27,7 +27,7 @@ class Block<P extends Record<string, any> = any> {
   constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
-    const {props, children} = this._getChildrenAndProps(propsWithChildren);
+    const {props, children} = this._getChildrenAndProps(propsWithChildren!);
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -43,7 +43,6 @@ class Block<P extends Record<string, any> = any> {
     { props: P, children: Record<string, Block | Block[]> } {
     const props: Record<string, unknown> = {};
     const children: Record<string, Block | Block[]> = {};
-
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
         children[key as string] = value;
@@ -137,7 +136,6 @@ class Block<P extends Record<string, any> = any> {
 
     this._addEvents();
 
-    console.log("render");
   }
 
   protected compile(template: (context: any) => string, context: any) {
@@ -145,7 +143,7 @@ class Block<P extends Record<string, any> = any> {
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`)
+        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`).join("")
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -205,7 +203,6 @@ class Block<P extends Record<string, any> = any> {
       this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldValue, nextProps);
       this._setUpdate = false
     }
-
     Object.assign(this.props, nextProps);
   };
 

@@ -14,11 +14,11 @@ let userInfo = {
 
 export class LogInPage extends Block {
   constructor() {
-    super('section');
+    super({});
   }
 
   init() {
-    this.children.button  = new Button({
+    this.children.button = new Button({
       label: "Авторизоваться",
       events: {
         click: () => {
@@ -53,11 +53,11 @@ export class LogInPage extends Block {
         keydown: (e) => {
           userInfo.password = e.target.value
           if (e.keyCode === 13) {
-           console.log(
-             "User login = " + userInfo.login +
-             "\nUser password = " + userInfo.password,
-           )
-         }
+            console.log(
+              "User login = " + userInfo.login +
+              "\nUser password = " + userInfo.password,
+            )
+          }
         },
       }
     })

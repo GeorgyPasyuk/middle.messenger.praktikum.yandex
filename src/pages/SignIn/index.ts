@@ -18,7 +18,7 @@ let userInfo = {
 
 export class SingInPage extends Block {
   constructor() {
-    super('section');
+    super({});
   }
 
   init() {
