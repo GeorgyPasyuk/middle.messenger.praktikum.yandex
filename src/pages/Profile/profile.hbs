@@ -8,38 +8,31 @@
             <p class="{{styles.profile__name}}">{{accountName}}</p>
             <main class="{{styles.profile__items}}">
 
-
-                {{#if defaultProfile}}
-                    {{{mail}}}
-                    {{{login}}}
-                    {{{name}}}
-                    {{{surname}}}
-                    {{{displayName}}}
-                    {{{phone}}}
+                {{#if defaultContext}}
+                    {{{defaultField}}}
                 {{/if}}
 
-                {{#if goToChangeData}}
-                    {{{mailInp}}}
-                    {{{loginInp}}}
-                    {{{nameInp}}}
-                    {{{surnameInp}}}
-                    {{{displayNameInp}}}
-                    {{{phoneInp}}}
+                {{#if changePassword}}
+                   {{{passwordChanged}}}
                 {{/if}}
+
+                {{#if changeData}}
+                    {{{dataChanged}}}
+                {{/if}}
+
 
             </main>
             <footer class="{{styles.profile__action__container}}">
 
-                {{#if defaultProfile}}
+                {{#if defaultContext}}
                     {{{changeData}}}
                     {{{changePassword}}}
                     {{{exit}}}
-                {{/if}}
 
-                {{#if goToChangeData}}
+                    {{else}}
                     {{{button}}}
-                {{/if}}
 
+                {{/if}}
 
             </footer>
         </div>

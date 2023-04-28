@@ -123,6 +123,7 @@ export class SingInPage extends Block {
     this.children.phoneInput = new Input({
       name: "phone",
       type: "text",
+      pattern: "\\+\\d{1,3}_\\(\\d{2,3}\\)_\\d{3}_\\d{2}_\\d{2}",
       events: {
         keydown: (e) => {
           userInfo.phone = e.target.value

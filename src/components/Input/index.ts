@@ -6,6 +6,8 @@ interface InputProps {
   name: string;
   type: string;
   placeholder?: string;
+  pattern? : any
+  value? : string;
   events?: {
     keydown: (e: any) => void
   }

@@ -3,7 +3,6 @@ import template from './navigation.hbs';
 import styles from './navigation.module.scss';
 
 interface NavigationProps {
-  link?: string,
   title: string,
   isExit?: boolean
   events: {
