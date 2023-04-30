@@ -1,9 +1,18 @@
 {
   "extends": "stylelint-config-standard",
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
-    "color-hex-case": "lower"
+    "max-len": [2, 100],
+    "max-params": [2, 3],
+    "no-console": "off",
+    "eol-last": 0
   },
-  "ignoreFiles": [
-    "build/*"
-  ]
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
 }
+

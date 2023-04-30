@@ -41,8 +41,4 @@
 |        |  index.html  |                                                             ||
 |        |   index.ts   |                                                             ||
 
-=======
-В проекте используются технологии: handlebars,scss,parcel, express, node.js
-Хостинг проекта располагается на сайте netlify, ссылка: https://middle-messenger-yandex-yandex.netlify.app/
-Для запуска проекта выполните команду - npm run start
->>>>>>> 3716fa19d586c5b1f19f7b5b1be1608a19dddde6
+
