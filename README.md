@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Мессенджер
 
 ## [Хостинг проекта](https://middle-messenger-yandex-yandex.netlify.app/)

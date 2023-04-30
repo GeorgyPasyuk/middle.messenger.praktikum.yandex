@@ -1,18 +1,17 @@
 {
   "extends": "stylelint-config-standard",
+  "rules": {
+    "color-hex-case": "lower"
+  },
+  "ignoreFiles": [
+    "build/*"
+  ],
   "plugins": [
-    "@typescript-eslint"
+    "stylelint-scss"
   ],
   "rules": {
-    "max-len": [2, 100],
-    "max-params": [2, 3],
-    "no-console": "off",
-    "eol-last": 0
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "jasmine": true
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "scss/selector-no-redundant-nesting-selector": true
   }
 }
-
