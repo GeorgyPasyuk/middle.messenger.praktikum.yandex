@@ -7,11 +7,8 @@ import {Button} from "../../components/Button";
 import {Input} from "../../components/Input";
 
 let ProfilePageProps =  {
-  defaultContext: true,
-  changeData: false,
-  changePassword: false
+  dataContext: [true, false, false]
 }
-
 
 let componentsData = {
   name: ["email", "login", "first_name", "second_name", "display_name" ,"phone"],
@@ -36,57 +33,54 @@ export class ProfilePage extends Block {
       events:  {
         click: ()=> {
           this.setProps({
-            defaultContext: true,
-            changeData: false,
-            changePassword: false
+            dataContext: [true, false, false]
           })
         }
       }
     })
 
+
     this.children.defaultField = componentsData.name.map((name, index) => {
-       return new Label({
-        name: name,
-        title: componentsData.title[index],
-        value: componentsData.value[index],
-        custom: false
+        return new Label({
+          name: name,
+          title: componentsData.title[index],
+          value: componentsData.value[index],
+          custom: false
+        })
       })
-    })
 
     this.children.dataChanged = componentsData.name.map((name, index) => {
-      return new Label({
-        name: "name",
-        title: componentsData.title[index],
-        custom: true,
-        value: new Input({
-          name: name,
-          type: "text",
-          placeholder: componentsData.value[index],
+        return new Label({
+          name: "name",
+          title: componentsData.title[index],
+          custom: true,
+          value: new Input({
+            name: name,
+            type: "text",
+            placeholder: componentsData.value[index],
+          })
         })
-      })
-    })
-
-    this.children.passwordChanged = passwordsData.name.map((name, index) => {
-      return new Label({
-        name: name,
-        title: passwordsData.title[index],
-        custom: true,
-        value: new Input({
-          name: name,
-          type: "password",
-          placeholder: ""
-        })
-      })
     })
 
 
-        this.children.changeData = new Navigation({
+      this.children.passwordChanged = passwordsData.name.map((name, index) => {
+        return new Label({
+          name: name,
+          title: passwordsData.title[index],
+          custom: true,
+          value: new Input({
+            name: name,
+            type: "password",
+            placeholder: ""
+          })
+        })
+      })
+
+    this.children.changeData = new Navigation({
       title: "Изменить данные",
       events: { click: ()=> {
           this.setProps({
-            defaultContext: false,
-            changeData: true,
-            changePassword: false
+            dataContext: [false, true, false]
           })
         }
       }
@@ -97,14 +91,11 @@ export class ProfilePage extends Block {
       title: "Сменить пароль",
       events: { click: ()=> {
           this.setProps({
-            defaultContext: false,
-            changeData: false,
-            changePassword: true
+            dataContext: [false, false, true]
           })
         }
       }
     })
-
     this.children.exit = new Navigation({
       title: "Выход",
       isExit: true,
@@ -114,8 +105,6 @@ export class ProfilePage extends Block {
   }
 
   render() {
-    console.log(this.props)
-
     return this.compile(template, {
       ...this.props,
       styles,
@@ -128,12 +117,3 @@ export class ProfilePage extends Block {
 }
 
 
-
-// profileData: [
-//         { name: 'email', title:'Почта', value: 'pochta@yandex.ru'},
-//         { name: 'login', title:'Логин', value: 'ivanivanov'},
-//         { name: 'first_name', title:'Имя', value: 'Иван'},
-//         { name: 'second_name', title:'Фамилия', value: 'Иванов'},
-//         { name: 'display_name', title:'Имя в чате', value: 'Иван'},
-//         { name: 'phone', title:'Телефон', value: '+7 (909) 999 99 99'},
-//       ],

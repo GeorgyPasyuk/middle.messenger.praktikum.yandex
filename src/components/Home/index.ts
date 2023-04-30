@@ -23,7 +23,3 @@ export class HomePage extends Block {
   }
 }
 
-// В button
-// import * as styles from './button.css'
-// this.element.classList.add(styles.button)
-// return this.compile(template, { label: this.props.label, styles})

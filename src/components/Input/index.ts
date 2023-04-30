@@ -6,12 +6,13 @@ interface InputProps {
   name: string;
   type: string;
   placeholder?: string;
-  pattern? : any
   value? : string;
-  events?: {
-    keydown: (e: any) => void
+  events: {
+    keydown: (e: KeyboardEvent) => void,
+    focus?: (e: Event) => void,
+    blur?: () => void,
   }
-  style?: any
+  style?: string
 }
 
 export class Input extends Block<InputProps> {
@@ -21,7 +22,6 @@ export class Input extends Block<InputProps> {
       this.element?.setAttribute("class", `${this.props.style}`)
     }
   }
-
 
   render() {
     return this.compile(template, { ...this.props, styles });

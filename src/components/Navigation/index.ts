@@ -6,7 +6,7 @@ interface NavigationProps {
   title: string,
   isExit?: boolean
   events: {
-   click: (e: any)=> void
+   click: (e: Event)=> void
   }
 }
 

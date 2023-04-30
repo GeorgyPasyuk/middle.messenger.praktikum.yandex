@@ -6,7 +6,7 @@ interface LinkProps {
   label: string
   linkTo : string
   events?: {
-    input: (e: any) => void
+    input: (e: Event) => void
   }
 }
 

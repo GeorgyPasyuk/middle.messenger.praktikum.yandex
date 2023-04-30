@@ -12,8 +12,6 @@ interface MessangerProps {
 }
 
 
-let currentMessage: Array<string> = [];
-
 export class Messanger extends Block<MessangerProps> {
   constructor(props: MessangerProps) {
     super(props);
@@ -49,12 +47,8 @@ export class Messanger extends Block<MessangerProps> {
       name: "messangerInput",
       type: "text",
       events: {
-        keydown: (e) => {
-          currentMessage.push(e.target.value)
-          console.log(currentMessage);
-          if (e.keyCode === 13) {
-            console.log(1);
-          }
+        keydown: () => {
+
         },
       }
     })

@@ -9,7 +9,7 @@
   transition: .3s;
 }
 
-.input:focus, .input:valid  {
+.input:focus, .input:not(:placeholder-shown)  {
   margin-top: 8px;
   height: auto;
 }

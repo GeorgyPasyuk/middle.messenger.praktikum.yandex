@@ -18,9 +18,5 @@ export const routes = [
     { path: '/Profile', component: profile,},
     { path: '/err404', component: error, },
     { path: '/err500', component: error, },
-    /* { path: '/ChangeProfile', component: changeProfile,},
-    { path: '/ChangePassword', component: changePassword,},
-    { path: '/Chat', component: Chat, },
-    { path: '/Test', component: TestComp, }, */
 ];
 

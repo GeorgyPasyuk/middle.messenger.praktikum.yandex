@@ -6,9 +6,9 @@ interface ButtonProps {
   type?: string;
   label: string | Array<string>;
   events?: {
-    click: () => void;
+    click: (e?: Event) => void;
   };
-  style?: any
+  style?: string
 }
 
 export class Button extends Block<ButtonProps> {

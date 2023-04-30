@@ -8,23 +8,23 @@
             <p class="{{styles.profile__name}}">{{accountName}}</p>
             <main class="{{styles.profile__items}}">
 
-                {{#if defaultContext}}
-                    {{{defaultField}}}
+                {{#if dataContext.[0]}}
+                    {{{@root.defaultField}}}
                 {{/if}}
 
-                {{#if changePassword}}
-                   {{{passwordChanged}}}
+                {{#if dataContext.[1]}}
+                    {{{@root.dataChanged}}}
                 {{/if}}
 
-                {{#if changeData}}
-                    {{{dataChanged}}}
+                {{#if dataContext.[2]}}
+                    {{{@root.passwordChanged}}}
                 {{/if}}
 
 
             </main>
             <footer class="{{styles.profile__action__container}}">
 
-                {{#if defaultContext}}
+                {{#if dataContext.[0]}}
                     {{{changeData}}}
                     {{{changePassword}}}
                     {{{exit}}}
