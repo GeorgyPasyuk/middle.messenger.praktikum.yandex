@@ -1,0 +1,24 @@
+    <div class="{{styles.chatMessage__container}}">
+        <header class="{{styles.header__container}}">
+            <div class="{{styles.header__item}}">
+                <span class="{{styles.header__avatar}}"></span>
+                <h class="{{styles.header__username}}">{{profileName}}</h>
+            </div>
+            <div class="{{styles.header__item}}">
+                <span class="{{styles.header__options}}"></span>
+            </div>
+        </header>
+        <main class="{{styles.main__container}}">
+           {{{time}}}
+
+            {{{messageTo}}}
+            {{{messageFrom}}}
+
+
+        </main>
+        <footer class="{{styles.footer__container}}">
+            <svg class="{{styles.footer__icon}}"></svg>
+            {{{messangerInput}}}
+            {{{button}}}
+        </footer>
+    </div>

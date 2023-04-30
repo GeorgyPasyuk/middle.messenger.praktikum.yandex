@@ -1,0 +1,15 @@
+@import "../../scss/_variables";
+
+.input {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $font-primary;
+  height: 7px;
+  transition: .3s;
+}
+
+.input:focus, .input:not(:placeholder-shown)  {
+  margin-top: 8px;
+  height: auto;
+}

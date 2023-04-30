@@ -1,0 +1,22 @@
+<section class="{{styles.welcome__container}}">
+    <form class="{{styles.welcome__box}}">
+        <header class="{{styles.welcome__header}}">Вход</header>
+        <main>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{loginName}}</p>
+                {{{login}}}
+                {{{invalidLogin}}}
+            </div>
+
+            <div class="{{styles.login__containerLast}}">
+                <p class="{{styles.login__info}}">{{passwordName}}</p>
+                {{{password}}}
+                {{{invalidPassword}}}
+            </div>
+        </main>
+        <footer>
+            {{{button}}}
+            {{{link}}}
+        </footer>
+    </form>
+</section>
