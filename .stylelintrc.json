@@ -1,5 +1,5 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-standard-scss",
   "rules": {
     "color-hex-case": "lower"
   },
@@ -12,6 +12,8 @@
   "rules": {
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
+    "selector-class-pattern": null,
+    "no-pa"
     "scss/selector-no-redundant-nesting-selector": true
   }
 }
