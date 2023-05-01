@@ -14,6 +14,7 @@
 
     "forceConsistentCasingInFileNames": true,
 
+
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
@@ -21,11 +22,11 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-  },
     "include": [
       "./src/**/*.ts"
     ],
     "exclude": [
       "node_modules"
     ]
+  }
 }
