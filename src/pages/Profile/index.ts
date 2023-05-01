@@ -10,13 +10,13 @@ let ProfilePageProps =  {
   dataContext: [true, false, false]
 }
 
-let componentsData = {
+const componentsData = {
   name: ["email", "login", "first_name", "second_name", "display_name" ,"phone"],
   title: ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"],
   value: ["pochta@yandex.ru", "ivanivanov", "Иван", "Иванов", "Иван", "+7 (909) 999 99 99"]
 }
 
-let passwordsData = {
+const passwordsData = {
   name: ["oldPassword", "newPassword", "newPasswordAgain"],
   title: ["Старый пароль", "Новый пароль", "Новый пароль еще раз"],
 }
@@ -51,13 +51,19 @@ export class ProfilePage extends Block {
 
     this.children.dataChanged = componentsData.name.map((name, index) => {
         return new Label({
-          name: "name",
+          name: "email",
           title: componentsData.title[index],
           custom: true,
           value: new Input({
             name: name,
             type: "text",
             placeholder: componentsData.value[index],
+            style: styles.profile__input,
+            events: {
+              keydown: (e) => {
+                console.log(`New ${name} is `+(e.target as HTMLInputElement).value);
+              }
+            }
           })
         })
     })
@@ -65,13 +71,17 @@ export class ProfilePage extends Block {
 
       this.children.passwordChanged = passwordsData.name.map((name, index) => {
         return new Label({
-          name: name,
+          name: "password",
           title: passwordsData.title[index],
           custom: true,
           value: new Input({
             name: name,
             type: "password",
-            placeholder: ""
+            events: {
+              keydown: (e) => {
+                console.log(`New ${name} is `+ (e.target as HTMLInputElement).value);
+              }
+            }
           })
         })
       })

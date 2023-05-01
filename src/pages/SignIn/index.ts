@@ -9,7 +9,7 @@ import validation from '../../utils/Validation';
 
 
 let userInfo = {
-  mail: "",
+  email: "",
   login: "",
   name: "",
   surname: "",
@@ -17,8 +17,6 @@ let userInfo = {
   password: "",
   passwordAgain: ""
 }
-
-
 
 
 export class SingInPage extends Block {
@@ -45,7 +43,7 @@ export class SingInPage extends Block {
           }
           if (validInputs) {
             console.log(
-              "User mail = " + userInfo.mail,
+              "User mail = " + userInfo.email,
               "\nUser login = " + userInfo.login,
               "\nUser name = " + userInfo.name,
               "\nUser surname = " + userInfo.surname,
@@ -62,16 +60,16 @@ export class SingInPage extends Block {
 
 
     this.children.mailInput = new Input({
-      name: "mail",
+      name: "email",
       type: "text",
       events: {
         keydown: (e) => {
-          userInfo.mail = (e.target as HTMLInputElement).value
+          userInfo.email = (e.target as HTMLInputElement).value
         },
         blur: () => {
-          if (!validation(/@[\w\d]+(\.[\w\d]+)*$/, userInfo.mail)) {
+          if (!validation(/@[\w\d]+(\.[\w\d]+)*$/, userInfo.email)) {
             this.children.invalidMail.show()
-            userInfo.mail = ""
+            userInfo.email = ""
           } else {
             this.children.invalidMail.hide()
           }
@@ -110,7 +108,7 @@ export class SingInPage extends Block {
 
 
     this.children.nameInput = new Input({
-      name: "name",
+      name: "first_name",
       type: "text",
       events: {
         keydown: (e) => {
@@ -133,7 +131,7 @@ export class SingInPage extends Block {
     })
 
     this.children.surnameInput = new Input({
-      name: "surname",
+      name: "second_name",
       type: "text",
       events: {
         keydown: (e) => {

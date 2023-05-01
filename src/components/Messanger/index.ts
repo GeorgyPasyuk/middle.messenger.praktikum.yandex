@@ -44,7 +44,7 @@ export class Messanger extends Block<MessangerProps> {
     this.children.messangerInput = new Input({
       style: styles.footer__input,
       placeholder: "Сообщение",
-      name: "messangerInput",
+      name: "message",
       type: "text",
       events: {
         keydown: () => {

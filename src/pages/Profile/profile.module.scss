@@ -52,12 +52,21 @@
 }
 
 .profile__image {
+  cursor: pointer;
   border-radius: 100%;
   width: 130px;
   height: 130px;
   background-color: $border-col;
   margin-bottom: 20px;
+  color: transparent;
 }
+
+.file__avatar {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
 
 .profile__name {
   font-weight: 600;
@@ -90,6 +99,9 @@
   align-items: center;
 }
 
+.profile__input {
+  height: 20px;
+}
 
 .profile__last {
   border-bottom: 0;
