@@ -8,7 +8,6 @@
       "dom"
     ],
 
-
     "module": "commonjs",
     "esModuleInterop": true,
     "rootDir": "./src",

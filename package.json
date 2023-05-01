@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm run build && node src/modules/server.js",
+    "start": "parcel src/index.html --port 3000 --no-cache",
+    "build-and-start": "npm run build && node src/modules/server.js",
     "dev": "parcel src/index.html --port 3000 --no-cache",
     "build": "parcel build src/index.html --no-cache",
     "eslint": "npx eslint ./src",
@@ -24,7 +25,6 @@
     "parcel": "^2.8.3",
     "parcel-transformer-hbs": "^1.0.4",
     "path-browserify": "^1.0.1",
-    "process": "^0.11.10",
     "stylelint": "^15.6.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
