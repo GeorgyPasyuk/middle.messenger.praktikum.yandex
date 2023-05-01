@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm run build && ts-node src/modules/server.ts",
+    "start": "npm run build && node src/modules/server.js",
     "dev": "parcel src/index.html --port 3000 --no-cache",
     "build": "parcel build src/index.html --no-cache",
     "eslint": "npx eslint ./src",
     "stylelint": "npx stylelint \"**/*.scss\""
   },
+  "type": "module",
   "author": "pasyukgeorgy@yandex.ru",
   "license": "ISC",
   "devDependencies": {

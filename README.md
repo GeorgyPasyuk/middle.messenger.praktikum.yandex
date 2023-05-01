@@ -26,7 +26,7 @@
 |        |              |                      (componentName) ↓                      |                                                                                                                                                       |
 |        |              |     template.hbs <br/> style.module.scss<br/> index.ts      ||
 |        |  modules ↓   |                                                             |                                                 Модули использущиеся для работы с путями и роунтигом                                                  |
-|        |              |           router.ts<br/> routes.ts<br/> server.ts           ||
+|        |              |           router.ts<br/> routes.ts<br/> server.js           ||
 |        |   pages  ↓   |                                                             |                          Непосредственно сами страницы, в которые вставляются компоненты и который отображаются пользователю                          |
 |        |              |                        (Login)Page ↓                        |                                                                                                                                                       |
 |        |              |     template.hbs <br/> style.module.scss<br/> index.ts      ||

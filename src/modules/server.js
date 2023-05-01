@@ -5,8 +5,7 @@ const app = server();
 const PORT = 3000;
 
 
-app.use('/*', (req: any, res: any) => {
-    console.log(req);
+app.use('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/index.ts.html'));
 });
 
