@@ -1,0 +1,11 @@
+@import "../../scss/_variables";
+
+.link {
+  width: 100%;
+  display: inherit;
+  text-align: center;
+  color: $blue;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 11px;
+}

@@ -1,0 +1,47 @@
+<main class="{{styles.welcome__container}}">
+    <form class="{{styles.welcome__box}}">
+        <h1 class="{{styles.welcome__header}}">Регистрация</h1>
+        <section>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{mailName}}</p>
+                {{{mailInput}}}
+                {{{invalidMail}}}
+            </div>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{loginName}}</p>
+                {{{loginInput}}}
+                {{{invalidLogin}}}
+            </div>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{name}}</p>
+                {{{nameInput}}}
+                {{{invalidName}}}
+            </div>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{surname}}</p>
+                {{{surnameInput}}}
+                {{{invalidSurname}}}
+            </div>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{phoneName}}</p>
+                {{{phoneInput}}}
+                {{{invalidPhone}}}
+
+            </div>
+            <div class="{{styles.login__container}}">
+                <p class="{{styles.login__info}}">{{passwordName}}</p>
+                {{{passwordInput}}}
+                {{{invalidPassword}}}
+            </div>
+            <div class="{{styles.login__containerLast}}">
+                <p class="{{styles.login__info}}">{{passwordNameAgain}}</p>
+                {{{passwordInputAgain}}}
+                {{{invalidPasswordAgain}}}
+            </div>
+        </section>
+        <footer>
+            {{{button}}}
+            {{{link}}}
+        </footer>
+    </form>
+</main>

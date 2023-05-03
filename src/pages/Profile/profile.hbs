@@ -1,0 +1,42 @@
+<main class="{{styles.profile__component}}">
+    <a href="#/SelectChat" class="{{styles.profile__back}}">
+        <div class="{{styles.profile__arrow}}"></div>
+    </a>
+    <div class="{{styles.profile__main}}">
+        <div class="{{styles.profile__container}}">
+            <div class="{{styles.profile__image}}">
+                <input name="avatar" class="{{styles.file__avatar}}" type="file"/>
+            </div>
+            <p class="{{styles.profile__name}}">{{accountName}}</p>
+            <section class="{{styles.profile__items}}">
+
+                {{#if dataContext.[0]}}
+                    {{{@root.defaultField}}}
+                {{/if}}
+
+                {{#if dataContext.[1]}}
+                    {{{@root.dataChanged}}}
+                {{/if}}
+
+                {{#if dataContext.[2]}}
+                    {{{@root.passwordChanged}}}
+                {{/if}}
+
+
+            </section>
+            <footer class="{{styles.profile__action__container}}">
+
+                {{#if dataContext.[0]}}
+                    {{{changeData}}}
+                    {{{changePassword}}}
+                    {{{exit}}}
+
+                    {{else}}
+                    {{{button}}}
+
+                {{/if}}
+
+            </footer>
+        </div>
+    </div>
+</main>

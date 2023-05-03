@@ -1,0 +1,42 @@
+@import "__variables";
+@import "__fonts";
+
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+  flex-shrink: 0;
+}
+
+input, button {
+  outline: none;
+  appearance: none;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.app {
+  position: relative;
+  height: 947px;
+}
+
+.navigation__bar {
+  position: relative;
+  height: 100px;
+  background-color: $blue;
+  display: flex;
+  color: $font-primary;
+  justify-content: space-around;
+  align-items: center;
+
+  a {
+    appearance: none;
+    text-decoration: none;
+  }
+}
