@@ -6,13 +6,8 @@ export enum METHODS {
 }
 
 type Options = {
-  method?: METHODS
+  method: METHODS
   data?: any
-  headers?: {
-    [key: string]: string;
-  };
-  timeout?: number;
-  retries?: number;
 };
 
 
@@ -29,7 +24,7 @@ function queryStringify(data:string) {
 }
 
 export class HTTP {
-  static API_URL: "http://ya-praktikum/api/v1"
+  static API_URL: "https://ya-praktikum.tech/api/v2"
   protected endpoint: string;
 
   constructor(endpoint: string) {
@@ -40,33 +35,36 @@ export class HTTP {
     return this.request<Response>(this.endpoint + path);
   }
 
-  public post<Response = void>(path: string, options: Options = {}): Promise<Response> {
+  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
     return this.request<Response>(
       this.endpoint + path,
-      { ...options, method: METHODS.Post },
-      options.timeout
+      { method: METHODS.Post,
+      data
+      },
     );
   };
 
-  public put<Response = void>(path: string, options: Options = {}): Promise<Response> {
+  public put<Response = void>(path: string, data: unknown): Promise<Response> {
     return this.request<Response>(
       this.endpoint + path,
-      { ...options, method: METHODS.Put },
-      options.timeout
+      { method: METHODS.Put,
+      data
+      },
     );
   };
 
-  public delete<Response = void>(path: string, options: Options = {}): Promise<Response>{
+  public delete<Response = void>(path: string, data?: unknown): Promise<Response>{
     return this.request(
       this.endpoint + path,
-      { ...options, method: METHODS.Delete },
-      options.timeout
+      { method: METHODS.Delete,
+      data
+      },
     );
   };
 
   private request<Response>(url: string, options: Options = {method: METHODS.Get},
     timeout: number = 0): Promise<Response> {
-  const {headers = {}, method, data} = options;
+  const {method, data} = options;
 
     return new Promise(function (resolve, reject) {
       if (!method) {
@@ -79,9 +77,6 @@ export class HTTP {
 
       xhr.open(method, isGet && !! data ? `${url}${queryStringify(data)}` : url);
 
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key]);
-      });
 
       xhr.onload = function () {
         resolve(xhr.response);
@@ -95,6 +90,11 @@ export class HTTP {
       xhr.onerror = () => reject({reason: "network error"})
       xhr.ontimeout = () => reject({reason: "timeout"});
       xhr.timeout = timeout;
+
+      xhr.setRequestHeader("Content-Type", "application/json")
+
+      xhr.withCredentials = true;
+      xhr.responseType = "json"
 
       if (isGet || !data) {
         xhr.send();

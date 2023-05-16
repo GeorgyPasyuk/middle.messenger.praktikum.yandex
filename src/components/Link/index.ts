@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import template from './link.hbs';
 import styles from './link.module.scss';
-import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
+import { withRouter, PropsWithRouter} from '../../hocs/withRouter';
 
 interface LinkProps extends PropsWithRouter{
   to: string

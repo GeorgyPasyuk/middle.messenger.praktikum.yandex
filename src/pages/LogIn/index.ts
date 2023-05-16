@@ -101,6 +101,7 @@ export class LogInPage extends Block {
 
     this.children.link = new Link({
       label: "Нет аккаунта?",
+      to: "/sign-up"
     })
   }
 

@@ -1,26 +1,27 @@
 import EventBus from './EventBus';
 import set from './set';
-import { Indexed } from './set';
+
 
 
 export enum StoreEvents {
   Updated = 'updated',
 }
 
-// наследуем Store от EventBus, чтобы его методы были сразу доступны у экземпляра Store
+
 class Store extends EventBus {
-  private state: Indexed = {};
+  private state: any = {};
 
   public getState() {
     return this.state;
   }
 
-
   public set(path: string, value: unknown) {
     set(this.state, path, value);
 
-    this.emit(StoreEvents.Updated);
+    this.emit(StoreEvents.Updated, this.getState());
   };
 }
 
-export default new Store();
+const store = new Store()
+
+export default store

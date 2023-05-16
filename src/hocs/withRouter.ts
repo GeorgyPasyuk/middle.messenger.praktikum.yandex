@@ -1,13 +1,18 @@
 import Block from '../utils/Block';
 import Router from '../utils/Router';
+import store, { StoreEvents } from '../utils/Store';
 
 
-export function withRouter(Component: typeof Block<any>) {
-  type Props = typeof Component extends typeof Block<infer P> ? P : any;
+export function withRouter(Component: typeof Block) {
+  type Props = any
 
-  return class WithRouter extends Component {
+  return class extends Component {
     constructor(props: Props & PropsWithRouter) {
       super({ ...props, router: Router });
+      console.log(store.getState());
+      store.on(StoreEvents.Updated, ()=> {
+        this.setProps({...store.getState()})
+      })
     }
   }
 }
@@ -15,4 +20,3 @@ export function withRouter(Component: typeof Block<any>) {
 export interface PropsWithRouter {
   router: typeof Router;
 }
-

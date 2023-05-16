@@ -228,6 +228,7 @@ export class SingInPage extends Block {
 
     this.children.link = new Link({
       label: "Войти",
+      to: "/"
     })
   }
 
