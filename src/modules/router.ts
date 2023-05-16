@@ -16,6 +16,5 @@ export const router = () => {
     const {component = err404} = findComponentByPath(path, routes) || {};
     document.getElementById('app')!.innerHTML = "";
     document.getElementById('app')!.append(component.getContent()!);
-
 }
 
