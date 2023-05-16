@@ -2,7 +2,9 @@ import Block from '../../utils/Block';
 import template from "./chatlist.hbs"
 import styles from './chatList.module.scss';
 import { Chat } from '../../components/Chat';
-import { Messanger } from '../../components/Messanger';
+import { Messanger } from '../Messenger';
+import { Link } from '../../components/Link';
+
 
 
 const data = {
@@ -21,6 +23,11 @@ export class ChatList extends Block {
   }
 
   init() {
+    this.children.link = new Link({
+      label: "Профиль",
+      styles: styles.search__profile
+    }),
+
     this.children.chat = data.userName.map((name, index) => {
       return new Chat({
         name: name,

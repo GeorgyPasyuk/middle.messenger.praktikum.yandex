@@ -8,6 +8,8 @@ import { Validation } from '../../components/Validation';
 import validation from '../../utils/Validation';
 
 
+
+
 let userInfo = {
   login: "",
   password: ""
@@ -99,7 +101,6 @@ export class LogInPage extends Block {
 
     this.children.link = new Link({
       label: "Нет аккаунта?",
-      linkTo: "#/SignIn"
     })
   }
 

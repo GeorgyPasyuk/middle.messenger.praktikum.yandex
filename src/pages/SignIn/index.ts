@@ -8,6 +8,7 @@ import { Validation } from '../../components/Validation';
 import validation from '../../utils/Validation';
 
 
+
 let userInfo = {
   email: "",
   login: "",
@@ -227,7 +228,6 @@ export class SingInPage extends Block {
 
     this.children.link = new Link({
       label: "Войти",
-      linkTo: "#/LogIn"
     })
   }
 

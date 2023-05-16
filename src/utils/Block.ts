@@ -228,7 +228,7 @@ class Block<P extends Record<string, any> = any> {
     });
   }
   show() {
-    this._element!.style.display = "block";
+    this._element!.style.display = "flex";
   }
 
   hide() {

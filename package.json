@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel src/index.html --port 3000 --no-cache",
-    "build-and-start": "npm run build && node src/modules/server.js",
+    "build-and-start": "node src/modules/server.js",
     "dev": "parcel src/index.html --port 3000 --no-cache",
     "build": "parcel build src/index.html --no-cache",
     "eslint": "npx eslint ./src",

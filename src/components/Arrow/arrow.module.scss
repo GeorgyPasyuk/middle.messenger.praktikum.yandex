@@ -1,0 +1,18 @@
+@import "../../scss/_variables";
+
+
+.arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  background-color: $blue;
+  cursor: pointer;
+}
+
+
+//.profile__arrow {
+//  width: 28px;
+//  height: 28px;
+//  border-radius: 100%;
+//  background-color: $blue;
+//}

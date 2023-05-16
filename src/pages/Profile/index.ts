@@ -5,6 +5,9 @@ import { Label } from '../../components/Label';
 import { Navigation } from '../../components/Navigation';
 import {Button} from "../../components/Button";
 import {Input} from "../../components/Input";
+import { Arrow } from '../../components/Arrow';
+import store from '../../utils/Store';
+import { StoreEvents } from '../../utils/Store';
 
 let ProfilePageProps =  {
   dataContext: [true, false, false]
@@ -24,9 +27,21 @@ const passwordsData = {
 export class ProfilePage extends Block {
   constructor() {
     super(ProfilePageProps);
+    /* UserController.getUser() */
+    store.on(StoreEvents.Updated, ()=> {
+      this.setProps(store.getState())
+    })
   }
 
   init() {
+    this.children.arrow = new Arrow({
+      events: {
+        click: ()=> {
+
+        }
+      }
+    })
+
     this.children.button = new Button({
       type: "button",
       label: "Сохранить",
@@ -109,7 +124,9 @@ export class ProfilePage extends Block {
     this.children.exit = new Navigation({
       title: "Выход",
       isExit: true,
-      events: { click: ()=> console.log("Выход")
+      events: { click: ()=> {
+
+        }
       }
     })
   }
