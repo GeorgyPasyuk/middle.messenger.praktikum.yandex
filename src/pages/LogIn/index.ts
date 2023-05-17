@@ -84,24 +84,6 @@ export class LogInPage extends Block {
         click: (e) => {
           this.onSubmit()
           e!.preventDefault()
-          let validInputs: boolean = false
-          const values = Object.values(userInfo)
-          for (let i = 0; i < values.length; i++) {
-            if (values[i]) {
-              validInputs = true
-            } else {
-              validInputs = false
-              break
-            }
-          }
-          if (validInputs) {
-            console.log(
-              "User login = " + userInfo.login + "\n",
-              "User password = " + userInfo.password,
-            );
-          } else {
-            alert("Пожалуйста заполните все поля")
-          }
         }
       },
     });

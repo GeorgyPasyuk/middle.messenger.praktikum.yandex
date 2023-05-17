@@ -11,8 +11,6 @@ type Options = {
 };
 
 
-
-
 function queryStringify(data:string) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
@@ -24,7 +22,7 @@ function queryStringify(data:string) {
 }
 
 export class HTTP {
-  static API_URL: "https://ya-praktikum.tech/api/v2"
+  static API_URL = "https://ya-praktikum.tech/api/v2"
   protected endpoint: string;
 
   constructor(endpoint: string) {

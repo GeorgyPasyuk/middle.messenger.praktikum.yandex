@@ -25,7 +25,8 @@ export class ChatList extends Block {
   init() {
     this.children.link = new Link({
       label: "Профиль",
-      styles: styles.search__profile
+      styles: styles.search__profile,
+      to: "/settings"
     }),
 
     this.children.chat = data.userName.map((name, index) => {

@@ -6,6 +6,8 @@ import { Input } from '../../components/Input';
 import { Link } from '../../components/Link';
 import { Validation } from '../../components/Validation';
 import validation from '../../utils/Validation';
+import { SignupData } from '../../api/AuthAPI';
+import AuthController from '../../controllers/AuthController';
 
 
 
@@ -26,40 +28,6 @@ export class SingInPage extends Block {
   }
 
   init() {
-    this.children.button  = new Button({
-      label: "Зарегестрироваться",
-      type: "submit",
-      events: {
-        click: (e) => {
-          e!.preventDefault()
-          let validInputs: boolean = false
-          const values = Object.values(userInfo)
-          for (let i = 0; i < values.length; i++) {
-            if (values[i]) {
-              validInputs = true
-            } else {
-              validInputs = false
-              break
-            }
-          }
-          if (validInputs) {
-            console.log(
-              "User mail = " + userInfo.email,
-              "\nUser login = " + userInfo.login,
-              "\nUser name = " + userInfo.name,
-              "\nUser surname = " + userInfo.surname,
-              "\nUser phone = " + userInfo.phone,
-              "\nUser password = " + userInfo.password,
-              "\nUser passwordAgain = " + userInfo.passwordAgain,)
-          } else {
-            alert("Пожалуйста заполните все поля")
-          }
-        }
-      },
-    });
-
-
-
     this.children.mailInput = new Input({
       name: "email",
       type: "text",
@@ -202,8 +170,6 @@ export class SingInPage extends Block {
         "и обязательно есть хотя бы одна заглавная буква и цифра."
     })
 
-
-
     this.children.passwordInputAgain = new Input({
       name: "passwordagain",
       type: "text",
@@ -226,10 +192,33 @@ export class SingInPage extends Block {
       errName: "Пожалуйста убедитесь, что пароли совпадают"
     })
 
+    this.children.button  = new Button({
+      label: "Зарегестрироваться",
+      type: "submit",
+      events: {
+        click: (e) => {
+          this.onSubmit()
+          e!.preventDefault()
+        }
+      },
+    });
+
+
     this.children.link = new Link({
       label: "Войти",
       to: "/"
     })
+  }
+
+  onSubmit() {
+    const values = Object
+      .values(this.children)
+      .filter(child => child instanceof Input)
+      .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
+
+    const data = Object.fromEntries(values)
+
+    AuthController.signup(data as SignupData)
   }
 
   render() {

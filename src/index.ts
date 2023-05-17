@@ -1,16 +1,9 @@
 import Router from './utils/Router';
-import { SingInPage } from './pages/SignIn';
+import { SingInPage } from './pages/SignUp';
 import { LogInPage } from './pages/LogIn';
 import { ProfilePage } from './pages/Profile';
 import { ChatList } from './pages/ChatList';
-
-/*
-import {router} from "./modules/router";
-
-
-window.addEventListener('hashchange', router);
-window.addEventListener('load', router);
-*/
+import AuthController  from './controllers/AuthController';
 
 enum Routes {
   Index = "/",
@@ -48,10 +41,9 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     Router.start();
 
     if (isProtectedRoute) {
-      Router.go(Routes.Index);
+      Router.go(Routes.Profile);
     }
   }
-
 
 })
 

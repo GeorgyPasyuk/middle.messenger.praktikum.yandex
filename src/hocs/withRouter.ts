@@ -9,7 +9,6 @@ export function withRouter(Component: typeof Block | any) {
   return class extends Component {
     constructor(props: Props & PropsWithRouter) {
       super({ ...props, router: Router });
-      console.log(store.getState());
       store.on(StoreEvents.Updated, ()=> {
         this.setProps({...store.getState()})
       })
