@@ -6,6 +6,8 @@ import { Input } from '../../components/Input';
 import { Link } from '../../components/Link';
 import { Validation } from '../../components/Validation';
 import validation from '../../utils/Validation';
+import AuthController from '../../controllers/AuthController';
+import { SignupData } from '../../api/AuthAPI';
 
 
 
@@ -22,35 +24,6 @@ export class LogInPage extends Block {
   }
 
   init() {
-    this.children.button = new Button({
-      label: "Авторизоваться",
-      type: "submit",
-      events: {
-        click: (e) => {
-          e!.preventDefault()
-          let validInputs: boolean = false
-          const values = Object.values(userInfo)
-          for (let i = 0; i < values.length; i++) {
-            if (values[i]) {
-              validInputs = true
-            } else {
-              validInputs = false
-              break
-            }
-          }
-
-          if (validInputs) {
-            console.log(
-              "User login = " + userInfo.login + "\n",
-              "User password = " + userInfo.password,
-            );
-          } else {
-            alert("Пожалуйста заполните все поля")
-          }
-        }
-      },
-    });
-
     this.children.login = new Input({
       name: "login",
       type: "text",
@@ -103,6 +76,46 @@ export class LogInPage extends Block {
       label: "Нет аккаунта?",
       to: "/sign-up"
     })
+
+    this.children.button = new Button({
+      label: "Авторизоваться",
+      type: "submit",
+      events: {
+        click: (e) => {
+          this.onSubmit()
+          e!.preventDefault()
+          let validInputs: boolean = false
+          const values = Object.values(userInfo)
+          for (let i = 0; i < values.length; i++) {
+            if (values[i]) {
+              validInputs = true
+            } else {
+              validInputs = false
+              break
+            }
+          }
+          if (validInputs) {
+            console.log(
+              "User login = " + userInfo.login + "\n",
+              "User password = " + userInfo.password,
+            );
+          } else {
+            alert("Пожалуйста заполните все поля")
+          }
+        }
+      },
+    });
+  }
+
+  onSubmit() {
+    const values = Object
+      .values(this.children)
+      .filter(child => child instanceof Input)
+      .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
+
+    const data = Object.fromEntries(values);
+
+    AuthController.signin(data as SignupData);
   }
 
   render() {

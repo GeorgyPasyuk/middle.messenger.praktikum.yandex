@@ -3,7 +3,7 @@ import Router from '../utils/Router';
 import store, { StoreEvents } from '../utils/Store';
 
 
-export function withRouter(Component: typeof Block) {
+export function withRouter(Component: typeof Block | any) {
   type Props = any
 
   return class extends Component {

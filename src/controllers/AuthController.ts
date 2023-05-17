@@ -13,25 +13,25 @@ export class AuthController {
 
   async signin(data: SigninData) {
     try {
-      await this.api.signin(data)
+      await this.api.signin(data);
 
-      await this.fetchUser()
+      await this.fetchUser();
 
-      router.go("profile")
+      router.go('/settings');
     } catch (e: any) {
-      console.error(e)
+      console.error(e);
     }
   }
 
   async signup(data: SignupData) {
     try {
-      await this.api.signup(data)
+      await this.api.signup(data);
 
       await this.fetchUser();
 
-      router.go("/profile")
+      router.go('/settings');
     } catch (e: any) {
-      console.error(e)
+      console.error(e.message);
     }
   }
 
