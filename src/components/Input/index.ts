@@ -5,10 +5,10 @@ import styles from './input.module.scss';
 interface InputProps {
   name: string;
   type: string;
-  placeholder?: string;
+  placeholder?: string | number | boolean[];
   value? : string;
   events: {
-    keydown: (e: KeyboardEvent) => void,
+    keydown?: (e: KeyboardEvent) => void,
     focus?: (e: Event) => void,
     blur?: () => void,
   }

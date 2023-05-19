@@ -27,7 +27,7 @@ export class ChatsAPI extends BaseAPI {
   }
 
   read(): Promise<ChatsInfo[]> {
-    return this.http.get('/')
+    return this.http.get('/');
   }
 
   getUsers(id: number): Promise<Array<User & { role: string }>> {

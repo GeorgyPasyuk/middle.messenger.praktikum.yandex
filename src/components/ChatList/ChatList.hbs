@@ -1,0 +1,17 @@
+<div class="{{styles.chat__container}}">
+    <h1 class="{{styles.search__header}}">
+        <a href="{{link}}" class="{{styles.search__profile}}">Профиль</a>
+        {{{link}}}
+        <input class="{{styles.search__input}}" type="text" placeholder="Поиск">
+
+    </h1>
+    <section class="{{styles.feed__container}}">
+        {{#if isLoaded}}
+        {{#each chats}}
+        {{{ChatList}}}
+        {{/each}}
+        {{else}}
+            Идет загрузка...
+        {{/if}}
+    </section>
+</div>

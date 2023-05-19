@@ -1,10 +1,9 @@
-import Block from '../../../utils/Block';
+import Block from '../../utils/Block';
 import template from './msg.hbs';
 import styles from './msg.module.scss';
 
 interface MessageProps {
-  message: string | Array<string>
-  time: string | number
+  content: string
   myMsg: boolean
 }
 
@@ -13,7 +12,7 @@ export class Message extends Block<MessageProps> {
     super(props);
   }
 
-  render() {
+  protected render(): DocumentFragment {
     return this.compile(template, { ...this.props, styles });
   }
 }

@@ -1,28 +1,38 @@
 import Block from '../../utils/Block';
 import template from './Chat.hbs';
 import styles from './chat.module.scss';
+import { ChatsInfo } from '../../api/ChatsApi';
+import { withStore } from '../../utils/Store';
 
 interface ChatProps {
-  name: string;
-  latestMessage: string;
-  time: any;
-  notes: number;
-  isSelected: boolean
+  id: number;
+  title: string;
+  unread_count: number;
+  selectedChat: ChatsInfo
+  latestMessage?: string;
+  time?: any;
   events: {
     click: () => void
   }
 }
 
-export class Chat extends Block<ChatProps> {
+export class ChatBase extends Block<ChatProps> {
   constructor(props: ChatProps) {
     super(props);
   }
 
 
-  render() {
-    return this.compile(template, { ...this.props,
+  protected render() {
+    return this.compile(template, {
+      ...this.props,
+      selectedChat: this.props.id === this.props.selectedChat?.id,
       styles,
-      link: "#/Profile",
     });
   }
 }
+
+export const withSelectedChat = withStore(state => ({
+    selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)
+}));
+
+export const Chat = withSelectedChat(ChatBase);

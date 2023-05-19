@@ -2,8 +2,9 @@ import Router from './utils/Router';
 import { SingInPage } from './pages/SignUp';
 import { LogInPage } from './pages/LogIn';
 import { ProfilePage } from './pages/Profile';
-import { ChatList } from './pages/ChatList';
+import { MessengerPage } from './pages/ChatPage';
 import AuthController  from './controllers/AuthController';
+
 
 enum Routes {
   Index = "/",
@@ -18,7 +19,7 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     .use(Routes.Index, LogInPage)
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
-    .use(Routes.Messenger, ChatList)
+    .use(Routes.Messenger, MessengerPage)
 
   let isProtectedRoute = true;
 
@@ -35,7 +36,7 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     Router.start();
 
     if (!isProtectedRoute) {
-      Router.go(Routes.Profile)
+      Router.go(Routes.SignUp)
     }
   } catch (e) {
     Router.start();
@@ -44,7 +45,6 @@ window.addEventListener("DOMContentLoaded", async ()=> {
       Router.go(Routes.Profile);
     }
   }
-
 })
 
 

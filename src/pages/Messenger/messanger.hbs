@@ -11,14 +11,16 @@
         <main class="{{styles.main__container}}">
            {{{time}}}
 
-            {{{messageTo}}}
-            {{{messageFrom}}}
+            {{#each messages}}
+            {{{this}}}
+            {{/each}}
+
 
 
         </main>
         <footer class="{{styles.footer__container}}">
             <svg class="{{styles.footer__icon}}"></svg>
-            {{{messangerInput}}}
+            {{{messengerInput}}}
             {{{button}}}
         </footer>
     </div>

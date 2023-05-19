@@ -6,8 +6,10 @@ import { Navigation } from '../../components/Navigation';
 import {Button} from "../../components/Button";
 import {Input} from "../../components/Input";
 import { Arrow } from '../../components/Arrow';
-import { User } from '../../api/AuthAPI';
+import {  User } from '../../api/AuthAPI';
 import store, { withStore } from '../../utils/Store';
+import UpdateController from '../../controllers/UpdateController';
+import { UpdateData } from '../../api/UpdateAPI';
 
 
 
@@ -15,6 +17,7 @@ import store, { withStore } from '../../utils/Store';
 
 interface ProfileProps extends User {
   dataContext: boolean[]
+  test: number
 }
 
 
@@ -25,7 +28,6 @@ const userFields = ['email', 'login','first_name', 'second_name', 'display_name'
 
 
 const componentsData = {
-  name: ["email", "login", "first_name", "second_name", "display_name" ,"phone"],
   title: ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"],
   value: ["pochta@yandex.ru", "ivanivanov", "Иван", "Иванов", "Иван", "+7 (909) 999 99 99"]
 }
@@ -38,6 +40,9 @@ const passwordsData = {
 
 class DefaultProfilePage extends Block<ProfileProps> {
   init() {
+    this.props.dataContext = [true, false, false]
+
+
     this.children.arrow = new Arrow({
       to: "/messenger"
     })
@@ -47,7 +52,11 @@ class DefaultProfilePage extends Block<ProfileProps> {
       label: "Сохранить",
       events:  {
         click: ()=> {
-
+          this.onSubmit()
+          this.setProps({
+            ...this.props,
+            dataContext: [true, false, false]
+          })
         }
       }
     })
@@ -62,7 +71,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
       })
     })
 
-    this.children.dataChanged = componentsData.name.map((name, index) => {
+    this.children.dataChanged = userFields.map((name, index) => {
         return new Label({
           name: "email",
           title: componentsData.title[index],
@@ -70,17 +79,14 @@ class DefaultProfilePage extends Block<ProfileProps> {
           value: new Input({
             name: name,
             type: "text",
-            placeholder: componentsData.value[index],
+            placeholder: this.props[name],
             style: styles.profile__input,
             events: {
-              keydown: (e) => {
-                console.log(`New ${name} is `+(e.target as HTMLInputElement).value);
-              }
+
             }
           })
         })
     })
-
 
       this.children.passwordChanged = passwordsData.name.map((name, index) => {
         return new Label({
@@ -91,8 +97,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
             name: name,
             type: "password",
             events: {
-              keydown: (e) => {
-                console.log(`New ${name} is `+ (e.target as HTMLInputElement).value);
+              keydown: () => {
               }
             }
           })
@@ -111,6 +116,8 @@ class DefaultProfilePage extends Block<ProfileProps> {
     })
 
 
+
+
     this.children.changePassword = new Navigation({
       title: "Сменить пароль",
       events: { click: ()=> {
@@ -122,38 +129,48 @@ class DefaultProfilePage extends Block<ProfileProps> {
       }
     })
 
-
     this.children.exit = new Navigation({
       title: "Выход",
       isExit: true,
       events: { click: ()=> {
-          console.log(store.getState());
+
         }
       }
     })
   }
 
-  protected componentDidUpdate(newProps: ProfileProps): boolean {
-
-
-    (this.children.defaultField as Label[]).forEach((field, i) => {
-      field.setProps({ value: newProps[userFields[i]] });
-    });
-
-    return false;
+  onSubmit() {
+    let items: any = []
+    this.children.dataChanged
+      .map((item: any) => {
+        if (item._element.lastElementChild.value !== "") {
+          items
+            .push([item._element.lastElementChild.name, item._element.lastElementChild.value])
+        }})
+    const data = Object.fromEntries(items)
+    UpdateController.updateUser(data as UpdateData)
   }
 
+  protected componentDidUpdate(newProps: ProfileProps): boolean {
+
+    (this.children.fields = userFields.map(name => {
+      return new Label({ name, value: newProps[name] });
+     }));
+
+    return true;
+  }
 
 
   render() {
     return this.compile(template, {
       ...this.props,
       styles,
-      accountName: `${store.getState().user.first_name}`,
-      dataContext: [true, false, false],
+      accountName: `${store.getState().user.first_name + " #" +  store.getState().user.id}`,
     })
   }
 }
+
+
 
 
 const withUser = withStore((state) => ({ ...state.user }))

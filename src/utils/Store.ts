@@ -21,7 +21,7 @@ export enum StoreEvents {
 
 
 class Store extends EventBus {
-  protected state: State = {};
+  protected state: any = {};
 
   public getState() {
     return this.state;
