@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import template from "./chatPage.hbs"
 import styles from './chatPage.module.scss';
-import { Messenger } from '../Messenger';
+import { Messenger } from '../../components/Messenger';
 import ChatsController from '../../controllers/ChatsController';
 import { ChatsList } from '../../components/ChatList';
 

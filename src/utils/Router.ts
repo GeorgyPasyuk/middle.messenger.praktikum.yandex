@@ -65,6 +65,7 @@ class Route {
 
 class Router {
   private routes: Route[]= [];
+  //@ts-ignore
   private history: window.history;
   private _currentRoute: Route | null = null;
   private static __instance: Router;
@@ -93,7 +94,6 @@ class Router {
 
   public go(pathname: string) {
     this.history.pushState({}, '', pathname);
-
     this._onRoute(pathname);
   }
 

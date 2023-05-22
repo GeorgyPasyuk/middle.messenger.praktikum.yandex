@@ -1,12 +1,14 @@
 import Block from '../../utils/Block';
-import template from './messanger.hbs';
+import template from './messenger.hbs';
 import styles from './messanger.module.scss';
 import { Time } from './Time';
-import { Message } from '../../components/Message';
-import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+import { Message } from '../Message';
+import { Button } from '../Button';
+import { Input } from '../Input';
 import MessagesController, {Message as MessageData} from '../../controllers/MessagesController';
 import { withStore } from '../../utils/Store';
+import { TriggerModal } from '../ModalTrigger';
+import { Modal } from '../ModalTrigger/Modal';
 
 interface MessengerProps {
   selectedChat: number | undefined,
@@ -14,8 +16,13 @@ interface MessengerProps {
   userId: number;
   profileName: string
   time: string | number
+  modalShow: boolean
 }
 
+
+let isShown = false
+
+let date = new Date()
 
 class DefaultMessenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
@@ -25,7 +32,7 @@ class DefaultMessenger extends Block<MessengerProps> {
     this.children.messages = this.createMessages(this.props)
 
     this.children.time = new Time({
-      time: "12:30"
+      time: `${date.getHours()}:${date.getMinutes()}`
     })
 
     this.children.button = new Button({
@@ -34,11 +41,29 @@ class DefaultMessenger extends Block<MessengerProps> {
       label: "",
       events: {
         click: () => {
+          this.props.messages.push(this.children.messengerInput.getValue());
+          this.createMessages(this.props)
           const input = this.children.messengerInput as Input
           const message = input.getValue()
           input.setValue('')
 
           MessagesController.sendMessage(this.props.selectedChat!, message)
+        }
+      }
+    })
+
+    this.children.showModal = new TriggerModal({
+      events: {
+        click: () => {
+          this.showModal()
+        }
+      }
+    })
+
+    this.children.modal = new Modal({
+      events: {
+        click: ()=> {
+          console.log(123);
         }
       }
     })
@@ -56,15 +81,26 @@ class DefaultMessenger extends Block<MessengerProps> {
     })
   }
 
+
   protected componentDidUpdate( newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
-
     return true;
   }
 
+  private showModal() {
+    if (!isShown) {
+      this.children.modal.show()
+      isShown = true
+    } else {
+      this.children.modal.hide()
+      isShown = false
+    }
+  }
+
+
   private createMessages(props: MessengerProps) {
     return props.messages.map(data => {
-      return new Message({...data, myMsg: props.userId === data.user_id})
+      return new Message({ ...data, myMsg: props.userId === data.user_id})
     })
   }
 
@@ -84,6 +120,7 @@ const withSelectedChatMessages = withStore(state => {
   }
   return {
     messages: (state.messages || {})[selectedChatId] || [],
+    modalShow: true,
     selectedChat: state.selectedChat,
     userId: state.user.id
   }

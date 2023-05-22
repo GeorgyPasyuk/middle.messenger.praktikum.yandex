@@ -1,0 +1,22 @@
+@import "../../scss/_variables";
+
+.button {
+  height: 50px;
+  border-bottom: $input-bg 1px solid;
+  background-color: $background;
+  width: 100%;
+  color: $font-primary;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 13px;
+  transition: .3s;
+}
+
+.button:hover {
+  opacity: 50%;
+}
+
+
+

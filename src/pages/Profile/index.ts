@@ -10,6 +10,7 @@ import {  User } from '../../api/AuthAPI';
 import store, { withStore } from '../../utils/Store';
 import UpdateController from '../../controllers/UpdateController';
 import { UpdateData } from '../../api/UpdateAPI';
+import AuthController from '../../controllers/AuthController';
 
 
 
@@ -117,7 +118,6 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
 
 
-
     this.children.changePassword = new Navigation({
       title: "Сменить пароль",
       events: { click: ()=> {
@@ -133,7 +133,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
       title: "Выход",
       isExit: true,
       events: { click: ()=> {
-
+          AuthController.logout();
         }
       }
     })

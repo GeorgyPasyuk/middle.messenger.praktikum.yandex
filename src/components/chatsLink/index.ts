@@ -9,7 +9,6 @@ interface LinkProps extends PropsWithRouter{
   events?: {
     click: (e: Event) => void
   },
-  style?: string
 }
 
 export class BaseLink extends Block<LinkProps> {
@@ -20,9 +19,6 @@ export class BaseLink extends Block<LinkProps> {
         click: () => this.navigate()
       }
     });
-    if (this.props.style) {
-      this.element?.setAttribute("class", `${this.props.style}`)
-    }
   }
 
   navigate() {
@@ -34,4 +30,4 @@ export class BaseLink extends Block<LinkProps> {
   }
 }
 
-export const Link = withRouter(BaseLink);
+export const chatsLink = withRouter(BaseLink);

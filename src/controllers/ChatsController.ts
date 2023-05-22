@@ -11,13 +11,13 @@ class ChatsController {
 
   async create(title: string) {
     await this.api.create(title)
+    return this.fetchChats()
 
-    this.fetchChats()
   }
 
   async fetchChats() {
     const chats = await this.api.read();
-    console.log(chats);
+
     chats.map(async (chat) => {
       const token = await this.getToken(chat.id);
 

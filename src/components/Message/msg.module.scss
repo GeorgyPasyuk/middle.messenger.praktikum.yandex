@@ -8,6 +8,7 @@
   line-height: 9px;
 }
 
+
 .from__container {
   width: 100%;
   display: flex;
@@ -25,7 +26,8 @@
 .from__item {
   position: relative;
   font-size: 12px;
-  padding: 11px;
+  padding: 15px;
+  margin-right: 10px;
   min-height: 37px;
   border-radius: 12px;
   max-width: 400px;
@@ -35,9 +37,11 @@
 .to__item {
   position: relative;
   font-size: 12px;
-  padding: 11px;
+  padding: 15px;
   border-radius: 12px;
   min-height: 37px;
   max-width: 400px;
   background-color: $sent-to;
 }
+
+

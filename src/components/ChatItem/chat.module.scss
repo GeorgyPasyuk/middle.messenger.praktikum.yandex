@@ -30,6 +30,8 @@
 }
 
 .user__name {
+  display: flex;
+  justify-content: space-between;
   font-weight: 600;
   font-size: 13px;
   line-height: 13px;

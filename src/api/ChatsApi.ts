@@ -15,7 +15,7 @@ export interface ChatsInfo {
 
 export class ChatsAPI extends BaseAPI {
   constructor() {
-    super("/messages");
+    super("/chats");
   }
 
   create(title: string) {

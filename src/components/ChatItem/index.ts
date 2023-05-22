@@ -3,22 +3,34 @@ import template from './Chat.hbs';
 import styles from './chat.module.scss';
 import { ChatsInfo } from '../../api/ChatsApi';
 import { withStore } from '../../utils/Store';
+import { DeleteChat } from '../deleteChat';
+import ChatsController from '../../controllers/ChatsController';
 
 interface ChatProps {
   id: number;
   title: string;
   unread_count: number;
   selectedChat: ChatsInfo
-  latestMessage?: string;
+  last_message?: string;
   time?: any;
   events: {
-    click: () => void
+    click: (e: Event) => void
   }
 }
 
 export class ChatBase extends Block<ChatProps> {
   constructor(props: ChatProps) {
     super(props);
+  }
+
+  init() {
+    this.children.delete = new DeleteChat({
+      events: {
+        click: ()=> {
+          ChatsController.delete(this.props.id)
+        }
+      }
+    })
   }
 
 

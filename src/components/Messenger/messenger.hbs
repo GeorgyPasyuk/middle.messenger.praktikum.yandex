@@ -4,19 +4,17 @@
                 <span class="{{styles.header__avatar}}"></span>
                 <h class="{{styles.header__username}}">{{profileName}}</h>
             </div>
-            <div class="{{styles.header__item}}">
-                <span class="{{styles.header__options}}"></span>
-            </div>
+
+            {{{showModal}}}
+
+
+            {{{modal}}}
+
+
         </header>
         <main class="{{styles.main__container}}">
            {{{time}}}
-
-            {{#each messages}}
-            {{{this}}}
-            {{/each}}
-
-
-
+            {{{messages}}}
         </main>
         <footer class="{{styles.footer__container}}">
             <svg class="{{styles.footer__icon}}"></svg>
