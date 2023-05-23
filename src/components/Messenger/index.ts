@@ -47,7 +47,6 @@ class DefaultMessenger extends Block<MessengerProps> {
           const input = this.children.messengerInput as Input
           const message = input.getValue()
           input.setValue('')
-
           MessagesController.sendMessage(this.props.selectedChat!, message)
         }
       }
@@ -117,14 +116,15 @@ const withSelectedChatMessages = withStore(state => {
     return {
       messages: [],
       selectedChat: undefined,
-      userId: state.user.id
+      userId: state.user.id,
     }
   }
+  console.log(state);
   return {
     messages: (state.messages || {})[selectedChatId] || [],
     modalShow: true,
     selectedChat: state.selectedChat,
-    userId: state.user.id
+    userId: state.user.id,
   }
 })
 

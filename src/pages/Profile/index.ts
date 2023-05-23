@@ -17,8 +17,15 @@ import AuthController from '../../controllers/AuthController';
 
 
 interface ProfileProps extends User {
+  id: number,
+  first_name: string,
+  second_name: string,
+  display_name: string,
+  login: string,
+  avatar: any,
+  email: string,
+  phone: string,
   dataContext: boolean[]
-  test: number
 }
 
 
@@ -28,10 +35,8 @@ const userFields = ['email', 'login','first_name', 'second_name', 'display_name'
 
 
 
-const componentsData = {
-  title: ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"],
-  value: ["pochta@yandex.ru", "ivanivanov", "Иван", "Иванов", "Иван", "+7 (909) 999 99 99"]
-}
+const componentsData = ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"]
+
 
 const passwordsData = {
   name: ["oldPassword", "newPassword", "newPasswordAgain"],
@@ -43,7 +48,6 @@ class DefaultProfilePage extends Block<ProfileProps> {
   init() {
     this.props.dataContext = [true, false, false]
 
-
     this.children.arrow = new Arrow({
       to: "/messenger"
     })
@@ -53,8 +57,8 @@ class DefaultProfilePage extends Block<ProfileProps> {
       label: "Сохранить",
       events:  {
         click: async ()=> {
-          this.onSubmit()
-          await AuthController.fetchUser()
+          await this.onSubmit()
+
           this.setProps({
             ...this.props,
             dataContext: [true, false, false]
@@ -64,19 +68,12 @@ class DefaultProfilePage extends Block<ProfileProps> {
     })
 
 
-    this.children.defaultField = userFields.map((name, i) => {
-      return new Label({
-        name: name,
-        title: componentsData.title[i],
-        value: this.props[name],
-        custom: false
-      })
-    })
+    this.children.defaultField = this.createDefaultField(this.props)
 
     this.children.dataChanged = userFields.map((name, index) => {
         return new Label({
           name: "email",
-          title: componentsData.title[index],
+          title: componentsData[index],
           custom: true,
           value: new Input({
             name: name,
@@ -150,16 +147,25 @@ class DefaultProfilePage extends Block<ProfileProps> {
         }})
     const data = Object.fromEntries(items)
     await UpdateController.updateUser(data as UpdateData)
+    await AuthController.fetchUser()
   }
 
   protected componentDidUpdate(newProps: ProfileProps): boolean {
-    (this.children.fields = userFields.map(name => {
-      return new Label({ name, value: newProps[name] });
-     }));
+    this.children.defaultField = this.createDefaultField(newProps)
 
     return true;
   }
 
+  createDefaultField(props: ProfileProps) {
+    return userFields.map((name, i) => {
+      return new Label({
+        name: name,
+        title: componentsData[i],
+        value: props[name],
+        custom: false
+      })
+    })
+  }
 
   render() {
     return this.compile(template, {

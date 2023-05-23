@@ -37,7 +37,6 @@ class Store extends EventBus {
 const store = new Store()
 
 export function withStore<SP>(mapStateToProps: (state: State) => SP) {
-
   return function wrap<P>(Component: typeof Block | any){
     return class WithStore extends Component {
       constructor(props: Omit<P, keyof SP>) {

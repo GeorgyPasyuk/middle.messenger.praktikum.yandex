@@ -1,5 +1,6 @@
 import API, { UpdateAPI, UpdateData } from '../api/UpdateAPI';
 
+
 export class UpdateController {
   private readonly api: UpdateAPI
 
@@ -11,7 +12,6 @@ export class UpdateController {
   async updateUser(data: UpdateData) {
     try {
       await this.api.updateUser(data);
-
     } catch (e: any) {
       console.error(e);
     }

@@ -7,34 +7,25 @@ import { ChatsList } from '../../components/ChatList';
 
 
 
+
 export class MessengerPage extends Block {
   constructor() {
     super({});
   }
 
-  init() {
-     this.children.chatsList = new ChatsList({
-       isLoaded: false
-     })
+  protected init() {
+    this.children.chatsList = new ChatsList({ isLoaded: false });
 
-    this.children.messenger = new Messenger({})
+    this.children.messenger = new Messenger({});
 
-
-    ChatsController.fetchChats().finally(()=> {
+    ChatsController.fetchChats().finally(() => {
       (this.children.chatsList as Block).setProps({
         isLoaded: true
       })
-    })
-
+    });
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, {
-      styles
-    })
+    return this.compile(template, { styles })
   }
 }
-
-
-
-

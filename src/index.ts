@@ -12,15 +12,18 @@ enum Routes {
   SignUp = "/sign-up",
   Profile = "/settings",
   Messenger = "/messenger",
-  Error404 = "/err"
+  Error404 = "/err404"
 }
 
+
 window.addEventListener("DOMContentLoaded", async ()=> {
+
   Router
     .use(Routes.Index, LogInPage)
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
-    .use(Routes.Messenger, MessengerPage);
+    .use(Routes.Messenger, MessengerPage)
+
 
   let currentRoute = window.location.pathname
   let validUser = true
@@ -33,7 +36,6 @@ window.addEventListener("DOMContentLoaded", async ()=> {
       validUser = false
       break;
   }
-
 
   try {
     await AuthController.fetchUser()

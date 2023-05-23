@@ -1,5 +1,6 @@
 import API, { SearchAPI } from '../api/SearchAPI';
 import { userLogin } from '../api/SearchAPI';
+import store from '../utils/Store';
 
 export class SearchController {
   private readonly api: SearchAPI
@@ -8,8 +9,9 @@ export class SearchController {
     this.api = API
   }
 
-  getLogin(login: userLogin) {
-    return this.api.getLogin(login)
+  async getLogin(login: userLogin) {
+    const logins = await this.api.getLogin(login)
+    store.set('findedUsers', logins)
   }
 
 }

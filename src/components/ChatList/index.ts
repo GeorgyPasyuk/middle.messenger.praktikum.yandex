@@ -4,12 +4,13 @@ import { ChatsInfo } from '../../api/ChatsApi';
 import Block from '../../utils/Block';
 import { Chat } from '../ChatItem';
 import ChatsController from '../../controllers/ChatsController';
-import { withStore } from '../../utils/Store';
+import store, { withStore } from '../../utils/Store';
 import { Input } from '../Input';
 import chatsController from '../../controllers/ChatsController';
 import { chatsLink } from '../chatsLink';
 import searchController from '../../controllers/SearchController';
 import { LoginCard } from '../LoginCard';
+import Router from '../../utils/Router';
 
 
 
@@ -25,6 +26,7 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
   protected init() {
+    this.props.userLogin = []
     this.children.input = new Input({
       placeholder: "Поиск",
       type: "text",
@@ -34,8 +36,10 @@ class ChatsListBase extends Block<ChatsListProps> {
         keydown: (e)=> {
           if (e.keyCode == 13) {
               this.getLogin()
+              const input = this.children.input as Input
+              input.setValue("")
             }
-        }
+        },
       }
     })
 
@@ -44,15 +48,13 @@ class ChatsListBase extends Block<ChatsListProps> {
       to: "/settings"
     })
 
-
     this.children.chats = this.createChats(this.props);
   }
 
   protected componentDidUpdate(newProps: ChatsListProps): boolean {
     this.children.chats = this.createChats(newProps)
-    if (newProps.userLogin) {
-    this.showLogins(newProps)
-    }
+    this.showLogins()
+
     return true
   }
 
@@ -63,27 +65,28 @@ class ChatsListBase extends Block<ChatsListProps> {
       "login": `${name}`
     }
 
-    const responseData = await searchController.getLogin(data)
-        if (Array.isArray(responseData)) {
-          this.componentDidUpdate({
-            ...this.props,
-            userLogin: responseData
-          })
-          this.setProps({
-            ...this.props,
-            userLogin: responseData
-          })
-          this.showLogins(this.props);
-        }
+    await searchController.getLogin(data)
+
+
+    this.setProps({
+      ...this.props,
+      userLogin: store.getState().findedUsers
+    })
+
+    this.showLogins();
   }
 
-  private showLogins(props: ChatsListProps){
-    this.children.users = props.userLogin!.map((name: any )=> {
+  private showLogins(){
+    this.children.users = this.props.userLogin.map((name: any )=> {
       return new LoginCard({
         label: name.login,
         events: {
-          click: ()=> {
-            this.addChat(name.login)
+          click: async ()=> {
+            await this.addChat(name.login)
+            this.setProps({
+              ...this.props,
+              userLogin: []
+            })
           }
         }
       })
@@ -100,6 +103,8 @@ class ChatsListBase extends Block<ChatsListProps> {
         events: {
           click: ()=> {
             ChatsController.selectChat(data.id);
+            store.set('selectedChat', data.id)
+            //Router.go(`/messenger/${data.id}`)
           }
         }
       })
@@ -107,7 +112,7 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
   private async addChat(login: string) {
-    chatsController.create(`${login}`)
+    await chatsController.create(`${login}`)
   }
 
   protected render(): DocumentFragment {
