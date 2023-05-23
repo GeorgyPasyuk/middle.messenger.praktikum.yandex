@@ -9,6 +9,7 @@ import MessagesController, {Message as MessageData} from '../../controllers/Mess
 import { withStore } from '../../utils/Store';
 import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
+import ChatsController from "../../controllers/ChatsController";
 
 interface MessengerProps {
   selectedChat: number | undefined,
@@ -63,7 +64,8 @@ class DefaultMessenger extends Block<MessengerProps> {
     this.children.modal = new Modal({
       events: {
         click: ()=> {
-          console.log(123);
+          const chatId = this.props.selectedChat
+          ChatsController.delete(chatId!)
         }
       }
     })

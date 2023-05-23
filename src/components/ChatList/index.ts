@@ -2,7 +2,7 @@ import template from './ChatList.hbs';
 import styles from './chatList.module.scss';
 import { ChatsInfo } from '../../api/ChatsApi';
 import Block from '../../utils/Block';
-import { Chat } from '../Chat';
+import { Chat } from '../ChatItem';
 import ChatsController from '../../controllers/ChatsController';
 import { withStore } from '../../utils/Store';
 import { Input } from '../Input';

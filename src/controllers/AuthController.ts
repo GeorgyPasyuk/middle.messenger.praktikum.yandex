@@ -41,6 +41,7 @@ export class AuthController {
     store.set("user", user)
   }
 
+
   async logout() {
     try {
       MessagesController.closeAll()

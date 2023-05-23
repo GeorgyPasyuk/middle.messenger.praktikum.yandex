@@ -34,6 +34,8 @@ class ChatsController {
   async delete(id: number) {
     await this.api.delete(id)
     this.fetchChats()
+    const chats = await this.api.read()
+    store.set('chats', chats)
   }
 
   getToken(id: number) {

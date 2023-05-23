@@ -42,6 +42,7 @@ export class AuthAPI extends BaseAPI {
     return this.http.get('/user');
   }
 
+
   logout() {
     return this.http.post('/logout');
   }

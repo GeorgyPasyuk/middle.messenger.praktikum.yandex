@@ -52,8 +52,9 @@ class DefaultProfilePage extends Block<ProfileProps> {
       type: "button",
       label: "Сохранить",
       events:  {
-        click: ()=> {
+        click: async ()=> {
           this.onSubmit()
+          await AuthController.fetchUser()
           this.setProps({
             ...this.props,
             dataContext: [true, false, false]
@@ -139,7 +140,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
     })
   }
 
-  onSubmit() {
+  private async onSubmit() {
     let items: any = []
     this.children.dataChanged
       .map((item: any) => {
@@ -148,11 +149,10 @@ class DefaultProfilePage extends Block<ProfileProps> {
             .push([item._element.lastElementChild.name, item._element.lastElementChild.value])
         }})
     const data = Object.fromEntries(items)
-    UpdateController.updateUser(data as UpdateData)
+    await UpdateController.updateUser(data as UpdateData)
   }
 
   protected componentDidUpdate(newProps: ProfileProps): boolean {
-
     (this.children.fields = userFields.map(name => {
       return new Label({ name, value: newProps[name] });
      }));
