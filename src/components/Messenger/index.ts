@@ -17,7 +17,8 @@ interface MessengerProps {
   userId: number;
   profileName: string
   time: string | number
-  modalShow: boolean
+  modalShow: boolean,
+  oldMessages: MessageData
 }
 
 
@@ -33,7 +34,8 @@ class DefaultMessenger extends Block<MessengerProps> {
     this.children.messages = this.createMessages(this.props)
 
     this.children.time = new Time({
-      time: `${date.getHours()}:${date.getMinutes()}`
+      time: `${date.getHours()}:${date.getMinutes() < 10 ? "0" + 
+        date.getMinutes() : date.getMinutes()}`
     })
 
     this.children.button = new Button({
@@ -42,13 +44,28 @@ class DefaultMessenger extends Block<MessengerProps> {
       label: "",
       events: {
         click: () => {
-          this.props.messages.push(this.children.messengerInput.getValue());
-          this.createMessages(this.props)
-          const input = this.children.messengerInput as Input
-          const message = input.getValue()
-          input.setValue('')
+          const message = this.children.messengerInput.getValue()
+
+          this.children.messengerInput.setValue("")
           MessagesController.sendMessage(this.props.selectedChat!, message)
         }
+      }
+    })
+
+    this.children.messengerInput = new Input({
+      style: styles.footer__input,
+      placeholder: "Сообщение",
+      name: "message",
+      type: "text",
+      events: {
+        keydown: (e: KeyboardEvent) => {
+          if (e.keyCode == 13) {
+            const message = this.children.messengerInput.getValue()
+
+            this.children.messengerInput.setValue("")
+            MessagesController.sendMessage(this.props.selectedChat!, message)
+          }
+        },
       }
     })
 
@@ -62,30 +79,25 @@ class DefaultMessenger extends Block<MessengerProps> {
 
     this.children.modal = new Modal({
       events: {
-        click: ()=> {
+        click: async ()=> {
           const chatId = this.props.selectedChat
-          ChatsController.delete(chatId!)
+          await ChatsController.delete(chatId!)
         }
       }
     })
 
-    this.children.messengerInput = new Input({
-      style: styles.footer__input,
-      placeholder: "Сообщение",
-      name: "message",
-      type: "text",
-      events: {
-        keydown: () => {
-
-        },
-      }
-    })
   }
 
 
   protected componentDidUpdate( newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
     return true;
+  }
+
+  private createMessages(props: MessengerProps) {
+    return props.messages.map(data => {
+      return new Message({ ...data, myMsg: props.userId === data.user_id})
+    })
   }
 
   private showModal() {
@@ -98,12 +110,6 @@ class DefaultMessenger extends Block<MessengerProps> {
     }
   }
 
-
-  private createMessages(props: MessengerProps) {
-    return props.messages.map(data => {
-      return new Message({ ...data, myMsg: props.userId === data.user_id})
-    })
-  }
 
   protected render(): DocumentFragment {
     return this.compile(template, { ...this.props, styles });
@@ -119,7 +125,6 @@ const withSelectedChatMessages = withStore(state => {
       userId: state.user.id,
     }
   }
-  console.log(state);
   return {
     messages: (state.messages || {})[selectedChatId] || [],
     modalShow: true,

@@ -2,6 +2,7 @@ import API, {ChatsAPI} from '../api/ChatsApi';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
 
+
 class ChatsController {
   private readonly api: ChatsAPI
 

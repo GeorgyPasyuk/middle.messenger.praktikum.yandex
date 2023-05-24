@@ -4,7 +4,7 @@ import { LogInPage } from './pages/LogIn';
 import { ProfilePage } from './pages/Profile';
 import { MessengerPage } from './pages/ChatPage';
 import AuthController  from './controllers/AuthController';
-import { Error } from './pages/Error';
+import { StartPage } from './pages/StartPage';
 
 
 enum Routes {
@@ -12,25 +12,24 @@ enum Routes {
   SignUp = "/sign-up",
   Profile = "/settings",
   Messenger = "/messenger",
+  Chat = "/messenger/:chatId",
   Error404 = "/err404"
 }
 
 
 window.addEventListener("DOMContentLoaded", async ()=> {
-
   Router
     .use(Routes.Index, LogInPage)
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
-    .use(Routes.Messenger, MessengerPage)
-
+    .use(Routes.Messenger, StartPage)
+    .use(Routes.Chat, MessengerPage);
 
   let currentRoute = window.location.pathname
   let validUser = true
 
   switch (currentRoute) {
     case Routes.Index:
-      validUser = false
       break;
     case Routes.SignUp:
       validUser = false

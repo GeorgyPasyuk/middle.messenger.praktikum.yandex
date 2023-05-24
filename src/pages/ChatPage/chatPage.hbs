@@ -1,5 +1,11 @@
 <main class="{{styles.selectchat__container}}">
 
     {{{chatsList}}}
+        {{#if selectedChat}}
+            {{selectedChat}}
+            {{else}}
+            123
+            {{selectedChat}}
+        {{/if}}
     {{{messenger}}}
 </main>

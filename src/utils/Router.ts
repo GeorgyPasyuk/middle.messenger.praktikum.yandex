@@ -20,7 +20,6 @@ function render(query: string, block: Block) {
   root.innerHTML = "";
 
   root.append(block.getContent()!);
-
   return root;
 }
 
@@ -29,7 +28,7 @@ class Route {
   private block: Block | null = null;
 
   constructor(
-    private pathname: string,
+    public pathname: string,
     private readonly blockClass: BlockConstructable,
     private readonly query: string) {
   }
@@ -93,8 +92,34 @@ class Router {
   }
 
   public go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+    const route = this.findRoute(pathname);
+
+    if (route) {
+      if (this._currentRoute) {
+        this._currentRoute.leave();
+      }
+      this._currentRoute = route;
+      this._currentRoute.navigate(pathname);
+    } else {
+      console.error(`Cannot find route for path: ${pathname}`);
+    }
     this._onRoute(pathname);
+    this.history.pushState({}, '', pathname);
+  }
+
+  private findRoute(pathname: string) {
+    return this.routes.find(route => {
+      const routePaths = route.pathname.split('/');
+      const currentPaths = pathname.split('/');
+      if (routePaths.length !== currentPaths.length) return false;
+      const match = routePaths.every((routePath, i) => {
+        if (routePath.startsWith(':')) {
+          return true;
+        }
+        return routePath === currentPaths[i];
+      });
+      return match;
+    });
   }
 
   public back() {
@@ -108,17 +133,13 @@ class Router {
   public start() {
     window.onpopstate = (event: PopStateEvent) => {
       const target = event.currentTarget as Window;
-
       this._onRoute(target.location.pathname);
     }
-
     this._onRoute(window.location.pathname);
   }
 
-
-
   private _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    const route = this.findRoute(pathname);
     if (!route) {
       return;
     }
@@ -132,11 +153,6 @@ class Router {
     route.render();
   }
 
-
-
- private getRoute(pathname: string) {
-    return this.routes!.find(route => route.match(pathname));
-  }
 }
 
 export default new Router('#app');

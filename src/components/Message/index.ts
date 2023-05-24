@@ -5,16 +5,22 @@ import styles from './msg.module.scss';
 interface MessageProps {
   content: string
   myMsg: boolean
+  time: string
 }
 
 export class Message extends Block<MessageProps> {
   constructor(props: MessageProps) {
     super(props);
-    console.log(this.props);
-
   }
 
+
+
   protected render(): DocumentFragment {
-    return this.compile(template, { ...this.props, styles });
+
+    return this.compile(template, {
+      ...this.props,
+      time: `${new Date(this.props.time).getHours()+':'}
+      ${new Date(this.props.time).getMinutes()}`,
+      styles });
   }
 }

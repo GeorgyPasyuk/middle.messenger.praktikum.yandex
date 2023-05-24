@@ -6,11 +6,13 @@ import { Chat } from '../ChatItem';
 import ChatsController from '../../controllers/ChatsController';
 import store, { withStore } from '../../utils/Store';
 import { Input } from '../Input';
-import chatsController from '../../controllers/ChatsController';
 import { chatsLink } from '../chatsLink';
 import searchController from '../../controllers/SearchController';
 import { LoginCard } from '../LoginCard';
 import Router from '../../utils/Router';
+import { MessengerPage } from '../../pages/ChatPage';
+
+
 
 
 
@@ -18,6 +20,7 @@ interface ChatsListProps {
   chats: ChatsInfo[],
   isLoaded: boolean,
   userLogin: Array<string>
+  connectedChats: number[]
 }
 
 class ChatsListBase extends Block<ChatsListProps> {
@@ -26,6 +29,7 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
   protected init() {
+    this.props.connectedChats = []
     this.props.userLogin = []
     this.children.input = new Input({
       placeholder: "Поиск",
@@ -51,10 +55,9 @@ class ChatsListBase extends Block<ChatsListProps> {
     this.children.chats = this.createChats(this.props);
   }
 
-  protected componentDidUpdate(newProps: ChatsListProps): boolean {
+  protected componentDidUpdate(newProps: ChatsListProps) {
     this.children.chats = this.createChats(newProps)
     this.showLogins()
-
     return true
   }
 
@@ -101,18 +104,19 @@ class ChatsListBase extends Block<ChatsListProps> {
       return new Chat({
         ...data,
         events: {
-          click: ()=> {
+          click: async ()=> {
+            console.log(data);
+            Router.go(`/messenger/${data.id}`)
             ChatsController.selectChat(data.id);
-            store.set('selectedChat', data.id)
-            //Router.go(`/messenger/${data.id}`)
           }
         }
       })
     })
   }
 
+
   private async addChat(login: string) {
-    await chatsController.create(`${login}`)
+    await ChatsController.create(`${login}`)
   }
 
   protected render(): DocumentFragment {
