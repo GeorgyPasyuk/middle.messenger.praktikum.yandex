@@ -9,6 +9,7 @@ import { Input } from '../Input';
 import { chatsLink } from '../chatsLink';
 import searchController from '../../controllers/SearchController';
 import { LoginCard } from '../LoginCard';
+import Router from '../../utils/Router';
 
 interface ChatsListProps {
   chats: ChatsInfo[],
@@ -25,6 +26,8 @@ class ChatsListBase extends Block<ChatsListProps> {
   protected init() {
     this.props.connectedChats = []
     this.props.userLogin = []
+    ChatsController.fetchChats()
+
     this.children.input = new Input({
       placeholder: "Поиск",
       type: "text",
@@ -99,7 +102,9 @@ class ChatsListBase extends Block<ChatsListProps> {
         ...data,
         events: {
           click: async ()=> {
-            ChatsController.selectChat(data.id);
+            await ChatsController.selectChat(data.id);
+            Router.go(`/messenger/${data.id}`)
+
           }
         }
       })

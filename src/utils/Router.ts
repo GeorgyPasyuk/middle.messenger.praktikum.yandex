@@ -1,6 +1,7 @@
 import Block from './Block';
 
 
+
 export interface BlockConstructable<P = any> {
   new(props: P): Block<P>;
 }
@@ -13,12 +14,12 @@ function isEqual(lhs: string, rhs: string) {
 function render(query: string, block: Block) {
   const root = document.querySelector(query);
 
+
   if (root === null) {
     throw new Error(`root not found by selector "${query}"`)
   }
 
   root.innerHTML = "";
-
   root.append(block.getContent()!);
   return root;
 }
@@ -43,8 +44,8 @@ class Route {
   leave() {
     if (this.block) {
       this.block.hide();
-      this.block = null
     }
+    this.block = null
   }
 
   match(pathname: string) {
@@ -52,11 +53,9 @@ class Route {
   }
 
   render() {
-    if (!this.block) {
       this.block = new this.blockClass({});
       render(this.query, this.block);
       return;
-    }
   }
 }
 
@@ -68,6 +67,7 @@ class Router {
   private history: window.history;
   private _currentRoute: Route | null = null;
   private static __instance: Router;
+
 
   constructor(private readonly rootQuery: string) {
     if (Router.__instance) {
@@ -92,19 +92,12 @@ class Router {
   }
 
   public go(pathname: string) {
-    const route = this.findRoute(pathname);
 
-    if (route) {
-      if (this._currentRoute) {
-        this._currentRoute.leave();
-      }
-      this._currentRoute = route;
-      this._currentRoute.navigate(pathname);
-    } else {
-      console.error(`Cannot find route for path: ${pathname}`);
-    }
-    this._onRoute(pathname);
     this.history.pushState({}, '', pathname);
+
+
+
+    this._onRoute(pathname);
   }
 
   private findRoute(pathname: string) {
@@ -114,6 +107,7 @@ class Router {
       if (routePaths.length !== currentPaths.length) return false;
       const match = routePaths.every((routePath, i) => {
         if (routePath.startsWith(':')) {
+
           return true;
         }
         return routePath === currentPaths[i];
@@ -138,19 +132,22 @@ class Router {
     this._onRoute(window.location.pathname);
   }
 
-  private _onRoute(pathname: string) {
+  private _onRoute(pathname: any) {
     const route = this.findRoute(pathname);
-    if (!route) {
-      return;
+
+    if (route) {
+      this._currentRoute = route;
+      this._currentRoute.navigate(pathname);
+    } else {
+      console.error(`Cannot find route for path: ${pathname}`);
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
 
-    this._currentRoute = route;
 
-    route.render();
+    route!.render();
   }
 
 }

@@ -16,6 +16,15 @@ export class UpdateController {
       console.error(e);
     }
   }
+
+  async updateAvatar(data: FormData) {
+    try {
+      await this.api.updateAvatar(data)
+    } catch (e: any) {
+      console.error(e)
+    }
+  }
+
 }
 
 export default new UpdateController()

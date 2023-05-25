@@ -12,10 +12,6 @@ import { SignupData } from '../../api/AuthAPI';
 
 
 
-let userInfo = {
-  login: "",
-  password: ""
-}
 
 
 export class LogInPage extends Block {
@@ -28,15 +24,12 @@ export class LogInPage extends Block {
       name: "login",
       type: "text",
       events: {
-        keydown: (e) => {
-          userInfo.login = (e.target as HTMLInputElement).value
-        },
         blur: ()=> {
           if (!validation(
             /^(?!^[0-9]*$)[\w-]{3,20}$/
-            , userInfo.login)) {
+            , this.children.login.getValue())) {
             this.children.invalidLogin.show()
-            userInfo.login = ""
+            this.children.login.setValue("")
           } else {
             this.children.invalidLogin.hide()
           }
@@ -52,14 +45,11 @@ export class LogInPage extends Block {
       name: "password",
       type: "password",
       events: {
-        keydown: (e) => {
-          userInfo.password = (e.target as HTMLInputElement).value
-        },
         blur: ()=> {
           if (!validation(
-            /^(?=.*\d)(?=.*[A-Z]).{8,40}$/, userInfo.password)) {
+            /^(?=.*\d)(?=.*[A-Z]).{8,40}$/, this.children.password.getValue())) {
             this.children.invalidPassword.show()
-            userInfo.login = ""
+            this.children.password.setValue("")
           } else {
             this.children.invalidPassword.hide()
           }
@@ -96,7 +86,6 @@ export class LogInPage extends Block {
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values);
-
     AuthController.signin(data as SignupData);
   }
 

@@ -11,6 +11,7 @@ import store, { withStore } from '../../utils/Store';
 import UpdateController from '../../controllers/UpdateController';
 import { UpdateData } from '../../api/UpdateAPI';
 import AuthController from '../../controllers/AuthController';
+import { Avatar } from '../../components/Avatar';
 
 
 
@@ -51,6 +52,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
     this.children.arrow = new Arrow({
       to: "/messenger"
     })
+
 
     this.children.button = new Button({
       type: "button",
@@ -135,7 +137,29 @@ class DefaultProfilePage extends Block<ProfileProps> {
         }
       }
     })
+
+    this.children.avatar = new Avatar({
+      events: {
+        change: (e) => {
+          //this.changeAvatar(e.target.files);
+        }
+      },
+      name: 'avatar'
+    });
+
+
   }
+
+  /* private async changeAvatar(event) {
+    const file = event[0];
+
+    const formData = new FormData()
+    formData.append("avatar", file)
+
+    UpdateController.updateAvatar(formData)
+
+    console.log(formData);
+  } */
 
   private async onSubmit() {
     let items: any = []
@@ -145,8 +169,9 @@ class DefaultProfilePage extends Block<ProfileProps> {
           items
             .push([item._element.lastElementChild.name, item._element.lastElementChild.value])
         }})
-    const data = Object.fromEntries(items)
-    await UpdateController.updateUser(data as UpdateData)
+    const oldData = store.getState().user
+    const newData = Object.fromEntries(items)
+    await UpdateController.updateUser(Object.assign(oldData, newData) as UpdateData)
     await AuthController.fetchUser()
   }
 

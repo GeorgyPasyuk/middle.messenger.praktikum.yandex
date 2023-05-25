@@ -6,7 +6,7 @@ import { Message } from '../Message';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import MessagesController, {Message as MessageData} from '../../controllers/MessagesController';
-import { withStore } from '../../utils/Store';
+import store, { withStore } from '../../utils/Store';
 import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
 import ChatsController from "../../controllers/ChatsController";
@@ -30,7 +30,14 @@ class DefaultMessenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
     super(props);
   }
+
   init() {
+    const chatId = window.location.pathname.split('/').pop();
+
+    if (chatId) {
+      store.set("selectedChat", Number(chatId))
+    }
+
     this.children.messages = this.createMessages(this.props)
 
     this.children.time = new Time({
@@ -45,9 +52,9 @@ class DefaultMessenger extends Block<MessengerProps> {
       events: {
         click: () => {
           const message = this.children.messengerInput.getValue()
-
           this.children.messengerInput.setValue("")
           MessagesController.sendMessage(this.props.selectedChat!, message)
+          console.log(1);
         }
       }
     })
@@ -61,7 +68,6 @@ class DefaultMessenger extends Block<MessengerProps> {
         keydown: (e: KeyboardEvent) => {
           if (e.keyCode == 13) {
             const message = this.children.messengerInput.getValue()
-
             this.children.messengerInput.setValue("")
             MessagesController.sendMessage(this.props.selectedChat!, message)
           }
@@ -85,11 +91,10 @@ class DefaultMessenger extends Block<MessengerProps> {
         }
       }
     })
-
   }
 
 
-  protected componentDidUpdate( newProps: MessengerProps): boolean {
+  protected componentDidUpdate(newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
     return true;
   }

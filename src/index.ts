@@ -2,9 +2,10 @@ import Router from './utils/Router';
 import { SingInPage } from './pages/SignUp';
 import { LogInPage } from './pages/LogIn';
 import { ProfilePage } from './pages/Profile';
-import { MessengerPage } from './pages/ChatPage';
+import { ChatPage } from './pages/ChatPage';
 import AuthController  from './controllers/AuthController';
 import { StartPage } from './pages/StartPage';
+
 
 
 enum Routes {
@@ -23,7 +24,7 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
     .use(Routes.Messenger, StartPage)
-    .use(Routes.Chat, MessengerPage);
+    .use(Routes.Chat, ChatPage);
 
   let currentRoute = window.location.pathname
   let validUser = true

@@ -7,7 +7,7 @@ export interface UpdateData {
   display_name: string,
   login: string,
   email: string,
-  phone: string
+  phone: string,
 }
 
 
@@ -19,6 +19,10 @@ export class UpdateAPI extends BaseAPI {
 
   updateUser(data: UpdateData) {
     return this.http.put('/profile', data)
+  }
+
+  updateAvatar(data: FormData) {
+    return this.http.put('/profile/avatar', data)
   }
 
 

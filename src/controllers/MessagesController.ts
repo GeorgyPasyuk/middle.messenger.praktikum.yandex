@@ -49,6 +49,7 @@ class MessagesController {
       type: "message",
       content: message
     })
+
   }
 
   fetchOldMessages(id: number) {
@@ -57,7 +58,6 @@ class MessagesController {
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
-
     socket.send({type: "get old", content: "0"})
   }
 

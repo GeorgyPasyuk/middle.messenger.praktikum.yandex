@@ -29,7 +29,7 @@ export class AuthController {
 
       await this.fetchUser();
 
-      router.go('/messages');
+      router.go('/messenger');
     } catch (e: any) {
       console.error(e.message);
     }
