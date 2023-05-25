@@ -1,6 +1,7 @@
 import API, {ChatsAPI} from '../api/ChatsApi';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
+import Router from "../utils/Router";
 
 
 class ChatsController {
@@ -45,6 +46,8 @@ class ChatsController {
 
   selectChat(id: number) {
     store.set('selectedChat', id);
+    Router.go(`/messenger/${id}`)
+
   }
 }
 

@@ -9,12 +9,6 @@ import { Input } from '../Input';
 import { chatsLink } from '../chatsLink';
 import searchController from '../../controllers/SearchController';
 import { LoginCard } from '../LoginCard';
-import Router from '../../utils/Router';
-import { MessengerPage } from '../../pages/ChatPage';
-
-
-
-
 
 interface ChatsListProps {
   chats: ChatsInfo[],
@@ -105,8 +99,6 @@ class ChatsListBase extends Block<ChatsListProps> {
         ...data,
         events: {
           click: async ()=> {
-            console.log(data);
-            Router.go(`/messenger/${data.id}`)
             ChatsController.selectChat(data.id);
           }
         }

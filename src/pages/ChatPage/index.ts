@@ -4,6 +4,7 @@ import styles from './chatPage.module.scss';
 import { Messenger } from '../../components/Messenger';
 import ChatsController from '../../controllers/ChatsController';
 import { ChatsList } from '../../components/ChatList';
+import store from "../../utils/Store";
 
 
 
@@ -12,27 +13,28 @@ interface ChatPageProps {
   selectedChat: number | undefined
 }
 
+
+
 export class MessengerPage extends Block<ChatPageProps> {
   constructor(props: ChatPageProps) {
     super(props);
   }
 
-  protected  init() {
-    const chatId = window.location.pathname.split('/').pop();
+  protected init() {
 
     this.children.chatsList = new ChatsList({ isLoaded: false });
 
-    ChatsController.fetchChats(); // Дождитесь загрузки чатов
+    ChatsController.fetchChats();
 
     (this.children.chatsList as Block).setProps({
       isLoaded: true
     });
 
-    console.log(chatId);
-    if (chatId) {
-       ChatsController.selectChat(Number(chatId)); // Дождитесь выбора чата
-    }
+    /*if (chatId) {
+        const chatId = window.location.pathname.split('/').pop();
 
+      ChatsController.selectChat(Number(chatId));
+    }*/
     this.children.messenger = new Messenger({});
   }
 
