@@ -7,7 +7,12 @@
 
         {{{users}}}
 
-        {{{chats}}}
+
+        {{#if isLoaded}}
+            {{{chats}}}
+            {{else}}
+            <div class="{{styles.loading}}">Идет загрузка...</div>
+        {{/if}}
 
     </section>
 </div>

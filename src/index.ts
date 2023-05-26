@@ -12,6 +12,8 @@ enum Routes {
   Index = "/",
   SignUp = "/sign-up",
   Profile = "/settings",
+  ChangeData = "/settings/changeData",
+  ChangePassword = "/settings/changePassword",
   Messenger = "/messenger",
   Chat = "/messenger/:chatId",
   Error404 = "/err404"
@@ -23,6 +25,8 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     .use(Routes.Index, LogInPage)
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
+    .use(Routes.ChangeData, ProfilePage)
+    .use(Routes.ChangePassword, ProfilePage)
     .use(Routes.Messenger, StartPage)
     .use(Routes.Chat, ChatPage);
 

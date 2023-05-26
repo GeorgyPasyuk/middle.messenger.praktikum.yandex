@@ -5,7 +5,7 @@ import styles from './input.module.scss';
 interface AvatarProps {
   name: string;
   events: {
-    change: (e: Event)=> void
+    change: (e: InputEvent)=> void
   }
 }
 

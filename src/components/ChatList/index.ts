@@ -23,10 +23,9 @@ class ChatsListBase extends Block<ChatsListProps> {
     super({...props});
   }
 
-  protected init() {
+  protected async init() {
     this.props.connectedChats = []
     this.props.userLogin = []
-    ChatsController.fetchChats()
 
     this.children.input = new Input({
       placeholder: "Поиск",
@@ -102,9 +101,7 @@ class ChatsListBase extends Block<ChatsListProps> {
         ...data,
         events: {
           click: async ()=> {
-            await ChatsController.selectChat(data.id);
             Router.go(`/messenger/${data.id}`)
-
           }
         }
       })

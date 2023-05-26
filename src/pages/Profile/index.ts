@@ -9,9 +9,10 @@ import { Arrow } from '../../components/Arrow';
 import {  User } from '../../api/AuthAPI';
 import store, { withStore } from '../../utils/Store';
 import UpdateController from '../../controllers/UpdateController';
-import { UpdateData } from '../../api/UpdateAPI';
+import { UpdateData, UpdatePassword } from '../../api/UpdateAPI';
 import AuthController from '../../controllers/AuthController';
 import { Avatar } from '../../components/Avatar';
+import router from '../../utils/Router';
 
 
 
@@ -47,7 +48,17 @@ const passwordsData = {
 
 class DefaultProfilePage extends Block<ProfileProps> {
   init() {
-    this.props.dataContext = [true, false, false]
+
+    const context = window.location.pathname.split('/').pop();
+
+    if (context === "settings") {
+      this.props.dataContext = [true, false, false]
+    } else if (context === "changeData") {
+      this.props.dataContext = [false, true, false]
+    } else if (context === "changePassword") {
+      this.props.dataContext = [false, false, true]
+    }
+
 
     this.children.arrow = new Arrow({
       to: "/messenger"
@@ -60,11 +71,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
       events:  {
         click: async ()=> {
           await this.onSubmit()
-
-          this.setProps({
-            ...this.props,
-            dataContext: [true, false, false]
-          })
+          router.go('/settings')
         }
       }
     })
@@ -72,7 +79,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
     this.children.defaultField = this.createDefaultField(this.props)
 
-    this.children.dataChanged = userFields.map((name, index) => {
+    this.children.changeData = userFields.map((name, index) => {
         return new Label({
           name: "email",
           title: componentsData[index],
@@ -89,7 +96,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
         })
     })
 
-      this.children.passwordChanged = passwordsData.name.map((name, index) => {
+      this.children.changePassword = passwordsData.name.map((name, index) => {
         return new Label({
           name: "password",
           title: passwordsData.title[index],
@@ -105,26 +112,20 @@ class DefaultProfilePage extends Block<ProfileProps> {
         })
       })
 
-    this.children.changeData = new Navigation({
+    this.children.changeDataNav = new Navigation({
       title: "Изменить данные",
       events: { click: ()=> {
-          this.setProps({
-            ...this.props,
-            dataContext: [false, true, false]
-          })
+          router.go('/settings/changeData')
         }
       }
     })
 
 
 
-    this.children.changePassword = new Navigation({
+    this.children.changePasswordNav = new Navigation({
       title: "Сменить пароль",
       events: { click: ()=> {
-          this.setProps({
-            ...this.props,
-            dataContext: [false, false, true]
-          })
+          router.go('/settings/changePassword')
         }
       }
     })
@@ -140,8 +141,8 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
     this.children.avatar = new Avatar({
       events: {
-        change: (e) => {
-          //this.changeAvatar(e.target.files);
+        change: (e: InputEvent) => {
+          this.changeAvatar(e);
         }
       },
       name: 'avatar'
@@ -150,20 +151,22 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
   }
 
-  /* private async changeAvatar(event) {
-    const file = event[0];
-
+  private async changeAvatar(event: any) {
+    const file = event.target!.files[0]
     const formData = new FormData()
     formData.append("avatar", file)
 
-    UpdateController.updateAvatar(formData)
-
-    console.log(formData);
-  } */
+    await UpdateController.updateAvatar(formData)
+    await AuthController.fetchUser()
+  }
 
   private async onSubmit() {
+    const context = window.location.pathname.split('/').pop();
+    const children = this.children
+    const child = Object.keys(children).filter(name => name === context)
+
     let items: any = []
-    this.children.dataChanged
+    children[child[0]]
       .map((item: any) => {
         if (item._element.lastElementChild.value !== "") {
           items
@@ -171,13 +174,17 @@ class DefaultProfilePage extends Block<ProfileProps> {
         }})
     const oldData = store.getState().user
     const newData = Object.fromEntries(items)
-    await UpdateController.updateUser(Object.assign(oldData, newData) as UpdateData)
+
+    if (context === "changeData") {
+      await UpdateController.updateUser(Object.assign(oldData, newData) as UpdateData)
+    } else {
+      await UpdateController.updatePassword(newData as UpdatePassword)
+    }
     await AuthController.fetchUser()
   }
 
   protected componentDidUpdate(newProps: ProfileProps): boolean {
     this.children.defaultField = this.createDefaultField(newProps)
-
     return true;
   }
 
@@ -197,6 +204,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
       ...this.props,
       styles,
       accountName: `${store.getState().user.first_name + " #" +  store.getState().user.id}`,
+      Avatar: this.props.avatar
     })
   }
 }

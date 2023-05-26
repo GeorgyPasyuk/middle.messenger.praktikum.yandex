@@ -3,30 +3,24 @@ import template from "./chatPage.hbs"
 import styles from './chatPage.module.scss';
 import { Messenger } from '../../components/Messenger';
 import { ChatsList } from '../../components/ChatList';
+import ChatsController from '../../controllers/ChatsController';
 
 
-
-
-
-interface ChatPageProps {
-  selectedChat: number | undefined
-}
-
-
-export class ChatPage extends Block<ChatPageProps> {
-  constructor(props: ChatPageProps) {
-    super(props);
+export class ChatPage extends Block {
+  constructor() {
+    super({  });
   }
 
 
-  protected init() {
+  protected async init() {
     this.children.chatsList = new ChatsList({ isLoaded: false });
 
 
-    (this.children.chatsList as Block).setProps({
-      isLoaded: true
+    ChatsController.fetchChats().finally(() => {
+      (this.children.chatsList as Block).setProps({
+        isLoaded: true
+      })
     });
-
 
     this.children.messenger = new Messenger({});
   }

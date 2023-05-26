@@ -8,6 +8,7 @@ export enum METHODS {
 type Options = {
   method: METHODS
   data?: any
+  headers?: Headers;
 };
 
 
@@ -42,14 +43,15 @@ export class HTTP {
     );
   };
 
-  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+  public put<Response = void>(path: string, data: any): Promise<Response> {
     return this.request<Response>(
       this.endpoint + path,
       { method: METHODS.Put,
-      data
+        data
       },
     );
   };
+
 
   public delete<Response = void>(path: string, data?: unknown): Promise<Response>{
     return this.request(
@@ -62,7 +64,7 @@ export class HTTP {
 
   private request<Response>(url: string, options: Options = {method: METHODS.Get},
     timeout: number = 0): Promise<Response> {
-  const {method, data} = options;
+    const {method, data}  = options;
 
     return new Promise(function (resolve, reject) {
       if (!method) {
@@ -89,16 +91,22 @@ export class HTTP {
       xhr.ontimeout = () => reject({reason: "timeout"});
       xhr.timeout = timeout;
 
-      xhr.setRequestHeader("Content-Type", "application/json")
 
-      xhr.withCredentials = true;
+
+
+
       xhr.responseType = "json"
+      xhr.withCredentials = true;
 
-      if (isGet || !data) {
+
+      if (isGet|| !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
-        xhr.send(JSON.stringify(data));
-      }
+        xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        xhr.send(JSON.stringify(data)); }
+
     });
   };
 }

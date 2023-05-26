@@ -10,6 +10,7 @@ import store, { withStore } from '../../utils/Store';
 import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
 import ChatsController from "../../controllers/ChatsController";
+import router from '../../utils/Router';
 
 interface MessengerProps {
   selectedChat: number | undefined,
@@ -18,7 +19,6 @@ interface MessengerProps {
   profileName: string
   time: string | number
   modalShow: boolean,
-  oldMessages: MessageData
 }
 
 
@@ -31,7 +31,13 @@ class DefaultMessenger extends Block<MessengerProps> {
     super(props);
   }
 
-  init() {
+   init() {
+
+     //console.log(this.props) --> messages: [...]
+
+     this.children.messages = this.createMessages(this.props); //this.props --> messages: []
+
+
     const chatId = window.location.pathname.split('/').pop();
 
     if (chatId) {
@@ -54,7 +60,6 @@ class DefaultMessenger extends Block<MessengerProps> {
           const message = this.children.messengerInput.getValue()
           this.children.messengerInput.setValue("")
           MessagesController.sendMessage(this.props.selectedChat!, message)
-          console.log(1);
         }
       }
     })
@@ -88,6 +93,7 @@ class DefaultMessenger extends Block<MessengerProps> {
         click: async ()=> {
           const chatId = this.props.selectedChat
           await ChatsController.delete(chatId!)
+          router.go("/messenger")
         }
       }
     })
@@ -121,6 +127,7 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 }
 
+
 const withSelectedChatMessages = withStore(state => {
   const selectedChatId = state.selectedChat
   if(!selectedChatId) {
@@ -128,6 +135,7 @@ const withSelectedChatMessages = withStore(state => {
       messages: [],
       selectedChat: undefined,
       userId: state.user.id,
+      profileName: state.user.first_name
     }
   }
   return {
@@ -135,6 +143,7 @@ const withSelectedChatMessages = withStore(state => {
     modalShow: true,
     selectedChat: state.selectedChat,
     userId: state.user.id,
+    profileName: state.user.first_name
   }
 })
 

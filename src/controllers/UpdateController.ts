@@ -1,4 +1,4 @@
-import API, { UpdateAPI, UpdateData } from '../api/UpdateAPI';
+import API, { UpdateAPI, UpdateData, UpdatePassword } from '../api/UpdateAPI';
 
 
 export class UpdateController {
@@ -12,6 +12,14 @@ export class UpdateController {
   async updateUser(data: UpdateData) {
     try {
       await this.api.updateUser(data);
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
+
+  async updatePassword(data: UpdatePassword) {
+    try {
+      await this.api.updatePassword(data);
     } catch (e: any) {
       console.error(e);
     }
