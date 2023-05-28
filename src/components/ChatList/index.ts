@@ -4,18 +4,18 @@ import { ChatsInfo } from '../../api/ChatsApi';
 import Block from '../../utils/Block';
 import { Chat } from '../ChatItem';
 import ChatsController from '../../controllers/ChatsController';
-import store, { withStore } from '../../utils/Store';
+import { withStore } from '../../utils/Store';
 import { Input } from '../Input';
 import { chatsLink } from '../chatsLink';
-import searchController from '../../controllers/SearchController';
-import { LoginCard } from '../LoginCard';
 import Router from '../../utils/Router';
+import { Button } from '../Button';
 
 interface ChatsListProps {
   chats: ChatsInfo[],
   isLoaded: boolean,
   userLogin: Array<string>
   connectedChats: number[]
+  showChatInput: boolean
 }
 
 class ChatsListBase extends Block<ChatsListProps> {
@@ -26,6 +26,8 @@ class ChatsListBase extends Block<ChatsListProps> {
   protected async init() {
     this.props.connectedChats = []
     this.props.userLogin = []
+    this.props.showChatInput = false
+
 
     this.children.input = new Input({
       placeholder: "Поиск",
@@ -35,7 +37,6 @@ class ChatsListBase extends Block<ChatsListProps> {
       events: {
         keydown: (e)=> {
           if (e.keyCode == 13) {
-              this.getLogin()
               const input = this.children.input as Input
               input.setValue("")
             }
@@ -49,48 +50,49 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
 
     this.children.chats = this.createChats(this.props);
+
+
+    this.children.addChat = new Button({
+      events: {
+        click: ()=> {
+          this.showModal()
+        }
+      },
+      label: "Добавить чат",
+      style: styles.add__button
+    })
+
+    this.children.chatInput = new Input({
+      events: {
+        keydown: (e: KeyboardEvent)=>{
+          if (e.keyCode == 13) {
+            const value = this.children.chatInput.getValue()
+            this.createChat(value)
+            this.children.chatInput.setValue("")
+          }
+        }
+      },
+      name: 'chatInput',
+      type: 'text',
+      placeholder: "Название чата",
+      style: styles.chat__input
+    })
   }
 
   protected componentDidUpdate(newProps: ChatsListProps) {
     this.children.chats = this.createChats(newProps)
-    this.showLogins()
     return true
   }
 
-
-  private async getLogin() {
-    let name = this.children.input.getValue()
-    const data = {
-      "login": `${name}`
-    }
-
-    await searchController.getLogin(data)
-
-
+  private showModal() {
+    const showChat = this.props.showChatInput
     this.setProps({
       ...this.props,
-      userLogin: store.getState().findedUsers
-    })
-
-    this.showLogins();
-  }
-
-  private showLogins(){
-    this.children.users = this.props.userLogin.map((name: any )=> {
-      return new LoginCard({
-        label: name.login,
-        events: {
-          click: async ()=> {
-            await this.addChat(name.login)
-            this.setProps({
-              ...this.props,
-              userLogin: []
-            })
-          }
-        }
-      })
+      showChatInput: !showChat
     })
   }
+
+
 
 
   private createChats(props: ChatsListProps) {
@@ -109,7 +111,7 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
 
-  private async addChat(login: string) {
+  private async createChat(login: string) {
     await ChatsController.create(`${login}`)
   }
 

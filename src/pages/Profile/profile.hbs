@@ -5,7 +5,11 @@
     <div class="{{styles.profile__main}}">
         <div class="{{styles.profile__container}}">
             <div class="{{styles.profile__image}}">
-                {{{avatar}}}
+                {{#if avatar}}
+                    {{{avatar}}}
+                {{else}}
+                    {{{avatarInput}}}
+                {{/if}}
             </div>
             <p class="{{styles.profile__name}}">{{accountName}}</p>
             <section class="{{styles.profile__items}}">

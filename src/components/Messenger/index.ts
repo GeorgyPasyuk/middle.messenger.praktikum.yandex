@@ -11,6 +11,7 @@ import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
 import ChatsController from "../../controllers/ChatsController";
 import router from '../../utils/Router';
+import { addUserModal } from '../addUserToChat';
 
 interface MessengerProps {
   selectedChat: number | undefined,
@@ -19,10 +20,12 @@ interface MessengerProps {
   profileName: string
   time: string | number
   modalShow: boolean,
+  modal: boolean
 }
 
 
 let isShown = false
+
 
 let date = new Date()
 
@@ -32,11 +35,7 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 
    init() {
-
-     //console.log(this.props) --> messages: [...]
-
-     this.children.messages = this.createMessages(this.props); //this.props --> messages: []
-
+    this.children.messages = this.createMessages(this.props);
 
     const chatId = window.location.pathname.split('/').pop();
 
@@ -88,7 +87,9 @@ class DefaultMessenger extends Block<MessengerProps> {
       }
     })
 
-    this.children.modal = new Modal({
+    this.children.deleteUser = new Modal({
+      isRed: true,
+      title: "Удалить чат",
       events: {
         click: async ()=> {
           const chatId = this.props.selectedChat
@@ -97,13 +98,46 @@ class DefaultMessenger extends Block<MessengerProps> {
         }
       }
     })
+
+    this.children.addUser = new Modal({
+      isRed: false,
+      title: "Добавить пользователя",
+      events: {
+        click: ()=> {
+          this.setProps({
+            ...this.props,
+            modal: true
+          })
+          this.addUserModal(this.props.modal)
+        }
+      }
+    })
+
+
+    this.children.addUserModal = new addUserModal({
+      userLogin:[]
+    })
+
+    this.children.addUserModal.hide()
   }
 
 
-  protected componentDidUpdate(newProps: MessengerProps): boolean {
+  protected componentDidUpdate(_oldProps: MessengerProps, newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
+    if (!newProps.modal) {
+      this.addUserModal(newProps.modal)
+    }
     return true;
   }
+
+  private addUserModal(isShown: boolean) {
+    if (isShown) {
+      this.children.addUserModal.show()
+    } else {
+      this.children.addUserModal.hide()
+    }
+  }
+
 
   private createMessages(props: MessengerProps) {
     return props.messages.map(data => {
@@ -113,10 +147,12 @@ class DefaultMessenger extends Block<MessengerProps> {
 
   private showModal() {
     if (!isShown) {
-      this.children.modal.show()
+      this.children.deleteUser.show()
+      this.children.addUser.show()
       isShown = true
     } else {
-      this.children.modal.hide()
+      this.children.deleteUser.hide()
+      this.children.addUser.hide()
       isShown = false
     }
   }
@@ -129,13 +165,14 @@ class DefaultMessenger extends Block<MessengerProps> {
 
 
 const withSelectedChatMessages = withStore(state => {
+
   const selectedChatId = state.selectedChat
+
   if(!selectedChatId) {
     return {
       messages: [],
       selectedChat: undefined,
       userId: state.user.id,
-      profileName: state.user.first_name
     }
   }
   return {
@@ -143,7 +180,7 @@ const withSelectedChatMessages = withStore(state => {
     modalShow: true,
     selectedChat: state.selectedChat,
     userId: state.user.id,
-    profileName: state.user.first_name
+    modal: state.modal,
   }
 })
 

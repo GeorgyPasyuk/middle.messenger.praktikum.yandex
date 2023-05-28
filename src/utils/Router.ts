@@ -83,7 +83,7 @@ class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: BlockConstructable) {
+  public use(pathname: string, block: BlockConstructable | any) {
     const route: Route = new Route(pathname, block, this.rootQuery);
 
     this.routes!.push(route);

@@ -1,5 +1,6 @@
 <div class="{{styles.chat__container}}">
     <h1 class="{{styles.search__header}}">
+        {{{addChat}}}
         {{{link}}}
         {{{input}}}
     </h1>
@@ -7,6 +8,10 @@
 
         {{{users}}}
 
+
+        {{#if showChatInput}}
+            {{{chatInput}}}
+        {{/if}}
 
         {{#if isLoaded}}
             {{{chats}}}

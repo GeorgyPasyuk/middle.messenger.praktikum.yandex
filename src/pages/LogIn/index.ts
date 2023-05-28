@@ -10,10 +10,6 @@ import AuthController from '../../controllers/AuthController';
 import { SignupData } from '../../api/AuthAPI';
 
 
-
-
-
-
 export class LogInPage extends Block {
   constructor() {
     super({});
@@ -86,6 +82,7 @@ export class LogInPage extends Block {
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values);
+
     AuthController.signin(data as SignupData);
   }
 

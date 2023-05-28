@@ -35,11 +35,13 @@ window.addEventListener("DOMContentLoaded", async ()=> {
 
   switch (currentRoute) {
     case Routes.Index:
+      validUser = false
       break;
     case Routes.SignUp:
       validUser = false
       break;
   }
+
 
   try {
     await AuthController.fetchUser()

@@ -13,6 +13,7 @@ import { UpdateData, UpdatePassword } from '../../api/UpdateAPI';
 import AuthController from '../../controllers/AuthController';
 import { Avatar } from '../../components/Avatar';
 import router from '../../utils/Router';
+import { AvatarInput } from '../../components/AvatarInput';
 
 
 
@@ -139,14 +140,19 @@ class DefaultProfilePage extends Block<ProfileProps> {
       }
     })
 
-    this.children.avatar = new Avatar({
+    this.children.avatarInput = new AvatarInput({
       events: {
         change: (e: InputEvent) => {
           this.changeAvatar(e);
-        }
+        },
       },
       name: 'avatar'
     });
+
+
+    this.children.avatar = new Avatar({
+      src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
+    })
 
 
   }

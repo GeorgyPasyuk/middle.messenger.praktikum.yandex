@@ -40,13 +40,17 @@
 
 .modal {
   display: none;
-  position: absolute;
-  right: 5%;
+  position: relative;
   width: 100px;
-  color: $red;
-  height: 15px;
-  background: $background;
+  height: 100%;
+  background: $input-bg;
   transition: 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__red {
+  color: $red;
 }
 
 .modal:hover {

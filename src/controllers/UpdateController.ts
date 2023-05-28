@@ -27,7 +27,7 @@ export class UpdateController {
 
   async updateAvatar(data: FormData) {
     try {
-      await this.api.updateAvatar(data)
+      return await this.api.updateAvatar(data)
     } catch (e: any) {
       console.error(e)
     }

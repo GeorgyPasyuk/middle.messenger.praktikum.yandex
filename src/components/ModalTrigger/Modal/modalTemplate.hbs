@@ -1,2 +1,6 @@
-<button class="{{styles.modal}}"> Удалить чат </button>
+<button class="{{styles.modal}}
+    {{#if isRed}}
+        {{styles.modal__red}}
+    {{/if}}">
+    {{title}}</button>
 

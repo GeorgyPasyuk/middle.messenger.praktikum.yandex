@@ -12,6 +12,7 @@ interface State {
   chats: ChatsInfo[];
   messages: Record<number, Message[]>,
   selectedChat?: number
+  modal?: boolean;
 }
 
 
@@ -29,7 +30,6 @@ class Store extends EventBus {
 
   public set(path: string, value: unknown) {
     set(this.state, path, value);
-    console.log(value !== this.getState())
     this.emit(StoreEvents.Updated, this.getState());
   };
 }

@@ -3,6 +3,8 @@ import template from './modalTemplate.hbs';
 import styles from '../modal.module.scss';
 
 interface ModalProps {
+  isRed: boolean
+  title: string
   events: {
     click: ()=> void
   }
