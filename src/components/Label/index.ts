@@ -4,9 +4,9 @@ import styles from './label.module.scss';
 import {Paragraph} from "./paragraph";
 
 interface LabelProps {
-  name: string | Array<string>,
-  title: string | Array<string>,
-  custom: boolean
+  name?: string | Array<string>,
+  title?: string | Array<string>,
+  custom?: boolean
   value?: any
 }
 

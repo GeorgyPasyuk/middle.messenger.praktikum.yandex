@@ -6,12 +6,8 @@ import { Input } from '../../components/Input';
 import { Link } from '../../components/Link';
 import { Validation } from '../../components/Validation';
 import validation from '../../utils/Validation';
-
-
-let userInfo = {
-  login: "",
-  password: ""
-}
+import AuthController from '../../controllers/AuthController';
+import { SignupData } from '../../api/AuthAPI';
 
 
 export class LogInPage extends Block {
@@ -20,48 +16,16 @@ export class LogInPage extends Block {
   }
 
   init() {
-    this.children.button = new Button({
-      label: "Авторизоваться",
-      type: "submit",
-      events: {
-        click: (e) => {
-          e!.preventDefault()
-          let validInputs: boolean = false
-          const values = Object.values(userInfo)
-          for (let i = 0; i < values.length; i++) {
-            if (values[i]) {
-              validInputs = true
-            } else {
-              validInputs = false
-              break
-            }
-          }
-
-          if (validInputs) {
-            console.log(
-              "User login = " + userInfo.login + "\n",
-              "User password = " + userInfo.password,
-            );
-          } else {
-            alert("Пожалуйста заполните все поля")
-          }
-        }
-      },
-    });
-
     this.children.login = new Input({
       name: "login",
       type: "text",
       events: {
-        keydown: (e) => {
-          userInfo.login = (e.target as HTMLInputElement).value
-        },
         blur: ()=> {
           if (!validation(
             /^(?!^[0-9]*$)[\w-]{3,20}$/
-            , userInfo.login)) {
+            , this.children.login.getValue())) {
             this.children.invalidLogin.show()
-            userInfo.login = ""
+            this.children.login.setValue("")
           } else {
             this.children.invalidLogin.hide()
           }
@@ -77,14 +41,11 @@ export class LogInPage extends Block {
       name: "password",
       type: "password",
       events: {
-        keydown: (e) => {
-          userInfo.password = (e.target as HTMLInputElement).value
-        },
         blur: ()=> {
           if (!validation(
-            /^(?=.*\d)(?=.*[A-Z]).{8,40}$/, userInfo.password)) {
+            /^(?=.*\d)(?=.*[A-Z]).{8,40}$/, this.children.password.getValue())) {
             this.children.invalidPassword.show()
-            userInfo.login = ""
+            this.children.password.setValue("")
           } else {
             this.children.invalidPassword.hide()
           }
@@ -99,8 +60,30 @@ export class LogInPage extends Block {
 
     this.children.link = new Link({
       label: "Нет аккаунта?",
-      linkTo: "#/SignIn"
+      to: "/sign-up"
     })
+
+    this.children.button = new Button({
+      label: "Авторизоваться",
+      type: "submit",
+      events: {
+        click: (e) => {
+          this.onSubmit()
+          e!.preventDefault()
+        }
+      },
+    });
+  }
+
+  onSubmit() {
+    const values = Object
+      .values(this.children)
+      .filter(child => child instanceof Input)
+      .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
+
+    const data = Object.fromEntries(values);
+
+    AuthController.signin(data as SignupData);
   }
 
   render() {

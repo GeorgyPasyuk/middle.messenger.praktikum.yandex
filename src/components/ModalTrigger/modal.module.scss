@@ -1,0 +1,58 @@
+@import "../../scss/_variables";
+
+.header__options {
+  border-radius: 100%;
+  width: 3px;
+  height: 3px;
+  background-color: $font-primary;
+}
+
+.header__options::before {
+  content: "";
+  position: relative;
+  top: 5px;
+  display: inherit;
+  border-radius: 100%;
+  width: 3px;
+  height: 3px;
+  background-color: $font-primary;
+
+}
+
+.header__options::after {
+  content: "";
+  display: inherit;
+  position: relative;
+  bottom: 8px;
+  border-radius: 100%;
+  width: 3px;
+  height: 3px;
+  background-color: $font-primary;
+}
+
+.header__item {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: none;
+  position: relative;
+  width: 100px;
+  height: 100%;
+  background: $input-bg;
+  transition: 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__red {
+  color: $red;
+}
+
+.modal:hover {
+  opacity: 50%;
+}

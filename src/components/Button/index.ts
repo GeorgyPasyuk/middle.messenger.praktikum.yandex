@@ -4,7 +4,7 @@ import styles from './button.module.scss';
 
 interface ButtonProps {
   type?: string;
-  label: string | Array<string>;
+  label?: string | Array<string>;
   events?: {
     click: (e?: Event) => void;
   };

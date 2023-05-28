@@ -1,32 +1,38 @@
-<section class="{{styles.profile__component}}">
-    <a href="#/SelectChat" class="{{styles.profile__back}}">
-        <div class="{{styles.profile__arrow}}"></div>
+<main class="{{styles.profile__component}}">
+    <a class="{{styles.profile__back}}">
+        {{{arrow}}}
     </a>
     <div class="{{styles.profile__main}}">
         <div class="{{styles.profile__container}}">
-            <div class="{{styles.profile__image}}"></div>
+            <div class="{{styles.profile__image}}">
+                {{#if avatar}}
+                    {{{avatar}}}
+                {{else}}
+                    {{{avatarInput}}}
+                {{/if}}
+            </div>
             <p class="{{styles.profile__name}}">{{accountName}}</p>
-            <main class="{{styles.profile__items}}">
+            <section class="{{styles.profile__items}}">
 
                 {{#if dataContext.[0]}}
-                    {{{@root.defaultField}}}
+                    {{{defaultField}}}
                 {{/if}}
 
                 {{#if dataContext.[1]}}
-                    {{{@root.dataChanged}}}
+                    {{{changeData}}}
                 {{/if}}
 
                 {{#if dataContext.[2]}}
-                    {{{@root.passwordChanged}}}
+                    {{{changePassword}}}
                 {{/if}}
 
 
-            </main>
+            </section>
             <footer class="{{styles.profile__action__container}}">
 
                 {{#if dataContext.[0]}}
-                    {{{changeData}}}
-                    {{{changePassword}}}
+                    {{{changeDataNav}}}
+                    {{{changePasswordNav}}}
                     {{{exit}}}
 
                     {{else}}
@@ -37,4 +43,4 @@
             </footer>
         </div>
     </div>
-</section>
+</main>
