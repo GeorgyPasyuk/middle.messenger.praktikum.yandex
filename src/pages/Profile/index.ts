@@ -14,6 +14,8 @@ import AuthController from '../../controllers/AuthController';
 import { Avatar } from '../../components/Avatar';
 import router from '../../utils/Router';
 import { AvatarInput } from '../../components/AvatarInput';
+import validation from '../../utils/Validation';
+import { Validation } from '../../components/Validation';
 
 
 
@@ -88,13 +90,25 @@ class DefaultProfilePage extends Block<ProfileProps> {
           value: new Input({
             name: name,
             type: "text",
-            placeholder: this.props[name],
+            value: this.props[name],
             style: styles.profile__input,
             events: {
-
+              blur: ()=> {
+                const input = this.children.changeData[index].children.value
+                if (!validation(/@[\w\d]+(\.[\w\d]+)*$/, input.getValue())) {
+                  this.children.invalidMail.show()
+                  input.setValue("")
+                } else {
+                  this.children.invalidMail.hide()
+                }
+              }
             }
           })
         })
+    })
+
+    this.children.invalidMail = new Validation({
+      errName: '123123'
     })
 
       this.children.changePassword = passwordsData.name.map((name, index) => {
@@ -151,7 +165,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
 
     this.children.avatar = new Avatar({
-      src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
+      src: this.getAvatarLink(),
     })
 
 
@@ -164,6 +178,14 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
     await UpdateController.updateAvatar(formData)
     await AuthController.fetchUser()
+  }
+
+
+  private getAvatarLink() {
+    if (this.props.avatar) {
+      return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
+    }
+    return ""
   }
 
   private async onSubmit() {

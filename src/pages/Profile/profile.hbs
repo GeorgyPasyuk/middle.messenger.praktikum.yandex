@@ -5,11 +5,11 @@
     <div class="{{styles.profile__main}}">
         <div class="{{styles.profile__container}}">
             <div class="{{styles.profile__image}}">
-                {{#if avatar}}
-                    {{{avatar}}}
-                {{else}}
-                    {{{avatarInput}}}
-                {{/if}}
+
+                {{{avatarInput}}}
+                {{{avatar}}}
+
+
             </div>
             <p class="{{styles.profile__name}}">{{accountName}}</p>
             <section class="{{styles.profile__items}}">
@@ -17,6 +17,8 @@
                 {{#if dataContext.[0]}}
                     {{{defaultField}}}
                 {{/if}}
+
+                {{{invalidMail}}}
 
                 {{#if dataContext.[1]}}
                     {{{changeData}}}

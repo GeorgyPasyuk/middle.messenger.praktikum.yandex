@@ -6,12 +6,16 @@ interface AvatarProps {
   name: string;
   events: {
     change: (e: InputEvent)=> void
-  }
+  },
+  style?: string
 }
 
 export class AvatarInput extends Block<AvatarProps> {
   constructor(props: AvatarProps) {
     super(props);
+    if (this.props.style) {
+      this.element?.setAttribute("class", `${this.props.style}`)
+    }
   }
   public setValue(value: string) {
     return (this.element as HTMLInputElement).value = value;

@@ -1,23 +1,27 @@
 
 <div class="{{styles.chatMessage__container}}">
-    {{{addUserModal}}}
+
+    {{#if userModal}}
+        {{{addUserModal}}}
+    {{/if}}
 
     <header class="{{styles.header__container}}">
             <div class="{{styles.header__item}}">
-                <span class="{{styles.header__avatar}}"></span>
-                <h class="{{styles.header__username}}">{{profileName}}</h>
+                <span class="{{styles.header__avatar}}">
+                    {{{chatAvatar}}}
+                </span>
+                <h class="{{styles.header__username}}">{{chatName}}</h>
             </div>
-            <div class="{{styles.modal__container}}">
-            {{{deleteUser}}}
-            {{{addUser}}}
-            </div>
+
+            {{{modal}}}
+
             {{{showModal}}}
 
         </header>
         <main class="{{styles.main__container}}">
             {{{time}}}
             {{{messages}}}
-            {{{addUserModal}}}
+
         </main>
         <footer class="{{styles.footer__container}}">
             <svg class="{{styles.footer__icon}}"></svg>

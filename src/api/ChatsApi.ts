@@ -38,6 +38,10 @@ export class ChatsAPI extends BaseAPI {
     return this.http.put('/users', {users, chatId: id})
   }
 
+  updateAvatar(data: Record<string, string | number>) {
+    return this.http.put("/avatar", data)
+  }
+
   async getToken(id: number): Promise<string> {
     const response = await this.http.post<{token: string}>(`/token/${id}`)
 

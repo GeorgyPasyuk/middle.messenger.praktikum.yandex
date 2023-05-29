@@ -32,11 +32,12 @@ export class addUserModal extends Block<addUserProps> {
       type: 'text',
       style: styles.input
     })
+
     this.children.button = new Button({
       label: "Закрыть окно",
       events: {
         click: ()=> {
-          store.set('modal', false)
+          store.set("modal", false)
         }
       }
     })

@@ -263,6 +263,7 @@ a {
   background-color: #eaeaea;
   border-radius: 100%;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .ZZhonq_profile__name {
@@ -368,6 +369,7 @@ a {
   width: 100%;
   height: 100%;
   opacity: 0;
+  position: absolute;
 }
 
 .J9G81a_selectchat__container {
@@ -435,7 +437,7 @@ a {
 
 .rggNwa_main__container {
   width: 100%;
-  height: 610px;
+  height: 800px;
   flex-direction: column;
   align-items: center;
   display: flex;
@@ -477,16 +479,6 @@ a {
   background-color: #efefef;
   border-radius: 30px;
   padding: 11px;
-}
-
-.rggNwa_modal__container {
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  position: absolute;
-  right: 25%;
 }
 
 .EFcv_G_main__time {
@@ -589,23 +581,46 @@ a {
   display: flex;
 }
 
-.prqzzG_modal {
-  width: 100px;
-  height: 100%;
-  background: #efefef;
-  justify-content: center;
-  align-items: center;
-  transition: all .3s;
+.prqzzG_modal__container {
+  width: 200px;
+  height: auto;
+  border: 1px solid #efefef;
+  flex-direction: column;
   display: none;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  right: 5%;
 }
 
-.prqzzG_modal__red {
+.prqzzG_modal__window {
+  z-index: 10000;
+  text-align: center;
+  height: 35px;
+  background-color: #fbfbfb;
+  transition: all .3s;
+}
+
+.prqzzG_modal__window__red {
+  z-index: 10000;
+  text-align: center;
+  height: 35px;
   color: #ff2f2f;
+  background-color: #fbfbfb;
+  transition: all .3s;
 }
 
-.prqzzG_modal:hover {
-  opacity: .5;
+.prqzzG_modal__window:hover, .prqzzG_modal__window__red:hover {
+  opacity: .75;
+  background-color: #efefef;
+}
+
+.prqzzG_modal__avatar {
+  z-index: 10000;
+  width: 100%;
+  height: 35px;
+  opacity: 0;
+  position: absolute;
+  top: 35px;
 }
 
 .WGMoUq_modal__box {

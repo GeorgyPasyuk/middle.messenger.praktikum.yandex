@@ -24,8 +24,7 @@ export class LoginCard extends Block<LoginCardProps> {
       style: styles.button,
       events: {
         click: ()=> {
-          this.addUserToChat(this.props.userId)
-          store.set('modal', false)
+          LoginCard.addUserToChat(this.props.userId)
         }
       }
     })
@@ -35,9 +34,10 @@ export class LoginCard extends Block<LoginCardProps> {
     })
   }
 
-  private addUserToChat(userId: number) {
+  private static addUserToChat(userId: number) {
     const chatId = window.location.pathname.split('/').pop();
     ChatsController.addUserToChat(Number(chatId), userId)
+    store.set('modal', false)
   }
 
   private getLink() {

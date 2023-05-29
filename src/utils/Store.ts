@@ -11,6 +11,7 @@ interface State {
   user: User,
   chats: ChatsInfo[];
   messages: Record<number, Message[]>,
+  activeChat: Record<string, string | number>
   selectedChat?: number
   modal?: boolean;
 }

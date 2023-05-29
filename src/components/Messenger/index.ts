@@ -9,23 +9,20 @@ import MessagesController, {Message as MessageData} from '../../controllers/Mess
 import store, { withStore } from '../../utils/Store';
 import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
-import ChatsController from "../../controllers/ChatsController";
-import router from '../../utils/Router';
 import { addUserModal } from '../addUserToChat';
+import { Avatar } from '../Avatar';
 
 interface MessengerProps {
   selectedChat: number | undefined,
   messages: MessageData[],
   userId: number;
-  profileName: string
   time: string | number
-  modalShow: boolean,
-  modal: boolean
+  userModal: boolean,
+  chatAvatar: string
 }
 
 
 let isShown = false
-
 
 let date = new Date()
 
@@ -58,7 +55,11 @@ class DefaultMessenger extends Block<MessengerProps> {
         click: () => {
           const message = this.children.messengerInput.getValue()
           this.children.messengerInput.setValue("")
-          MessagesController.sendMessage(this.props.selectedChat!, message)
+
+          if (message) {
+
+            MessagesController.sendMessage(this.props.selectedChat!, message)
+          }
         }
       }
     })
@@ -73,11 +74,17 @@ class DefaultMessenger extends Block<MessengerProps> {
           if (e.keyCode == 13) {
             const message = this.children.messengerInput.getValue()
             this.children.messengerInput.setValue("")
-            MessagesController.sendMessage(this.props.selectedChat!, message)
+            if (message) {
+              MessagesController.sendMessage(this.props.selectedChat!, message)
+            }
           }
         },
       }
     })
+
+     this.children.chatAvatar = new Avatar({
+       src: this.getAvatarLink(),
+     })
 
     this.children.showModal = new TriggerModal({
       events: {
@@ -87,55 +94,27 @@ class DefaultMessenger extends Block<MessengerProps> {
       }
     })
 
-    this.children.deleteUser = new Modal({
-      isRed: true,
-      title: "Удалить чат",
-      events: {
-        click: async ()=> {
-          const chatId = this.props.selectedChat
-          await ChatsController.delete(chatId!)
-          router.go("/messenger")
-        }
-      }
-    })
-
-    this.children.addUser = new Modal({
-      isRed: false,
-      title: "Добавить пользователя",
-      events: {
-        click: ()=> {
-          this.setProps({
-            ...this.props,
-            modal: true
-          })
-          this.addUserModal(this.props.modal)
-        }
-      }
-    })
+    this.children.modal = new Modal({})
 
 
     this.children.addUserModal = new addUserModal({
       userLogin:[]
     })
 
-    this.children.addUserModal.hide()
   }
 
 
   protected componentDidUpdate(_oldProps: MessengerProps, newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
-    if (!newProps.modal) {
-      this.addUserModal(newProps.modal)
-    }
     return true;
   }
 
-  private addUserModal(isShown: boolean) {
-    if (isShown) {
-      this.children.addUserModal.show()
-    } else {
-      this.children.addUserModal.hide()
+
+  private getAvatarLink() {
+    if (this.props.chatAvatar) {
+      return `https://ya-praktikum.tech/api/v2/resources${this.props.chatAvatar}`
     }
+    return ""
   }
 
 
@@ -147,12 +126,10 @@ class DefaultMessenger extends Block<MessengerProps> {
 
   private showModal() {
     if (!isShown) {
-      this.children.deleteUser.show()
-      this.children.addUser.show()
+      this.children.modal.show()
       isShown = true
     } else {
-      this.children.deleteUser.hide()
-      this.children.addUser.hide()
+      this.children.modal.hide()
       isShown = false
     }
   }
@@ -177,10 +154,11 @@ const withSelectedChatMessages = withStore(state => {
   }
   return {
     messages: (state.messages || {})[selectedChatId] || [],
-    modalShow: true,
     selectedChat: state.selectedChat,
     userId: state.user.id,
-    modal: state.modal,
+    userModal: state.modal,
+    chatName: state.activeChat.title,
+
   }
 })
 

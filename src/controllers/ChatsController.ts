@@ -1,6 +1,7 @@
-import API, {ChatsAPI} from '../api/ChatsApi';
+import API, { ChatsAPI } from '../api/ChatsApi';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
+
 
 
 
@@ -26,11 +27,26 @@ class ChatsController {
       await MessagesController.connect(chat.id, token);
     });
 
+    const chatId = window.location.pathname.split('/').pop();
+
+    const activeChat = Object.values(chats)
+      .find(item=> item.id === Number(chatId));
+
+    store.set("activeChat", activeChat)
+
     store.set('chats', chats);
   }
 
   addUserToChat(id: number, userId: number) {
     this.api.addUsers(id, [userId])
+  }
+
+  async updateAvatar(data: Record<string, string | number>) {
+    try {
+      await this.api.updateAvatar(data)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   async delete(id: number) {
@@ -48,6 +64,8 @@ class ChatsController {
     store.set('selectedChat', id);
   }
 }
+
+
 
 const controller = new ChatsController()
 

@@ -4,7 +4,7 @@ import { ChatsInfo } from '../../api/ChatsApi';
 import Block from '../../utils/Block';
 import { Chat } from '../ChatItem';
 import ChatsController from '../../controllers/ChatsController';
-import { withStore } from '../../utils/Store';
+import store, { withStore } from '../../utils/Store';
 import { Input } from '../Input';
 import { chatsLink } from '../chatsLink';
 import Router from '../../utils/Router';
@@ -103,6 +103,7 @@ class ChatsListBase extends Block<ChatsListProps> {
         ...data,
         events: {
           click: async ()=> {
+            store.set("activeChat", data)
             Router.go(`/messenger/${data.id}`)
           }
         }
