@@ -15,7 +15,7 @@ import { Avatar } from '../../components/Avatar';
 import router from '../../utils/Router';
 import { AvatarInput } from '../../components/AvatarInput';
 import validation from '../../utils/Validation';
-import { Validation } from '../../components/Validation';
+
 
 
 
@@ -48,6 +48,23 @@ const passwordsData = {
   title: ["Старый пароль", "Новый пароль", "Новый пароль еще раз"],
 }
 
+const validationData= {
+  errName: ['Пожалуйста убедитесь, что email введен корректно',
+    'Пожалуйста убедитесь, что нет спецсимволов и пробелов, минимум 4 символа',
+    'Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная',
+    'Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная',
+    '123',
+    'Пожалуйста убедитесь, что телефон введён корректно'
+  ],
+  regExp: [
+    /@[\w\d]+(\.[\w\d]+)*$/,
+    /^(?!^[0-9]*$)[\w-]{3,20}$/,
+    /^(?:[А-ЯЁ][а-яё]*|[A-Z][a-z]*)(?:-[А-ЯЁ][а-яё]*|[A-Z][a-z]*)*$/,
+    /^(?:[А-ЯЁ][а-яё]*|[A-Z][a-z]*)(?:-[А-ЯЁ][а-яё]*|[A-Z][a-z]*)*$/,
+    /^/,
+    /^\+?\d{10,15}$/,
+  ]
+}
 
 class DefaultProfilePage extends Block<ProfileProps> {
   init() {
@@ -95,21 +112,20 @@ class DefaultProfilePage extends Block<ProfileProps> {
             events: {
               blur: ()=> {
                 const input = this.children.changeData[index].children.value
-                if (!validation(/@[\w\d]+(\.[\w\d]+)*$/, input.getValue())) {
-                  this.children.invalidMail.show()
+                const validationField = this.children.changeData[index].children.validation
+                if (!validation(validationData.regExp[index], input.getValue())) {
+                  validationField.show();
                   input.setValue("")
                 } else {
-                  this.children.invalidMail.hide()
+                  validationField.hide();
                 }
               }
             }
-          })
+          }),
+          validation: validationData.errName[index]
         })
     })
 
-    this.children.invalidMail = new Validation({
-      errName: '123123'
-    })
 
       this.children.changePassword = passwordsData.name.map((name, index) => {
         return new Label({
@@ -156,8 +172,8 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
     this.children.avatarInput = new AvatarInput({
       events: {
-        change: (e: InputEvent) => {
-          this.changeAvatar(e);
+        change: async (e: InputEvent) => {
+          await this.changeAvatar(e);
         },
       },
       name: 'avatar'
@@ -165,7 +181,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
 
     this.children.avatar = new Avatar({
-      src: this.getAvatarLink(),
+      src: this.getAvatarLink(this.props.avatar),
     })
 
 
@@ -181,8 +197,9 @@ class DefaultProfilePage extends Block<ProfileProps> {
   }
 
 
-  private getAvatarLink() {
-    if (this.props.avatar) {
+
+  private getAvatarLink(link: string) {
+    if (link) {
       return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
     }
     return ""
@@ -203,6 +220,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
     const oldData = store.getState().user
     const newData = Object.fromEntries(items)
 
+
     if (context === "changeData") {
       await UpdateController.updateUser(Object.assign(oldData, newData) as UpdateData)
     } else {
@@ -213,6 +231,9 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
   protected componentDidUpdate(newProps: ProfileProps): boolean {
     this.children.defaultField = this.createDefaultField(newProps)
+    if (newProps.avatar) {
+      this.getAvatarLink(newProps.avatar)
+    }
     return true;
   }
 
@@ -232,7 +253,6 @@ class DefaultProfilePage extends Block<ProfileProps> {
       ...this.props,
       styles,
       accountName: `${store.getState().user.first_name + " #" +  store.getState().user.id}`,
-      Avatar: this.props.avatar
     })
   }
 }
@@ -240,6 +260,13 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
 
 
-const withUser = withStore((state) => ({ ...state.user }))
+const withUser = withStore((state) => ({
+
+    ...state.user,
+    avatar: state.user.avatar
+
+
+
+}))
 
 export const ProfilePage = withUser(DefaultProfilePage);

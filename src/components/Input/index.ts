@@ -2,6 +2,8 @@ import Block from '../../utils/Block';
 import template from './input.hbs';
 import styles from './input.module.scss';
 
+
+
 interface InputProps {
   name: string;
   type: string;
@@ -22,6 +24,8 @@ export class Input extends Block<InputProps> {
       this.element?.setAttribute("class", `${this.props.style}`)
     }
   }
+
+
   public setValue(value: string) {
     return (this.element as HTMLInputElement).value = value;
   }

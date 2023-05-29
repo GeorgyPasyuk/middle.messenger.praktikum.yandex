@@ -12881,13 +12881,13 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jtmEm":[function(require,module,exports) {
-module.exports["welcome__items"] = `_1qOFfG_welcome__items`;
+module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
 module.exports["login__info"] = `_1qOFfG_login__info`;
 module.exports["login__container"] = `_1qOFfG_login__container`;
-module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
 module.exports["login__containerLast"] = `_1qOFfG_login__containerLast`;
 module.exports["welcome__box"] = `_1qOFfG_welcome__box`;
 module.exports["welcome__container"] = `_1qOFfG_welcome__container`;
+module.exports["welcome__items"] = `_1qOFfG_welcome__items`;
 
 },{}],"iclCk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13174,6 +13174,7 @@ var _validationModuleScssDefault = parcelHelpers.interopDefault(_validationModul
 class Validation extends (0, _blockDefault.default) {
     constructor(props){
         super(props);
+        if (this.props.style) this.element?.setAttribute("class", `${this.props.style}`);
     }
     render() {
         return this.compile((0, _validationHbsDefault.default), {
@@ -13766,14 +13767,14 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1a6TI":[function(require,module,exports) {
-module.exports["welcome__box"] = `O61yKG_welcome__box`;
-module.exports["login__info"] = `O61yKG_login__info`;
-module.exports["welcome__header"] = `O61yKG_welcome__header`;
-module.exports["welcome__container"] = `O61yKG_welcome__container`;
+module.exports["login__container"] = `O61yKG_login__container`;
 module.exports["login__containerLast"] = `O61yKG_login__containerLast`;
+module.exports["welcome__container"] = `O61yKG_welcome__container`;
+module.exports["welcome__header"] = `O61yKG_welcome__header`;
+module.exports["welcome__box"] = `O61yKG_welcome__box`;
 module.exports["welcome__items"] = `O61yKG_welcome__items`;
 module.exports["welcome__footer__btn"] = `O61yKG_welcome__footer__btn`;
-module.exports["login__container"] = `O61yKG_login__container`;
+module.exports["login__info"] = `O61yKG_login__info`;
 
 },{}],"dr0X8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13802,7 +13803,6 @@ var _routerDefault = parcelHelpers.interopDefault(_router);
 var _avatarInput = require("../../components/AvatarInput");
 var _validation = require("../../utils/Validation");
 var _validationDefault = parcelHelpers.interopDefault(_validation);
-var _validation1 = require("../../components/Validation");
 const userFields = [
     "email",
     "login",
@@ -13829,6 +13829,24 @@ const passwordsData = {
         "Старый пароль",
         "Новый пароль",
         "Новый пароль еще раз"
+    ]
+};
+const validationData = {
+    errName: [
+        "Пожалуйста убедитесь, что email введен корректно",
+        "Пожалуйста убедитесь, что нет спецсимволов и пробелов, минимум 4 символа",
+        "Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная",
+        "Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная",
+        "123",
+        "Пожалуйста убедитесь, что телефон введён корректно"
+    ],
+    regExp: [
+        /@[\w\d]+(\.[\w\d]+)*$/,
+        /^(?!^[0-9]*$)[\w-]{3,20}$/,
+        /^(?:[А-ЯЁ][а-яё]*|[A-Z][a-z]*)(?:-[А-ЯЁ][а-яё]*|[A-Z][a-z]*)*$/,
+        /^(?:[А-ЯЁ][а-яё]*|[A-Z][a-z]*)(?:-[А-ЯЁ][а-яё]*|[A-Z][a-z]*)*$/,
+        /^/,
+        /^\+?\d{10,15}$/
     ]
 };
 class DefaultProfilePage extends (0, _blockDefault.default) {
@@ -13876,17 +13894,16 @@ class DefaultProfilePage extends (0, _blockDefault.default) {
                     events: {
                         blur: ()=>{
                             const input = this.children.changeData[index].children.value;
-                            if (!(0, _validationDefault.default)(/@[\w\d]+(\.[\w\d]+)*$/, input.getValue())) {
-                                this.children.invalidMail.show();
+                            const validationField = this.children.changeData[index].children.validation;
+                            if (!(0, _validationDefault.default)(validationData.regExp[index], input.getValue())) {
+                                validationField.show();
                                 input.setValue("");
-                            } else this.children.invalidMail.hide();
+                            } else validationField.hide();
                         }
                     }
-                })
+                }),
+                validation: validationData.errName[index]
             });
-        });
-        this.children.invalidMail = new (0, _validation1.Validation)({
-            errName: "123123"
         });
         this.children.changePassword = passwordsData.name.map((name, index)=>{
             return new (0, _label.Label)({
@@ -13929,14 +13946,14 @@ class DefaultProfilePage extends (0, _blockDefault.default) {
         });
         this.children.avatarInput = new (0, _avatarInput.AvatarInput)({
             events: {
-                change: (e)=>{
-                    this.changeAvatar(e);
+                change: async (e)=>{
+                    await this.changeAvatar(e);
                 }
             },
             name: "avatar"
         });
         this.children.avatar = new (0, _avatar.Avatar)({
-            src: this.getAvatarLink()
+            src: this.getAvatarLink(this.props.avatar)
         });
     }
     async changeAvatar(event) {
@@ -13946,8 +13963,8 @@ class DefaultProfilePage extends (0, _blockDefault.default) {
         await (0, _updateControllerDefault.default).updateAvatar(formData);
         await (0, _authControllerDefault.default).fetchUser();
     }
-    getAvatarLink() {
-        if (this.props.avatar) return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`;
+    getAvatarLink(link) {
+        if (link) return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`;
         return "";
     }
     async onSubmit() {
@@ -13969,6 +13986,7 @@ class DefaultProfilePage extends (0, _blockDefault.default) {
     }
     componentDidUpdate(newProps) {
         this.children.defaultField = this.createDefaultField(newProps);
+        if (newProps.avatar) this.getAvatarLink(newProps.avatar);
         return true;
     }
     createDefaultField(props) {
@@ -13985,17 +14003,17 @@ class DefaultProfilePage extends (0, _blockDefault.default) {
         return this.compile((0, _profileHbsDefault.default), {
             ...this.props,
             styles: (0, _profileModuleScssDefault.default),
-            accountName: `${(0, _storeDefault.default).getState().user.first_name + " #" + (0, _storeDefault.default).getState().user.id}`,
-            Avatar: this.props.avatar
+            accountName: `${(0, _storeDefault.default).getState().user.first_name + " #" + (0, _storeDefault.default).getState().user.id}`
         });
     }
 }
 const withUser = (0, _store.withStore)((state)=>({
-        ...state.user
+        ...state.user,
+        avatar: state.user.avatar
     }));
 const ProfilePage = withUser(DefaultProfilePage);
 
-},{"../../utils/Block":"915bj","./profile.hbs":"gz6Ey","./profile.module.scss":"iEMAP","../../components/Label":"5w6fJ","../../components/Navigation":"lyfSW","../../components/Button":"i3jlU","../../components/Input":"iclCk","../../components/Arrow":"lvNiY","../../utils/Store":"euxgo","../../controllers/UpdateController":"5knhb","../../controllers/AuthController":"btuLA","../../components/Avatar":"iC4G6","../../utils/Router":"lWot6","../../components/AvatarInput":"kuEyZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/Validation":"4S7AT","../../components/Validation":"eglcY"}],"gz6Ey":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./profile.hbs":"gz6Ey","./profile.module.scss":"iEMAP","../../components/Label":"5w6fJ","../../components/Navigation":"lyfSW","../../components/Button":"i3jlU","../../components/Input":"iclCk","../../components/Arrow":"lvNiY","../../utils/Store":"euxgo","../../controllers/UpdateController":"5knhb","../../controllers/AuthController":"btuLA","../../components/Avatar":"iC4G6","../../utils/Router":"lWot6","../../components/AvatarInput":"kuEyZ","../../utils/Validation":"4S7AT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gz6Ey":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -14033,11 +14051,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 24,
+                    "line": 23,
                     "column": 20
                 },
                 "end": {
-                    "line": 24,
+                    "line": 23,
                     "column": 36
                 }
             }
@@ -14054,11 +14072,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 28,
+                    "line": 27,
                     "column": 20
                 },
                 "end": {
-                    "line": 28,
+                    "line": 27,
                     "column": 40
                 }
             }
@@ -14075,11 +14093,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 36,
+                    "line": 35,
                     "column": 20
                 },
                 "end": {
-                    "line": 36,
+                    "line": 35,
                     "column": 39
                 }
             }
@@ -14089,11 +14107,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 37,
+                    "line": 36,
                     "column": 20
                 },
                 "end": {
-                    "line": 37,
+                    "line": 36,
                     "column": 43
                 }
             }
@@ -14103,11 +14121,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 38,
+                    "line": 37,
                     "column": 20
                 },
                 "end": {
-                    "line": 38,
+                    "line": 37,
                     "column": 30
                 }
             }
@@ -14124,11 +14142,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 41,
+                    "line": 40,
                     "column": 20
                 },
                 "end": {
-                    "line": 41,
+                    "line": 40,
                     "column": 32
                 }
             }
@@ -14215,21 +14233,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 23
                 }
             }
-        })) != null ? stack1 : "") + "\r\n                " + ((stack1 = (helper = (helper = lookupProperty(helpers, "invalidMail") || (depth0 != null ? lookupProperty(depth0, "invalidMail") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
-            "name": "invalidMail",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 21,
-                    "column": 16
-                },
-                "end": {
-                    "line": 21,
-                    "column": 33
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, (stack1 = depth0 != null ? lookupProperty(depth0, "dataContext") : depth0) != null ? lookupProperty(stack1, "1") : stack1, {
+        })) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, (stack1 = depth0 != null ? lookupProperty(depth0, "dataContext") : depth0) != null ? lookupProperty(stack1, "1") : stack1, {
             "name": "if",
             "hash": {},
             "fn": container.program(3, data, 0),
@@ -14237,11 +14241,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 23,
+                    "line": 22,
                     "column": 16
                 },
                 "end": {
-                    "line": 25,
+                    "line": 24,
                     "column": 23
                 }
             }
@@ -14253,11 +14257,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 27,
+                    "line": 26,
                     "column": 16
                 },
                 "end": {
-                    "line": 29,
+                    "line": 28,
                     "column": 23
                 }
             }
@@ -14269,11 +14273,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 35,
+                    "line": 34,
                     "column": 16
                 },
                 "end": {
-                    "line": 43,
+                    "line": 42,
                     "column": 23
                 }
             }
@@ -14284,19 +14288,19 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEMAP":[function(require,module,exports) {
-module.exports["profile__back"] = `ZZhonq_profile__back`;
 module.exports["profile__component"] = `ZZhonq_profile__component`;
-module.exports["profile__container"] = `ZZhonq_profile__container`;
-module.exports["save__button"] = `ZZhonq_save__button`;
 module.exports["profile__items"] = `ZZhonq_profile__items`;
-module.exports["profile__action__container"] = `ZZhonq_profile__action__container`;
-module.exports["action__change"] = `ZZhonq_action__change`;
-module.exports["profile__input"] = `ZZhonq_profile__input`;
 module.exports["profile__last"] = `ZZhonq_profile__last`;
 module.exports["profile__main"] = `ZZhonq_profile__main`;
+module.exports["profile__action__container"] = `ZZhonq_profile__action__container`;
+module.exports["save__button"] = `ZZhonq_save__button`;
+module.exports["profile__container"] = `ZZhonq_profile__container`;
+module.exports["action__change"] = `ZZhonq_action__change`;
 module.exports["profile__name"] = `ZZhonq_profile__name`;
-module.exports["profile__box"] = `ZZhonq_profile__box`;
+module.exports["profile__input"] = `ZZhonq_profile__input`;
 module.exports["profile__image"] = `ZZhonq_profile__image`;
+module.exports["profile__box"] = `ZZhonq_profile__box`;
+module.exports["profile__back"] = `ZZhonq_profile__back`;
 
 },{}],"5w6fJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14309,6 +14313,7 @@ var _labelHbsDefault = parcelHelpers.interopDefault(_labelHbs);
 var _labelModuleScss = require("./label.module.scss");
 var _labelModuleScssDefault = parcelHelpers.interopDefault(_labelModuleScss);
 var _paragraph = require("./paragraph");
+var _validation = require("../Validation");
 class Label extends (0, _blockDefault.default) {
     constructor(props){
         super(props);
@@ -14316,6 +14321,10 @@ class Label extends (0, _blockDefault.default) {
     init() {
         if (!this.props.custom) this.children.value = new (0, _paragraph.Paragraph)({
             title: this.props.value
+        });
+        if (this.props.validation) this.children.validation = new (0, _validation.Validation)({
+            errName: this.props.validation.toString(),
+            style: (0, _labelModuleScssDefault.default).validation
         });
     }
     render() {
@@ -14326,7 +14335,7 @@ class Label extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./label.hbs":"g4GiB","./label.module.scss":"fFqjA","./paragraph":"7hTR4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g4GiB":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./label.hbs":"g4GiB","./label.module.scss":"fFqjA","./paragraph":"7hTR4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Validation":"eglcY"}],"g4GiB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -14355,8 +14364,8 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 51
                 }
             }
-        }) : helper)) + "</h>\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
-            "name": "value",
+        }) : helper)) + "</h>\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "validation") || (depth0 != null ? lookupProperty(depth0, "validation") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+            "name": "validation",
             "hash": {},
             "data": data,
             "loc": {
@@ -14366,6 +14375,20 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                 },
                 "end": {
                     "line": 3,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+            "name": "value",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 4
+                },
+                "end": {
+                    "line": 4,
                     "column": 15
                 }
             }
@@ -14376,9 +14399,10 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fFqjA":[function(require,module,exports) {
-module.exports["profile__header__info"] = `KZc3XW_profile__header__info`;
 module.exports["profile__box"] = `KZc3XW_profile__box`;
 module.exports["profile__header"] = `KZc3XW_profile__header`;
+module.exports["profile__header__info"] = `KZc3XW_profile__header__info`;
+module.exports["validation"] = `KZc3XW_validation`;
 
 },{}],"7hTR4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14518,8 +14542,8 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fYKi2":[function(require,module,exports) {
-module.exports["profile__box"] = `-yseVG_profile__box`;
 module.exports["profile__action__header"] = `-yseVG_profile__action__header`;
+module.exports["profile__box"] = `-yseVG_profile__box`;
 module.exports["profile__action__exit"] = `-yseVG_profile__action__exit`;
 
 },{}],"lvNiY":[function(require,module,exports) {
@@ -15015,7 +15039,7 @@ const withSelectedChatMessages = (0, _store.withStore)((state)=>{
 });
 const Messenger = withSelectedChatMessages(DefaultMessenger);
 
-},{"../../utils/Block":"915bj","./messenger.hbs":"g50FL","./messanger.module.scss":"3Jf9F","./Time":"62UNT","../Message":"5cdWT","../Button":"i3jlU","../Input":"iclCk","../../controllers/MessagesController":"031LW","../../utils/Store":"euxgo","../ModalTrigger":"cbGWC","../ModalTrigger/Modal":"6FC4Y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../addUserToChat":"e8bUY","../Avatar":"iC4G6"}],"g50FL":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./messenger.hbs":"g50FL","./messanger.module.scss":"3Jf9F","./Time":"62UNT","../Message":"5cdWT","../Button":"i3jlU","../Input":"iclCk","../../controllers/MessagesController":"031LW","../../utils/Store":"euxgo","../ModalTrigger":"cbGWC","../ModalTrigger/Modal":"6FC4Y","../addUserToChat":"e8bUY","../Avatar":"iC4G6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g50FL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -15187,15 +15211,15 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3Jf9F":[function(require,module,exports) {
 module.exports["chatMessage__container"] = `rggNwa_chatMessage__container`;
+module.exports["footer__input"] = `rggNwa_footer__input`;
+module.exports["main__container"] = `rggNwa_main__container`;
+module.exports["header__item"] = `rggNwa_header__item`;
+module.exports["footer__button"] = `rggNwa_footer__button`;
+module.exports["header__avatar"] = `rggNwa_header__avatar`;
 module.exports["header__container"] = `rggNwa_header__container`;
 module.exports["header__username"] = `rggNwa_header__username`;
-module.exports["header__item"] = `rggNwa_header__item`;
-module.exports["main__container"] = `rggNwa_main__container`;
-module.exports["footer__icon"] = `rggNwa_footer__icon`;
-module.exports["footer__button"] = `rggNwa_footer__button`;
 module.exports["footer__container"] = `rggNwa_footer__container`;
-module.exports["footer__input"] = `rggNwa_footer__input`;
-module.exports["header__avatar"] = `rggNwa_header__avatar`;
+module.exports["footer__icon"] = `rggNwa_footer__icon`;
 
 },{}],"62UNT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15391,12 +15415,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jJ59Q":[function(require,module,exports) {
-module.exports["from__container"] = `xmqUra_from__container`;
-module.exports["main__time"] = `xmqUra_main__time`;
 module.exports["to__container"] = `xmqUra_to__container`;
-module.exports["to__item"] = `xmqUra_to__item`;
-module.exports["message__time"] = `xmqUra_message__time`;
 module.exports["from__item"] = `xmqUra_from__item`;
+module.exports["from__container"] = `xmqUra_from__container`;
+module.exports["message__time"] = `xmqUra_message__time`;
+module.exports["main__time"] = `xmqUra_main__time`;
+module.exports["to__item"] = `xmqUra_to__item`;
 
 },{}],"cbGWC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15442,12 +15466,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6PmD":[function(require,module,exports) {
-module.exports["header__item"] = `prqzzG_header__item`;
-module.exports["modal__container"] = `prqzzG_modal__container`;
-module.exports["modal__window"] = `prqzzG_modal__window`;
 module.exports["modal__window__red"] = `prqzzG_modal__window__red`;
+module.exports["header__item"] = `prqzzG_header__item`;
 module.exports["modal__avatar"] = `prqzzG_modal__avatar`;
 module.exports["header__options"] = `prqzzG_header__options`;
+module.exports["modal__container"] = `prqzzG_modal__container`;
+module.exports["modal__window"] = `prqzzG_modal__window`;
 
 },{}],"6FC4Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15525,7 +15549,7 @@ class Modal extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./modalTemplate.hbs":"e6jBS","../modal.module.scss":"j6PmD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../Button":"i3jlU","../../../controllers/ChatsController":"jYChn","../../../utils/Router":"lWot6","../../../utils/Store":"euxgo","../../AvatarInput":"kuEyZ"}],"e6jBS":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./modalTemplate.hbs":"e6jBS","../modal.module.scss":"j6PmD","../../Button":"i3jlU","../../../controllers/ChatsController":"jYChn","../../../utils/Router":"lWot6","../../../utils/Store":"euxgo","../../AvatarInput":"kuEyZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e6jBS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -15845,9 +15869,9 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCYUu":[function(require,module,exports) {
-module.exports["modal__container"] = `WGMoUq_modal__container`;
-module.exports["input"] = `WGMoUq_input`;
 module.exports["modal__box"] = `WGMoUq_modal__box`;
+module.exports["input"] = `WGMoUq_input`;
+module.exports["modal__container"] = `WGMoUq_modal__container`;
 
 },{}],"lerAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15950,9 +15974,9 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hefx3":[function(require,module,exports) {
-module.exports["user__item"] = `St4TZq_user__item`;
-module.exports["avatar__container"] = `St4TZq_avatar__container`;
 module.exports["button"] = `St4TZq_button`;
+module.exports["avatar__container"] = `St4TZq_avatar__container`;
+module.exports["user__item"] = `St4TZq_user__item`;
 
 },{}],"f0Fdh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16268,14 +16292,14 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4QzV4":[function(require,module,exports) {
 module.exports["search__input"] = `TJBnwq_search__input`;
-module.exports["feed__container"] = `TJBnwq_feed__container`;
-module.exports["chat__item"] = `TJBnwq_chat__item`;
-module.exports["add__button"] = `TJBnwq_add__button`;
-module.exports["chat__selected"] = `TJBnwq_chat__selected`;
 module.exports["search__header"] = `TJBnwq_search__header`;
-module.exports["chat__input"] = `TJBnwq_chat__input`;
+module.exports["chat__item"] = `TJBnwq_chat__item`;
 module.exports["loading"] = `TJBnwq_loading`;
 module.exports["chat__container"] = `TJBnwq_chat__container`;
+module.exports["chat__input"] = `TJBnwq_chat__input`;
+module.exports["feed__container"] = `TJBnwq_feed__container`;
+module.exports["add__button"] = `TJBnwq_add__button`;
+module.exports["chat__selected"] = `TJBnwq_chat__selected`;
 
 },{}],"k2Mhs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16409,14 +16433,14 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gTDb8":[function(require,module,exports) {
 module.exports["user__info"] = `_3trspG_user__info`;
-module.exports["user__time"] = `_3trspG_user__time`;
 module.exports["user__notification"] = `_3trspG_user__notification`;
+module.exports["chat__item"] = `_3trspG_chat__item`;
+module.exports["user__time"] = `_3trspG_user__time`;
 module.exports["user__name"] = `_3trspG_user__name`;
 module.exports["chat__avatar"] = `_3trspG_chat__avatar`;
-module.exports["chat__item"] = `_3trspG_chat__item`;
-module.exports["chat__selected"] = `_3trspG_chat__selected`;
 module.exports["user__notes"] = `_3trspG_user__notes`;
 module.exports["user__message"] = `_3trspG_user__message`;
+module.exports["chat__selected"] = `_3trspG_chat__selected`;
 
 },{}],"dk5eK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16560,8 +16584,8 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dxA6s":[function(require,module,exports) {
-module.exports["temporary"] = `W_2Rta_temporary`;
 module.exports["selectchat__container"] = `W_2Rta_selectchat__container`;
+module.exports["temporary"] = `W_2Rta_temporary`;
 
 },{}]},["3LmCz","h7u1C"], "h7u1C", "parcelRequire40a5")
 

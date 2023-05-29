@@ -305,6 +305,7 @@ a {
 }
 
 .KZc3XW_profile__box {
+  height: 35px;
   border-bottom: 1px solid #eaeaea;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -325,6 +326,17 @@ a {
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
+}
+
+.KZc3XW_validation {
+  color: #ff2f2f;
+  margin-bottom: 5px;
+  padding-top: 20px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 10px;
+  display: none;
+  position: absolute;
 }
 
 .-yseVG_profile__box {
