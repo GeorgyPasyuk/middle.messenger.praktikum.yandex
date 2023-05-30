@@ -67,7 +67,7 @@ class ChatsListBase extends Block<ChatsListProps> {
         keydown: (e: KeyboardEvent)=>{
           if (e.keyCode == 13) {
             const value = this.children.chatInput.getValue()
-            this.createChat(value)
+            ChatsListBase.createChat(value)
             this.children.chatInput.setValue("")
           }
         }
@@ -112,7 +112,7 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
 
-  private async createChat(login: string) {
+  private static async createChat(login: string) {
     await ChatsController.create(`${login}`)
   }
 

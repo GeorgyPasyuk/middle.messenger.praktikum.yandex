@@ -12881,13 +12881,13 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jtmEm":[function(require,module,exports) {
-module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
-module.exports["login__info"] = `_1qOFfG_login__info`;
-module.exports["login__container"] = `_1qOFfG_login__container`;
-module.exports["login__containerLast"] = `_1qOFfG_login__containerLast`;
-module.exports["welcome__box"] = `_1qOFfG_welcome__box`;
 module.exports["welcome__container"] = `_1qOFfG_welcome__container`;
+module.exports["login__container"] = `_1qOFfG_login__container`;
+module.exports["welcome__box"] = `_1qOFfG_welcome__box`;
+module.exports["login__info"] = `_1qOFfG_login__info`;
 module.exports["welcome__items"] = `_1qOFfG_welcome__items`;
+module.exports["login__containerLast"] = `_1qOFfG_login__containerLast`;
+module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
 
 },{}],"iclCk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13540,9 +13540,13 @@ class WS extends (0, _eventBusDefault.default) {
             this.emit(WSEvents.Error, e);
         });
         socket.addEventListener("message", (message)=>{
-            const data = JSON.parse(message.data);
-            if (data.type && data.type === "pong") return;
-            this.emit(WSEvents.Message, data);
+            try {
+                const data = JSON.parse(message.data);
+                if (data.type && data.type === "pong") return;
+                this.emit(WSEvents.Message, data);
+            } catch (e) {
+                console.error(e);
+            }
         });
     }
 }
@@ -13767,14 +13771,14 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1a6TI":[function(require,module,exports) {
-module.exports["login__container"] = `O61yKG_login__container`;
-module.exports["login__containerLast"] = `O61yKG_login__containerLast`;
-module.exports["welcome__container"] = `O61yKG_welcome__container`;
-module.exports["welcome__header"] = `O61yKG_welcome__header`;
-module.exports["welcome__box"] = `O61yKG_welcome__box`;
-module.exports["welcome__items"] = `O61yKG_welcome__items`;
 module.exports["welcome__footer__btn"] = `O61yKG_welcome__footer__btn`;
 module.exports["login__info"] = `O61yKG_login__info`;
+module.exports["login__container"] = `O61yKG_login__container`;
+module.exports["welcome__box"] = `O61yKG_welcome__box`;
+module.exports["welcome__header"] = `O61yKG_welcome__header`;
+module.exports["login__containerLast"] = `O61yKG_login__containerLast`;
+module.exports["welcome__container"] = `O61yKG_welcome__container`;
+module.exports["welcome__items"] = `O61yKG_welcome__items`;
 
 },{}],"dr0X8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14288,19 +14292,19 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEMAP":[function(require,module,exports) {
-module.exports["profile__component"] = `ZZhonq_profile__component`;
-module.exports["profile__items"] = `ZZhonq_profile__items`;
-module.exports["profile__last"] = `ZZhonq_profile__last`;
-module.exports["profile__main"] = `ZZhonq_profile__main`;
 module.exports["profile__action__container"] = `ZZhonq_profile__action__container`;
-module.exports["save__button"] = `ZZhonq_save__button`;
-module.exports["profile__container"] = `ZZhonq_profile__container`;
+module.exports["profile__main"] = `ZZhonq_profile__main`;
 module.exports["action__change"] = `ZZhonq_action__change`;
-module.exports["profile__name"] = `ZZhonq_profile__name`;
+module.exports["profile__back"] = `ZZhonq_profile__back`;
 module.exports["profile__input"] = `ZZhonq_profile__input`;
+module.exports["profile__last"] = `ZZhonq_profile__last`;
+module.exports["profile__name"] = `ZZhonq_profile__name`;
+module.exports["profile__items"] = `ZZhonq_profile__items`;
+module.exports["profile__container"] = `ZZhonq_profile__container`;
+module.exports["save__button"] = `ZZhonq_save__button`;
+module.exports["profile__component"] = `ZZhonq_profile__component`;
 module.exports["profile__image"] = `ZZhonq_profile__image`;
 module.exports["profile__box"] = `ZZhonq_profile__box`;
-module.exports["profile__back"] = `ZZhonq_profile__back`;
 
 },{}],"5w6fJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14335,7 +14339,7 @@ class Label extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./label.hbs":"g4GiB","./label.module.scss":"fFqjA","./paragraph":"7hTR4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Validation":"eglcY"}],"g4GiB":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./label.hbs":"g4GiB","./label.module.scss":"fFqjA","./paragraph":"7hTR4","../Validation":"eglcY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g4GiB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -14399,9 +14403,9 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fFqjA":[function(require,module,exports) {
-module.exports["profile__box"] = `KZc3XW_profile__box`;
 module.exports["profile__header"] = `KZc3XW_profile__header`;
 module.exports["profile__header__info"] = `KZc3XW_profile__header__info`;
+module.exports["profile__box"] = `KZc3XW_profile__box`;
 module.exports["validation"] = `KZc3XW_validation`;
 
 },{}],"7hTR4":[function(require,module,exports) {
@@ -14543,8 +14547,8 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fYKi2":[function(require,module,exports) {
 module.exports["profile__action__header"] = `-yseVG_profile__action__header`;
-module.exports["profile__box"] = `-yseVG_profile__box`;
 module.exports["profile__action__exit"] = `-yseVG_profile__action__exit`;
+module.exports["profile__box"] = `-yseVG_profile__box`;
 
 },{}],"lvNiY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14975,9 +14979,6 @@ class DefaultMessenger extends (0, _blockDefault.default) {
                 }
             }
         });
-        this.children.chatAvatar = new (0, _avatar.Avatar)({
-            src: this.getAvatarLink()
-        });
         this.children.showModal = new (0, _modalTrigger.TriggerModal)({
             events: {
                 click: ()=>{
@@ -14992,11 +14993,15 @@ class DefaultMessenger extends (0, _blockDefault.default) {
     }
     componentDidUpdate(_oldProps, newProps) {
         this.children.messages = this.createMessages(newProps);
+        if (newProps.chatAvatar) this.getAvatarLink(newProps.chatAvatar);
         return true;
     }
-    getAvatarLink() {
-        if (this.props.chatAvatar) return `https://ya-praktikum.tech/api/v2/resources${this.props.chatAvatar}`;
-        return "";
+    getAvatarLink(link) {
+        let avatarLink = "";
+        if (link) avatarLink = `https://ya-praktikum.tech/api/v2/resources${link}`;
+        return this.children.chatAvatar = new (0, _avatar.Avatar)({
+            src: `${avatarLink}`
+        });
     }
     createMessages(props) {
         return props.messages.map((data)=>{
@@ -15034,7 +15039,8 @@ const withSelectedChatMessages = (0, _store.withStore)((state)=>{
         selectedChat: state.selectedChat,
         userId: state.user.id,
         userModal: state.modal,
-        chatName: state.activeChat.title
+        chatName: state.activeChat.title,
+        chatAvatar: state.activeChat.avatar
     };
 });
 const Messenger = withSelectedChatMessages(DefaultMessenger);
@@ -15046,6 +15052,9 @@ var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
 const templateFunction = (0, _handlebarsDefault.default).template({
     "1": function(container, depth0, helpers, partials, data) {
+        return "        123\r\n";
+    },
+    "3": function(container, depth0, helpers, partials, data) {
         var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
@@ -15056,11 +15065,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 5,
+                    "line": 9,
                     "column": 8
                 },
                 "end": {
-                    "line": 5,
+                    "line": 9,
                     "column": 26
                 }
             }
@@ -15075,7 +15084,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '\r\n<div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "chatMessage__container") : stack1, depth0)) + '">\r\n\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "userModal") : depth0, {
+        return '\r\n<div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "chatMessage__container") : stack1, depth0)) + '">\r\n\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "isLoaded") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -15091,17 +15100,33 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 11
                 }
             }
+        })) != null ? stack1 : "") + "\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "userModal") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(3, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 4
+                },
+                "end": {
+                    "line": 10,
+                    "column": 11
+                }
+            }
         })) != null ? stack1 : "") + '\r\n    <header class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "header__container") : stack1, depth0)) + '">\r\n            <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "header__item") : stack1, depth0)) + '">\r\n                <span class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "header__avatar") : stack1, depth0)) + '">\r\n                    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatAvatar") || (depth0 != null ? lookupProperty(depth0, "chatAvatar") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
             "name": "chatAvatar",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 11,
+                    "line": 15,
                     "column": 20
                 },
                 "end": {
-                    "line": 11,
+                    "line": 15,
                     "column": 36
                 }
             }
@@ -15111,11 +15136,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 13,
+                    "line": 17,
                     "column": 55
                 },
                 "end": {
-                    "line": 13,
+                    "line": 17,
                     "column": 67
                 }
             }
@@ -15125,11 +15150,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 16,
+                    "line": 20,
                     "column": 12
                 },
                 "end": {
-                    "line": 16,
+                    "line": 20,
                     "column": 23
                 }
             }
@@ -15139,11 +15164,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 18,
+                    "line": 22,
                     "column": 12
                 },
                 "end": {
-                    "line": 18,
+                    "line": 22,
                     "column": 27
                 }
             }
@@ -15153,11 +15178,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 22,
+                    "line": 26,
                     "column": 12
                 },
                 "end": {
-                    "line": 22,
+                    "line": 26,
                     "column": 22
                 }
             }
@@ -15167,11 +15192,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 23,
+                    "line": 27,
                     "column": 12
                 },
                 "end": {
-                    "line": 23,
+                    "line": 27,
                     "column": 26
                 }
             }
@@ -15181,11 +15206,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 28,
+                    "line": 32,
                     "column": 12
                 },
                 "end": {
-                    "line": 28,
+                    "line": 32,
                     "column": 32
                 }
             }
@@ -15195,11 +15220,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 29,
+                    "line": 33,
                     "column": 12
                 },
                 "end": {
-                    "line": 29,
+                    "line": 33,
                     "column": 24
                 }
             }
@@ -15210,15 +15235,15 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3Jf9F":[function(require,module,exports) {
-module.exports["chatMessage__container"] = `rggNwa_chatMessage__container`;
-module.exports["footer__input"] = `rggNwa_footer__input`;
-module.exports["main__container"] = `rggNwa_main__container`;
-module.exports["header__item"] = `rggNwa_header__item`;
-module.exports["footer__button"] = `rggNwa_footer__button`;
-module.exports["header__avatar"] = `rggNwa_header__avatar`;
 module.exports["header__container"] = `rggNwa_header__container`;
-module.exports["header__username"] = `rggNwa_header__username`;
 module.exports["footer__container"] = `rggNwa_footer__container`;
+module.exports["chatMessage__container"] = `rggNwa_chatMessage__container`;
+module.exports["main__container"] = `rggNwa_main__container`;
+module.exports["footer__button"] = `rggNwa_footer__button`;
+module.exports["header__item"] = `rggNwa_header__item`;
+module.exports["header__avatar"] = `rggNwa_header__avatar`;
+module.exports["footer__input"] = `rggNwa_footer__input`;
+module.exports["header__username"] = `rggNwa_header__username`;
 module.exports["footer__icon"] = `rggNwa_footer__icon`;
 
 },{}],"62UNT":[function(require,module,exports) {
@@ -15415,12 +15440,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jJ59Q":[function(require,module,exports) {
-module.exports["to__container"] = `xmqUra_to__container`;
-module.exports["from__item"] = `xmqUra_from__item`;
 module.exports["from__container"] = `xmqUra_from__container`;
 module.exports["message__time"] = `xmqUra_message__time`;
-module.exports["main__time"] = `xmqUra_main__time`;
+module.exports["from__item"] = `xmqUra_from__item`;
 module.exports["to__item"] = `xmqUra_to__item`;
+module.exports["to__container"] = `xmqUra_to__container`;
+module.exports["main__time"] = `xmqUra_main__time`;
 
 },{}],"cbGWC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15466,12 +15491,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6PmD":[function(require,module,exports) {
-module.exports["modal__window__red"] = `prqzzG_modal__window__red`;
-module.exports["header__item"] = `prqzzG_header__item`;
-module.exports["modal__avatar"] = `prqzzG_modal__avatar`;
 module.exports["header__options"] = `prqzzG_header__options`;
+module.exports["header__item"] = `prqzzG_header__item`;
 module.exports["modal__container"] = `prqzzG_modal__container`;
 module.exports["modal__window"] = `prqzzG_modal__window`;
+module.exports["modal__avatar"] = `prqzzG_modal__avatar`;
+module.exports["modal__window__red"] = `prqzzG_modal__window__red`;
 
 },{}],"6FC4Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15499,8 +15524,9 @@ class Modal extends (0, _blockDefault.default) {
         this.children.addUser = new (0, _button.Button)({
             label: "Добавить пользователя",
             events: {
-                click: ()=>{
+                click: async ()=>{
                     (0, _storeDefault.default).set("modal", true);
+                    this.fetchUsers();
                 }
             },
             style: (0, _modalModuleScssDefault.default).modal__window
@@ -15520,7 +15546,7 @@ class Modal extends (0, _blockDefault.default) {
             name: "chatAvatar",
             events: {
                 change: async (event)=>{
-                    await this.updateAvatar(event);
+                    await Modal.updateAvatar(event);
                 }
             },
             style: (0, _modalModuleScssDefault.default).modal__avatar
@@ -15530,15 +15556,21 @@ class Modal extends (0, _blockDefault.default) {
             style: (0, _modalModuleScssDefault.default).modal__window
         });
     }
-    async updateAvatar(event) {
+    async fetchUsers() {
+        const chatId = (0, _storeDefault.default).getState().selectedChat;
+        try {
+            const usersInChat = await (0, _chatsControllerDefault.default).getUsers(chatId);
+            (0, _storeDefault.default).set("usersInChat", usersInChat);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    static async updateAvatar(event) {
         const file = event.target.files[0];
         const formData = new FormData();
         formData.append("avatar", file);
-        const data = {
-            chatId: (0, _storeDefault.default).getState().activeChat.id,
-            avatar: formData
-        };
-        await (0, _chatsControllerDefault.default).updateAvatar(data);
+        formData.append("chatId", (0, _storeDefault.default).getState().activeChat.id);
+        await (0, _chatsControllerDefault.default).updateAvatar(formData);
         await (0, _chatsControllerDefault.default).fetchChats();
     }
     render() {
@@ -15666,6 +15698,12 @@ class ChatsController {
             console.error(e);
         }
     }
+    async deleteUser(data) {
+        await this.api.deleteUser(data);
+    }
+    async getUsers(id) {
+        return await this.api.getUsers(id);
+    }
     async delete(id) {
         await this.api.delete(id);
         this.fetchChats();
@@ -15716,6 +15754,9 @@ class ChatsAPI extends (0, _baseApiDefault.default) {
             chatId: id
         });
     }
+    deleteUser(data) {
+        return this.http.delete("/users", data);
+    }
     updateAvatar(data) {
         return this.http.put("/avatar", data);
     }
@@ -15744,7 +15785,7 @@ var _searchControllerDefault = parcelHelpers.interopDefault(_searchController);
 var _store = require("../../utils/Store");
 var _storeDefault = parcelHelpers.interopDefault(_store);
 var _button = require("../Button");
-class addUserModal extends (0, _blockDefault.default) {
+class addUserModalDefautl extends (0, _blockDefault.default) {
     constructor(props){
         super(props);
     }
@@ -15772,7 +15813,29 @@ class addUserModal extends (0, _blockDefault.default) {
             }
         });
     }
-    componentDidUpdate() {
+    async renderUsers(props) {
+        //console.log(props);
+        this.children.usersInChat = props.map((name)=>{
+            if (name.id === (0, _storeDefault.default).getState().user.id) return new (0, _loginCard.LoginCard)({
+                label: name.login,
+                src: name.avatar,
+                userId: name.id
+            });
+            return new (0, _loginCard.LoginCard)({
+                label: name.login,
+                src: name.avatar,
+                userId: name.id,
+                toDelete: {
+                    users: [
+                        name.id
+                    ],
+                    chatId: (0, _storeDefault.default).getState().selectedChat
+                }
+            });
+        });
+    }
+    componentDidUpdate(_oldProps, newProps) {
+        if (newProps.usersInChat) this.renderUsers(newProps.usersInChat);
         this.showLogins();
         return true;
     }
@@ -15804,6 +15867,12 @@ class addUserModal extends (0, _blockDefault.default) {
         });
     }
 }
+const addUserWithStore = (0, _store.withStore)((state)=>{
+    return {
+        usersInChat: state.usersInChat
+    };
+});
+const addUserModal = addUserWithStore(addUserModalDefautl);
 
 },{"../../utils/Block":"915bj","./addUsers.hbs":"bq6wB","./addUsers.module.scss":"dCYUu","../Input":"iclCk","../LoginCard":"lerAz","../../controllers/SearchController":"f0Fdh","../../utils/Store":"euxgo","../Button":"i3jlU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bq6wB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15834,31 +15903,59 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 19
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n            " + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
             "name": "button",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 4,
-                    "column": 12
+                    "column": 8
                 },
                 "end": {
                     "line": 4,
-                    "column": 24
+                    "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "users") || (depth0 != null ? lookupProperty(depth0, "users") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+        }) : helper)) != null ? stack1 : "") + '\r\n        <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "usersInChat") : stack1, depth0)) + '">\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "usersInChat") || (depth0 != null ? lookupProperty(depth0, "usersInChat") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+            "name": "usersInChat",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 12
+                },
+                "end": {
+                    "line": 6,
+                    "column": 29
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n            " + ((stack1 = (helper = (helper = lookupProperty(helpers, "deleteButton") || (depth0 != null ? lookupProperty(depth0, "deleteButton") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+            "name": "deleteButton",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 12
+                },
+                "end": {
+                    "line": 7,
+                    "column": 30
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n        </div>\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "users") || (depth0 != null ? lookupProperty(depth0, "users") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
             "name": "users",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 5,
+                    "line": 9,
                     "column": 8
                 },
                 "end": {
-                    "line": 5,
+                    "line": 9,
                     "column": 19
                 }
             }
@@ -15871,6 +15968,7 @@ exports.default = templateFunction;
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCYUu":[function(require,module,exports) {
 module.exports["modal__box"] = `WGMoUq_modal__box`;
 module.exports["input"] = `WGMoUq_input`;
+module.exports["usersInChat"] = `WGMoUq_usersInChat`;
 module.exports["modal__container"] = `WGMoUq_modal__container`;
 
 },{}],"lerAz":[function(require,module,exports) {
@@ -15898,18 +15996,28 @@ class LoginCard extends (0, _blockDefault.default) {
             label: this.props.label,
             style: (0, _loginCardModuleScssDefault.default).button,
             events: {
-                click: ()=>{
-                    LoginCard.addUserToChat(this.props.userId);
+                click: async ()=>{
+                    await LoginCard.addUserToChat(this.props.userId);
                 }
             }
+        });
+        this.children.deleteButton = new (0, _button.Button)({
+            label: "Удалить",
+            events: {
+                click: async ()=>{
+                    await (0, _chatsControllerDefault.default).deleteUser(this.props.toDelete);
+                    (0, _storeDefault.default).set("modal", false);
+                }
+            },
+            style: (0, _loginCardModuleScssDefault.default).deleteButton
         });
         this.children.avatar = new (0, _avatar.Avatar)({
             src: this.getLink()
         });
     }
-    static addUserToChat(userId) {
+    static async addUserToChat(userId) {
         const chatId = window.location.pathname.split("/").pop();
-        (0, _chatsControllerDefault.default).addUserToChat(Number(chatId), userId);
+        await (0, _chatsControllerDefault.default).addUserToChat(Number(chatId), userId);
         (0, _storeDefault.default).set("modal", false);
     }
     getLink() {
@@ -15924,12 +16032,40 @@ class LoginCard extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./loginCard.hbs":"4EfJi","./loginCard.module.scss":"hefx3","../Button":"i3jlU","../Avatar":"iC4G6","../../controllers/ChatsController":"jYChn","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4EfJi":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./loginCard.hbs":"4EfJi","./loginCard.module.scss":"hefx3","../Button":"i3jlU","../Avatar":"iC4G6","../../controllers/ChatsController":"jYChn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/Store":"euxgo"}],"4EfJi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
 const templateFunction = (0, _handlebarsDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = container.lambda((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "to__delete") : stack1, depth0)) != null ? stack1 : "";
+    },
+    "3": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "deleteButton") || (depth0 != null ? lookupProperty(depth0, "deleteButton") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "deleteButton",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 8
+                },
+                "end": {
+                    "line": 7,
+                    "column": 26
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n";
+    },
     "compiler": [
         8,
         ">= 4.3.0"
@@ -15939,7 +16075,23 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__item") : stack1, depth0)) + '">\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "avatar__container") : stack1, depth0)) + '">\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "avatar") || (depth0 != null ? lookupProperty(depth0, "avatar") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+        return '<div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__item") : stack1, depth0)) + "  " + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "toDelete") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 35
+                },
+                "end": {
+                    "line": 1,
+                    "column": 81
+                }
+            }
+        })) != null ? stack1 : "") + '">\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "avatar__container") : stack1, depth0)) + '">\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "avatar") || (depth0 != null ? lookupProperty(depth0, "avatar") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
             "name": "avatar",
             "hash": {},
             "data": data,
@@ -15967,16 +16119,34 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 16
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>\r\n\r\n";
+        }) : helper)) != null ? stack1 : "") + "\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "toDelete") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(3, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 4
+                },
+                "end": {
+                    "line": 8,
+                    "column": 11
+                }
+            }
+        })) != null ? stack1 : "") + "</div>\r\n\r\n";
     },
     "useData": true
 });
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hefx3":[function(require,module,exports) {
+module.exports["deleteButton"] = `St4TZq_deleteButton`;
+module.exports["user__item"] = `St4TZq_user__item`;
+module.exports["to__delete"] = `St4TZq_to__delete`;
 module.exports["button"] = `St4TZq_button`;
 module.exports["avatar__container"] = `St4TZq_avatar__container`;
-module.exports["user__item"] = `St4TZq_user__item`;
 
 },{}],"f0Fdh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16080,7 +16250,7 @@ class ChatsListBase extends (0, _blockDefault.default) {
                 keydown: (e)=>{
                     if (e.keyCode == 13) {
                         const value = this.children.chatInput.getValue();
-                        this.createChat(value);
+                        ChatsListBase.createChat(value);
                         this.children.chatInput.setValue("");
                     }
                 }
@@ -16115,7 +16285,7 @@ class ChatsListBase extends (0, _blockDefault.default) {
             });
         });
     }
-    async createChat(login) {
+    static async createChat(login) {
         await (0, _chatsControllerDefault.default).create(`${login}`);
     }
     render() {
@@ -16292,14 +16462,14 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4QzV4":[function(require,module,exports) {
 module.exports["search__input"] = `TJBnwq_search__input`;
-module.exports["search__header"] = `TJBnwq_search__header`;
-module.exports["chat__item"] = `TJBnwq_chat__item`;
-module.exports["loading"] = `TJBnwq_loading`;
 module.exports["chat__container"] = `TJBnwq_chat__container`;
 module.exports["chat__input"] = `TJBnwq_chat__input`;
+module.exports["loading"] = `TJBnwq_loading`;
 module.exports["feed__container"] = `TJBnwq_feed__container`;
-module.exports["add__button"] = `TJBnwq_add__button`;
 module.exports["chat__selected"] = `TJBnwq_chat__selected`;
+module.exports["search__header"] = `TJBnwq_search__header`;
+module.exports["chat__item"] = `TJBnwq_chat__item`;
+module.exports["add__button"] = `TJBnwq_add__button`;
 
 },{}],"k2Mhs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16314,9 +16484,18 @@ var _chatHbsDefault = parcelHelpers.interopDefault(_chatHbs);
 var _chatModuleScss = require("./chat.module.scss");
 var _chatModuleScssDefault = parcelHelpers.interopDefault(_chatModuleScss);
 var _store = require("../../utils/Store");
+var _avatar = require("../Avatar");
 class ChatBase extends (0, _blockDefault.default) {
     constructor(props){
         super(props);
+    }
+    init() {
+        if (this.props.avatar) this.children.chatAvatar = new (0, _avatar.Avatar)({
+            src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
+        });
+        else this.children.chatAvatar = new (0, _avatar.Avatar)({
+            src: ``
+        });
     }
     render() {
         return this.compile((0, _chatHbsDefault.default), {
@@ -16331,7 +16510,7 @@ const withSelectedChat = (0, _store.withStore)((state)=>({
     }));
 const Chat = withSelectedChat(ChatBase);
 
-},{"../../utils/Block":"915bj","./Chat.hbs":"6wwx7","./chat.module.scss":"gTDb8","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6wwx7":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./Chat.hbs":"6wwx7","./chat.module.scss":"gTDb8","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Avatar":"iC4G6"}],"6wwx7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -16369,17 +16548,31 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 90
                 }
             }
-        })) != null ? stack1 : "") + '">\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "chat__avatar") : stack1, depth0)) + '"></div>\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__info") : stack1, depth0)) + '">\r\n        <h class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__name") : stack1, depth0)) + '">\r\n            ' + alias2((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+        })) != null ? stack1 : "") + '">\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "chat__avatar") : stack1, depth0)) + '">\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatAvatar") || (depth0 != null ? lookupProperty(depth0, "chatAvatar") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+            "name": "chatAvatar",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 8
+                },
+                "end": {
+                    "line": 3,
+                    "column": 24
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n    <div class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__info") : stack1, depth0)) + '">\r\n        <h class="' + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "styles") : depth0) != null ? lookupProperty(stack1, "user__name") : stack1, depth0)) + '">\r\n            ' + alias2((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
             "name": "title",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 5,
+                    "line": 7,
                     "column": 12
                 },
                 "end": {
-                    "line": 5,
+                    "line": 7,
                     "column": 21
                 }
             }
@@ -16389,11 +16582,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 6,
+                    "line": 8,
                     "column": 12
                 },
                 "end": {
-                    "line": 6,
+                    "line": 8,
                     "column": 24
                 }
             }
@@ -16403,11 +16596,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 15,
+                    "line": 17,
                     "column": 12
                 },
                 "end": {
-                    "line": 15,
+                    "line": 17,
                     "column": 20
                 }
             }
@@ -16417,11 +16610,11 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 18,
+                    "line": 20,
                     "column": 12
                 },
                 "end": {
-                    "line": 18,
+                    "line": 20,
                     "column": 28
                 }
             }
@@ -16432,15 +16625,15 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gTDb8":[function(require,module,exports) {
-module.exports["user__info"] = `_3trspG_user__info`;
 module.exports["user__notification"] = `_3trspG_user__notification`;
-module.exports["chat__item"] = `_3trspG_chat__item`;
-module.exports["user__time"] = `_3trspG_user__time`;
 module.exports["user__name"] = `_3trspG_user__name`;
-module.exports["chat__avatar"] = `_3trspG_chat__avatar`;
-module.exports["user__notes"] = `_3trspG_user__notes`;
+module.exports["user__time"] = `_3trspG_user__time`;
+module.exports["chat__item"] = `_3trspG_chat__item`;
 module.exports["user__message"] = `_3trspG_user__message`;
+module.exports["user__notes"] = `_3trspG_user__notes`;
+module.exports["user__info"] = `_3trspG_user__info`;
 module.exports["chat__selected"] = `_3trspG_chat__selected`;
+module.exports["chat__avatar"] = `_3trspG_chat__avatar`;
 
 },{}],"dk5eK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

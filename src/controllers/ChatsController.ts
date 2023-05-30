@@ -30,10 +30,10 @@ class ChatsController {
     const chatId = window.location.pathname.split('/').pop();
 
     const activeChat = Object.values(chats)
-      .find(item=> item.id === Number(chatId));
+      .find(item => item.id === Number(chatId));
+
 
     store.set("activeChat", activeChat)
-
     store.set('chats', chats);
   }
 
@@ -41,12 +41,20 @@ class ChatsController {
     this.api.addUsers(id, [userId])
   }
 
-  async updateAvatar(data: Record<string, string | number>) {
+  async updateAvatar(data: FormData) {
     try {
       await this.api.updateAvatar(data)
     } catch (e) {
       console.error(e)
     }
+  }
+
+  async deleteUser(data: { users: [number]; chatId: number; }) {
+    await this.api.deleteUser(data)
+  }
+
+  async getUsers(id: number) {
+    return await this.api.getUsers(id)
   }
 
   async delete(id: number) {

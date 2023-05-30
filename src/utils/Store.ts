@@ -14,6 +14,7 @@ interface State {
   activeChat: Record<string, string | number>
   selectedChat?: number
   modal?: boolean;
+  usersInChat: any
 }
 
 

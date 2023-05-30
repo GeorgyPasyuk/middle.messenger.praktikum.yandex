@@ -1,5 +1,5 @@
 import BaseAPI from './BaseApi';
-import {User} from './AuthAPI';
+import { User } from './AuthAPI';
 
 export interface ChatsInfo {
   id: number,
@@ -12,6 +12,9 @@ export interface ChatsInfo {
     content: string
   }
 }
+
+
+
 
 export class ChatsAPI extends BaseAPI {
   constructor() {
@@ -30,7 +33,7 @@ export class ChatsAPI extends BaseAPI {
     return this.http.get('/');
   }
 
-  getUsers(id: number): Promise<Array<User & { role: string }>> {
+  getUsers(id: number): Promise<Array<unknown>> {
     return this.http.get(`/${id}/users`)
   }
 
@@ -38,7 +41,11 @@ export class ChatsAPI extends BaseAPI {
     return this.http.put('/users', {users, chatId: id})
   }
 
-  updateAvatar(data: Record<string, string | number>) {
+  deleteUser(data: { users: [number]; chatId: number; }): Promise<unknown> {
+    return this.http.delete('/users', data)
+  }
+
+  updateAvatar(data: FormData) {
     return this.http.put("/avatar", data)
   }
 

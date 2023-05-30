@@ -67,13 +67,17 @@ export default class WS extends EventBus {
     })
 
     socket.addEventListener("message", (message)=> {
-      const data = JSON.parse(message.data)
+      try {
+        const data = JSON.parse(message.data)
 
-      if (data.type && data.type === "pong") {
-        return
+        if (data.type && data.type === "pong") {
+          return
+        }
+
+        this.emit(WSEvents.Message, data)
+      } catch (e) {
+        console.error(e)
       }
-
-      this.emit(WSEvents.Message, data)
     })
   }
 }

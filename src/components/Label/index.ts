@@ -24,6 +24,7 @@ export class Label extends Block<LabelProps> {
       })
     }
 
+
     if (this.props.validation) {
       this.children.validation = new Validation({
         errName: this.props.validation.toString(),

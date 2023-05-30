@@ -9,7 +9,11 @@ import store from '../../utils/Store';
 interface LoginCardProps {
   label: string,
   src: string,
-  userId: number
+  userId: number,
+  toDelete?: {
+    users: [number],
+    chatId: number
+  }
 }
 
 export class LoginCard extends Block<LoginCardProps> {
@@ -23,22 +27,36 @@ export class LoginCard extends Block<LoginCardProps> {
       label: this.props.label,
       style: styles.button,
       events: {
-        click: ()=> {
-          LoginCard.addUserToChat(this.props.userId)
+        click: async ()=> {
+          await LoginCard.addUserToChat(this.props.userId)
         }
-      }
+      },
+    })
+
+
+    this.children.deleteButton = new Button({
+      label: "Удалить",
+      events: {
+        click: async ()=> {
+          await ChatsController.deleteUser(this.props.toDelete!)
+          store.set("modal", false)
+        }
+      },
+      style: styles.deleteButton
     })
 
     this.children.avatar = new Avatar({
       src: this.getLink(),
     })
+
   }
 
-  private static addUserToChat(userId: number) {
+  private static async addUserToChat(userId: number) {
     const chatId = window.location.pathname.split('/').pop();
-    ChatsController.addUserToChat(Number(chatId), userId)
+    await ChatsController.addUserToChat(Number(chatId), userId)
     store.set('modal', false)
   }
+
 
   private getLink() {
     if (this.props.src) {

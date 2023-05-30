@@ -19,8 +19,9 @@ export class Modal extends Block<ModalProps> {
     this.children.addUser = new Button({
       label: "Добавить пользователя",
       events: {
-        click: ()=> {
+        click: async ()=> {
           store.set("modal", true)
+          this.fetchUsers()
         }
       },
       style: styles.modal__window
@@ -30,6 +31,7 @@ export class Modal extends Block<ModalProps> {
       label: "Удалить чат",
       events: {
         click: async ()=> {
+
           const chatId = window.location.pathname.split('/').pop();
           await ChatsController.delete(Number(chatId))
           router.go("/messenger")
@@ -42,7 +44,7 @@ export class Modal extends Block<ModalProps> {
       name: "chatAvatar",
       events: {
         change: async (event: InputEvent)=> {
-          await this.updateAvatar(event)
+          await Modal.updateAvatar(event)
         },
       },
       style: styles.modal__avatar
@@ -55,17 +57,25 @@ export class Modal extends Block<ModalProps> {
     })
   }
 
-  private async updateAvatar(event: any) {
+  private async fetchUsers() {
+    const chatId = store.getState().selectedChat
+
+    try {
+      const usersInChat = await ChatsController.getUsers(chatId)
+      store.set("usersInChat", usersInChat)
+    } catch (e) {
+      console.error(e)
+    }
+
+
+  }
+
+  private static async updateAvatar(event: any) {
     const file = event.target!.files[0]
     const formData = new FormData()
     formData.append("avatar", file)
-
-    const data = {
-      chatId: store.getState().activeChat.id,
-      avatar: formData
-    }
-
-    await ChatsController.updateAvatar(data)
+    formData.append("chatId", store.getState().activeChat.id)
+    await ChatsController.updateAvatar(formData)
     await ChatsController.fetchChats()
   }
 

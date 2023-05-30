@@ -12,12 +12,14 @@ import { Modal } from '../ModalTrigger/Modal';
 import { addUserModal } from '../addUserToChat';
 import { Avatar } from '../Avatar';
 
+
 interface MessengerProps {
   selectedChat: number | undefined,
   messages: MessageData[],
   userId: number;
   time: string | number
   userModal: boolean,
+  usersInChat: [],
   chatAvatar: string
 }
 
@@ -82,10 +84,6 @@ class DefaultMessenger extends Block<MessengerProps> {
       }
     })
 
-     this.children.chatAvatar = new Avatar({
-       src: this.getAvatarLink(),
-     })
-
     this.children.showModal = new TriggerModal({
       events: {
         click: () => {
@@ -96,25 +94,31 @@ class DefaultMessenger extends Block<MessengerProps> {
 
     this.children.modal = new Modal({})
 
-
     this.children.addUserModal = new addUserModal({
-      userLogin:[]
+      userLogin: []
     })
-
   }
+
+
 
 
   protected componentDidUpdate(_oldProps: MessengerProps, newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps);
+    if (newProps.chatAvatar) {
+      this.getAvatarLink(newProps.chatAvatar)
+    }
     return true;
   }
 
 
-  private getAvatarLink() {
-    if (this.props.chatAvatar) {
-      return `https://ya-praktikum.tech/api/v2/resources${this.props.chatAvatar}`
+  private getAvatarLink(link: string) {
+    let avatarLink = ""
+    if (link) {
+      avatarLink = `https://ya-praktikum.tech/api/v2/resources${link}`
     }
-    return ""
+    return this.children.chatAvatar = new Avatar({
+      src: `${avatarLink}`,
+    })
   }
 
 
@@ -158,7 +162,7 @@ const withSelectedChatMessages = withStore(state => {
     userId: state.user.id,
     userModal: state.modal,
     chatName: state.activeChat.title,
-
+    chatAvatar: state.activeChat.avatar
   }
 })
 

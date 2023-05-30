@@ -4,15 +4,17 @@ import styles from './addUsers.module.scss';
 import { Input } from '../Input';
 import { LoginCard } from '../LoginCard';
 import searchController from '../../controllers/SearchController';
-import store from '../../utils/Store';
+import store, { withStore } from '../../utils/Store';
 import { Button } from '../Button';
 
 
+
 interface addUserProps {
-  userLogin: []
+  userLogin: [],
+  usersInChat?: []
 }
 
-export class addUserModal extends Block<addUserProps> {
+class addUserModalDefautl extends Block<addUserProps> {
   constructor(props: addUserProps) {
     super(props);
   }
@@ -43,7 +45,32 @@ export class addUserModal extends Block<addUserProps> {
     })
   }
 
-  protected componentDidUpdate(): boolean{
+
+
+  private async renderUsers(props: []) {
+    //console.log(props);
+     this.children.usersInChat = props.map((name: any )=> {
+      if (name.id === store.getState().user.id) {
+        return new LoginCard({
+          label: name.login,
+          src: name.avatar,
+          userId: name.id,
+        })
+      }
+      return new LoginCard({
+        label: name.login,
+        src: name.avatar,
+        userId: name.id,
+        toDelete: {users: [name.id], chatId: store.getState().selectedChat}
+      })
+    })
+  }
+
+  protected componentDidUpdate(_oldProps:addUserProps, newProps:addUserProps): boolean{
+    if (newProps.usersInChat) {
+      this.renderUsers(newProps.usersInChat)
+    }
+
     this.showLogins()
     return true
   }
@@ -78,6 +105,16 @@ export class addUserModal extends Block<addUserProps> {
 
 
   protected render(): DocumentFragment {
+
     return this.compile(template, { ...this.props, styles });
   }
 }
+
+
+const addUserWithStore = withStore(state => {
+  return {
+    usersInChat: state.usersInChat
+  }
+})
+
+export const addUserModal = addUserWithStore(addUserModalDefautl)

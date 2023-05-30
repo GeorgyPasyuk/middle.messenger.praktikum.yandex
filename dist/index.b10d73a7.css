@@ -668,6 +668,12 @@ a {
   position: relative;
 }
 
+.WGMoUq_usersInChat {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
 .St4TZq_user__item {
   width: 100%;
   height: 50px;
@@ -696,7 +702,7 @@ a {
   color: #1e1e1e;
   text-align: center;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #0000;
   font-size: 15px;
   font-weight: 500;
   line-height: 13px;
@@ -704,6 +710,21 @@ a {
 
 .St4TZq_user__item:hover {
   opacity: .5;
+}
+
+.St4TZq_deleteButton {
+  width: auto;
+  height: auto;
+  z-index: 20000;
+  color: #ff2f2f;
+  background-color: #0000;
+  font-size: 11px;
+  position: absolute;
+  right: 5px;
+}
+
+.St4TZq_to__delete:hover {
+  background-color: #e4edfd;
 }
 
 .TJBnwq_chat__container {

@@ -1,7 +1,10 @@
-<div class="{{styles.user__item}}">
+<div class="{{styles.user__item}}  {{#if toDelete}}{{{styles.to__delete}}}{{/if}}">
     <div class="{{styles.avatar__container}}">
         {{{avatar}}}
     </div>
     {{{button}}}
+    {{#if toDelete}}
+        {{{deleteButton}}}
+    {{/if}}
 </div>
 
