@@ -12882,12 +12882,12 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jtmEm":[function(require,module,exports) {
 module.exports["welcome__container"] = `_1qOFfG_welcome__container`;
-module.exports["login__container"] = `_1qOFfG_login__container`;
-module.exports["welcome__box"] = `_1qOFfG_welcome__box`;
 module.exports["login__info"] = `_1qOFfG_login__info`;
+module.exports["login__container"] = `_1qOFfG_login__container`;
+module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
 module.exports["welcome__items"] = `_1qOFfG_welcome__items`;
 module.exports["login__containerLast"] = `_1qOFfG_login__containerLast`;
-module.exports["welcome__header"] = `_1qOFfG_welcome__header`;
+module.exports["welcome__box"] = `_1qOFfG_welcome__box`;
 
 },{}],"iclCk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13771,14 +13771,14 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1a6TI":[function(require,module,exports) {
-module.exports["welcome__footer__btn"] = `O61yKG_welcome__footer__btn`;
-module.exports["login__info"] = `O61yKG_login__info`;
-module.exports["login__container"] = `O61yKG_login__container`;
 module.exports["welcome__box"] = `O61yKG_welcome__box`;
+module.exports["login__container"] = `O61yKG_login__container`;
+module.exports["welcome__items"] = `O61yKG_welcome__items`;
+module.exports["welcome__container"] = `O61yKG_welcome__container`;
+module.exports["login__info"] = `O61yKG_login__info`;
+module.exports["welcome__footer__btn"] = `O61yKG_welcome__footer__btn`;
 module.exports["welcome__header"] = `O61yKG_welcome__header`;
 module.exports["login__containerLast"] = `O61yKG_login__containerLast`;
-module.exports["welcome__container"] = `O61yKG_welcome__container`;
-module.exports["welcome__items"] = `O61yKG_welcome__items`;
 
 },{}],"dr0X8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14292,19 +14292,19 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEMAP":[function(require,module,exports) {
-module.exports["profile__action__container"] = `ZZhonq_profile__action__container`;
-module.exports["profile__main"] = `ZZhonq_profile__main`;
-module.exports["action__change"] = `ZZhonq_action__change`;
-module.exports["profile__back"] = `ZZhonq_profile__back`;
-module.exports["profile__input"] = `ZZhonq_profile__input`;
-module.exports["profile__last"] = `ZZhonq_profile__last`;
-module.exports["profile__name"] = `ZZhonq_profile__name`;
-module.exports["profile__items"] = `ZZhonq_profile__items`;
-module.exports["profile__container"] = `ZZhonq_profile__container`;
-module.exports["save__button"] = `ZZhonq_save__button`;
-module.exports["profile__component"] = `ZZhonq_profile__component`;
-module.exports["profile__image"] = `ZZhonq_profile__image`;
 module.exports["profile__box"] = `ZZhonq_profile__box`;
+module.exports["profile__input"] = `ZZhonq_profile__input`;
+module.exports["action__change"] = `ZZhonq_action__change`;
+module.exports["profile__items"] = `ZZhonq_profile__items`;
+module.exports["profile__action__container"] = `ZZhonq_profile__action__container`;
+module.exports["profile__image"] = `ZZhonq_profile__image`;
+module.exports["save__button"] = `ZZhonq_save__button`;
+module.exports["profile__container"] = `ZZhonq_profile__container`;
+module.exports["profile__back"] = `ZZhonq_profile__back`;
+module.exports["profile__component"] = `ZZhonq_profile__component`;
+module.exports["profile__name"] = `ZZhonq_profile__name`;
+module.exports["profile__main"] = `ZZhonq_profile__main`;
+module.exports["profile__last"] = `ZZhonq_profile__last`;
 
 },{}],"5w6fJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14403,10 +14403,10 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fFqjA":[function(require,module,exports) {
-module.exports["profile__header"] = `KZc3XW_profile__header`;
-module.exports["profile__header__info"] = `KZc3XW_profile__header__info`;
-module.exports["profile__box"] = `KZc3XW_profile__box`;
 module.exports["validation"] = `KZc3XW_validation`;
+module.exports["profile__header"] = `KZc3XW_profile__header`;
+module.exports["profile__box"] = `KZc3XW_profile__box`;
+module.exports["profile__header__info"] = `KZc3XW_profile__header__info`;
 
 },{}],"7hTR4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14546,8 +14546,8 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fYKi2":[function(require,module,exports) {
-module.exports["profile__action__header"] = `-yseVG_profile__action__header`;
 module.exports["profile__action__exit"] = `-yseVG_profile__action__exit`;
+module.exports["profile__action__header"] = `-yseVG_profile__action__header`;
 module.exports["profile__box"] = `-yseVG_profile__box`;
 
 },{}],"lvNiY":[function(require,module,exports) {
@@ -15236,15 +15236,15 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3Jf9F":[function(require,module,exports) {
 module.exports["header__container"] = `rggNwa_header__container`;
-module.exports["footer__container"] = `rggNwa_footer__container`;
-module.exports["chatMessage__container"] = `rggNwa_chatMessage__container`;
-module.exports["main__container"] = `rggNwa_main__container`;
-module.exports["footer__button"] = `rggNwa_footer__button`;
-module.exports["header__item"] = `rggNwa_header__item`;
 module.exports["header__avatar"] = `rggNwa_header__avatar`;
-module.exports["footer__input"] = `rggNwa_footer__input`;
+module.exports["footer__container"] = `rggNwa_footer__container`;
+module.exports["footer__button"] = `rggNwa_footer__button`;
 module.exports["header__username"] = `rggNwa_header__username`;
 module.exports["footer__icon"] = `rggNwa_footer__icon`;
+module.exports["chatMessage__container"] = `rggNwa_chatMessage__container`;
+module.exports["footer__input"] = `rggNwa_footer__input`;
+module.exports["header__item"] = `rggNwa_header__item`;
+module.exports["main__container"] = `rggNwa_main__container`;
 
 },{}],"62UNT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15440,12 +15440,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jJ59Q":[function(require,module,exports) {
-module.exports["from__container"] = `xmqUra_from__container`;
-module.exports["message__time"] = `xmqUra_message__time`;
-module.exports["from__item"] = `xmqUra_from__item`;
-module.exports["to__item"] = `xmqUra_to__item`;
-module.exports["to__container"] = `xmqUra_to__container`;
 module.exports["main__time"] = `xmqUra_main__time`;
+module.exports["from__container"] = `xmqUra_from__container`;
+module.exports["to__item"] = `xmqUra_to__item`;
+module.exports["message__time"] = `xmqUra_message__time`;
+module.exports["to__container"] = `xmqUra_to__container`;
+module.exports["from__item"] = `xmqUra_from__item`;
 
 },{}],"cbGWC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15491,12 +15491,12 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6PmD":[function(require,module,exports) {
+module.exports["modal__window__red"] = `prqzzG_modal__window__red`;
+module.exports["modal__avatar"] = `prqzzG_modal__avatar`;
 module.exports["header__options"] = `prqzzG_header__options`;
+module.exports["modal__window"] = `prqzzG_modal__window`;
 module.exports["header__item"] = `prqzzG_header__item`;
 module.exports["modal__container"] = `prqzzG_modal__container`;
-module.exports["modal__window"] = `prqzzG_modal__window`;
-module.exports["modal__avatar"] = `prqzzG_modal__avatar`;
-module.exports["modal__window__red"] = `prqzzG_modal__window__red`;
 
 },{}],"6FC4Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15967,9 +15967,9 @@ exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCYUu":[function(require,module,exports) {
 module.exports["modal__box"] = `WGMoUq_modal__box`;
-module.exports["input"] = `WGMoUq_input`;
-module.exports["usersInChat"] = `WGMoUq_usersInChat`;
 module.exports["modal__container"] = `WGMoUq_modal__container`;
+module.exports["usersInChat"] = `WGMoUq_usersInChat`;
+module.exports["input"] = `WGMoUq_input`;
 
 },{}],"lerAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16032,7 +16032,7 @@ class LoginCard extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./loginCard.hbs":"4EfJi","./loginCard.module.scss":"hefx3","../Button":"i3jlU","../Avatar":"iC4G6","../../controllers/ChatsController":"jYChn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/Store":"euxgo"}],"4EfJi":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./loginCard.hbs":"4EfJi","./loginCard.module.scss":"hefx3","../Button":"i3jlU","../Avatar":"iC4G6","../../controllers/ChatsController":"jYChn","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4EfJi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -16461,15 +16461,15 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4QzV4":[function(require,module,exports) {
-module.exports["search__input"] = `TJBnwq_search__input`;
-module.exports["chat__container"] = `TJBnwq_chat__container`;
-module.exports["chat__input"] = `TJBnwq_chat__input`;
 module.exports["loading"] = `TJBnwq_loading`;
 module.exports["feed__container"] = `TJBnwq_feed__container`;
-module.exports["chat__selected"] = `TJBnwq_chat__selected`;
-module.exports["search__header"] = `TJBnwq_search__header`;
 module.exports["chat__item"] = `TJBnwq_chat__item`;
+module.exports["search__input"] = `TJBnwq_search__input`;
+module.exports["search__header"] = `TJBnwq_search__header`;
 module.exports["add__button"] = `TJBnwq_add__button`;
+module.exports["chat__selected"] = `TJBnwq_chat__selected`;
+module.exports["chat__input"] = `TJBnwq_chat__input`;
+module.exports["chat__container"] = `TJBnwq_chat__container`;
 
 },{}],"k2Mhs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16510,7 +16510,7 @@ const withSelectedChat = (0, _store.withStore)((state)=>({
     }));
 const Chat = withSelectedChat(ChatBase);
 
-},{"../../utils/Block":"915bj","./Chat.hbs":"6wwx7","./chat.module.scss":"gTDb8","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Avatar":"iC4G6"}],"6wwx7":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./Chat.hbs":"6wwx7","./chat.module.scss":"gTDb8","../../utils/Store":"euxgo","../Avatar":"iC4G6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6wwx7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -16625,14 +16625,14 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gTDb8":[function(require,module,exports) {
-module.exports["user__notification"] = `_3trspG_user__notification`;
-module.exports["user__name"] = `_3trspG_user__name`;
-module.exports["user__time"] = `_3trspG_user__time`;
-module.exports["chat__item"] = `_3trspG_chat__item`;
-module.exports["user__message"] = `_3trspG_user__message`;
-module.exports["user__notes"] = `_3trspG_user__notes`;
-module.exports["user__info"] = `_3trspG_user__info`;
 module.exports["chat__selected"] = `_3trspG_chat__selected`;
+module.exports["user__info"] = `_3trspG_user__info`;
+module.exports["user__notes"] = `_3trspG_user__notes`;
+module.exports["user__time"] = `_3trspG_user__time`;
+module.exports["user__notification"] = `_3trspG_user__notification`;
+module.exports["user__message"] = `_3trspG_user__message`;
+module.exports["user__name"] = `_3trspG_user__name`;
+module.exports["chat__item"] = `_3trspG_chat__item`;
 module.exports["chat__avatar"] = `_3trspG_chat__avatar`;
 
 },{}],"dk5eK":[function(require,module,exports) {
@@ -16777,8 +16777,8 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 exports.default = templateFunction;
 
 },{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dxA6s":[function(require,module,exports) {
-module.exports["selectchat__container"] = `W_2Rta_selectchat__container`;
 module.exports["temporary"] = `W_2Rta_temporary`;
+module.exports["selectchat__container"] = `W_2Rta_selectchat__container`;
 
 },{}]},["3LmCz","h7u1C"], "h7u1C", "parcelRequire40a5")
 
