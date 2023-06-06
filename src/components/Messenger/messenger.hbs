@@ -1,14 +1,10 @@
 
 <div class="{{styles.chatMessage__container}}">
 
-    {{#if isLoaded}}
-        123
-    {{/if}}
-
     {{#if userModal}}
         {{{addUserModal}}}
     {{/if}}
-
+    {{#if isLoaded}}
     <header class="{{styles.header__container}}">
             <div class="{{styles.header__item}}">
                 <span class="{{styles.header__avatar}}">
@@ -22,14 +18,23 @@
             {{{showModal}}}
 
         </header>
-        <main class="{{styles.main__container}}">
+
+        <main class="{{styles.main__container}}" id="main">
+
             {{{time}}}
             {{{messages}}}
 
         </main>
-        <footer class="{{styles.footer__container}}">
-            <svg class="{{styles.footer__icon}}"></svg>
-            {{{messengerInput}}}
-            {{{button}}}
-        </footer>
+
+
+            <footer class="{{styles.footer__container}}">
+                <svg class="{{styles.footer__icon}}"></svg>
+                {{{messengerInput}}}
+                {{{button}}}
+            </footer>
+
+        {{else}}
+        <div class="{{styles.loading}}">Идет загрузка...</div>
+        {{/if}}
+
 </div>

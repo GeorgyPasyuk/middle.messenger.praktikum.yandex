@@ -8,13 +8,14 @@ import { Avatar } from '../Avatar';
 interface ChatProps {
   id: number;
   title: string;
-  unread_count: number;
+  unread_count: Object;
   selectedChat: ChatsInfo
-  last_message?: string;
+  last_message: string;
   time?: any;
   events: {
     click: (e: Event) => void
   },
+  userName: string
   avatar: string
 }
 
@@ -24,7 +25,12 @@ export class ChatBase extends Block<ChatProps> {
   }
 
   init() {
-    if (this.props.avatar) {
+    this.createAvatar(this.props.avatar)
+  }
+
+
+  protected createAvatar(avatar: string) {
+    if (avatar) {
       this.children.chatAvatar = new Avatar({
         src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
       })
@@ -35,6 +41,10 @@ export class ChatBase extends Block<ChatProps> {
     }
   }
 
+  protected componentDidUpdate(_oldProps: ChatProps, newProps: ChatProps): boolean {
+    this.createAvatar(newProps.selectedChat.avatar)
+    return true
+  }
 
   protected render() {
     return this.compile(template, {
@@ -45,8 +55,10 @@ export class ChatBase extends Block<ChatProps> {
   }
 }
 
-export const withSelectedChat = withStore(state => ({
-    selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat),
-}));
+const withSelectedChat = withStore(state => {
+       return {
+        selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)
+       }
+  })
 
 export const Chat = withSelectedChat(ChatBase);

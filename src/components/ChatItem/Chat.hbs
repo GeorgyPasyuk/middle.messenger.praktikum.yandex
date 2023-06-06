@@ -8,16 +8,16 @@
             {{{delete}}}
         </h>
 
-        <p class="{{styles.user__message}}">
-            {{last_message.content}}
-        </p>
+        <div class="{{styles.user__message}}">
+           <h class="{{styles.userName}}">{{userName}}: </h> {{last_message}}
+        </div>
     </div>
     <div class="{{styles.user__notes}}">
         <p class="{{styles.user__time}}">
             {{time}}
         </p>
-        <div class="{{styles.user__notification}}">
-            {{unread_count}}
-        </div>
+        {{#if unread_count.unread_count}}
+        <div class="{{styles.user__notification}}">{{unread_count.unread_count}}</div>
+        {{/if}}
     </div>
 </div>

@@ -49,7 +49,7 @@ class MessagesController {
       type: "message",
       content: message
     })
-
+    storeSetMessage(id, message)
   }
 
   fetchOldMessages(id: number) {
@@ -79,6 +79,11 @@ class MessagesController {
     messagesToAdd = [...currentMessages, ...messagesToAdd];
 
     store.set(`messages.${id}`, messagesToAdd)
+
+    const last_message = messagesToAdd[messagesToAdd.length - 1].content
+
+    storeSetMessage(id, last_message)
+
   }
 
   private onClose(id: number) {
@@ -90,6 +95,15 @@ class MessagesController {
     transport.on(WSEvents.Close, ()=> this.onClose(id))
   }
 
+}
+
+
+function storeSetMessage(id: number, message: string) {
+  const chatIndex = store.getState().chats
+    .findIndex((chat: Record<string, any>) => chat.id === id);
+  if (chatIndex) {
+    store.set(`chats.${chatIndex}.last_message.content`, message)
+  }
 }
 
 const controller = new MessagesController()

@@ -12,6 +12,15 @@
 }
 
 
+.user__name {
+  font-size: 10px;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: 5px;
+  color: $blue;
+}
+
 .message__time {
   width: 100%;
   text-align: end;
@@ -42,7 +51,7 @@
   margin-right: 10px;
   min-height: 37px;
   border-radius: 12px;
-  max-width: 400px;
+  max-width: 570px;
   background-color: $sent-from;
 }
 
@@ -52,7 +61,7 @@
   padding: 15px;
   border-radius: 12px;
   min-height: 37px;
-  max-width: 400px;
+  max-width: 570px;
   background-color: $sent-to;
 }
 

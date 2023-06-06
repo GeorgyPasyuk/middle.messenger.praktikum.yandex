@@ -33,6 +33,10 @@ export class ChatsAPI extends BaseAPI {
     return this.http.get('/');
   }
 
+  async getNewMessages(id: number) {
+    return await this.http.get(`/new/${id}`)
+  }
+
   getUsers(id: number): Promise<Array<unknown>> {
     return this.http.get(`/${id}/users`)
   }

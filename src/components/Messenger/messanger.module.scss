@@ -53,8 +53,17 @@
   flex-direction: column;
   align-items: center;
   overflow: scroll;
+  padding: 25px;
 }
 
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 14px;
+  color: $font-secondary;
+}
 
 .footer__container {
   position: relative;

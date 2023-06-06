@@ -99,8 +99,13 @@ class ChatsListBase extends Block<ChatsListProps> {
     return Object
       .values(props.chats)
       .map(data => {
+        const chatIndex = props.chats
+          .findIndex((chat: Record<string, any>) => chat.id === data.id);
       return new Chat({
         ...data,
+        last_message: ChatsListBase.formatItemMessage(props, chatIndex),
+        userName: data.last_message.user.display_name,
+        avatar: data.avatar,
         events: {
           click: async ()=> {
             store.set("activeChat", data)
@@ -111,6 +116,13 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
   }
 
+
+  private static formatItemMessage(props: ChatsListProps, index: number) {
+    const originalMessage: string = props.chats[index].last_message.content
+
+    return originalMessage.length > 30 ?
+      originalMessage.substring(0, 30) + '...' : originalMessage;
+  }
 
   private static async createChat(login: string) {
     await ChatsController.create(`${login}`)

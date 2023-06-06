@@ -6,9 +6,10 @@ import { ChatsList } from '../../components/ChatList';
 import ChatsController from '../../controllers/ChatsController';
 
 
+
 export class ChatPage extends Block {
   constructor() {
-    super({  });
+    super({});
   }
 
 
@@ -23,6 +24,7 @@ export class ChatPage extends Block {
     });
 
     this.children.messenger = new Messenger({});
+
   }
 
 
