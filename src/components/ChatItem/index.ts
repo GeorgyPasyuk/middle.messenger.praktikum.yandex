@@ -42,7 +42,9 @@ export class ChatBase extends Block<ChatProps> {
   }
 
   protected componentDidUpdate(_oldProps: ChatProps, newProps: ChatProps): boolean {
-    this.createAvatar(newProps.selectedChat.avatar)
+    if (newProps.selectedChat) {
+      this.createAvatar(newProps.selectedChat.avatar)
+    }
     return true
   }
 

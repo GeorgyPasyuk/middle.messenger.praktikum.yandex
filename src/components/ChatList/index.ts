@@ -92,36 +92,37 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
   }
 
-
-
-
   private createChats(props: ChatsListProps) {
-    return Object
-      .values(props.chats)
-      .map(data => {
-        const chatIndex = props.chats
-          .findIndex((chat: Record<string, any>) => chat.id === data.id);
+    return Object.values(props.chats).map(data => {
+      const chatIndex = props.chats.findIndex((chat: Record<string, any>) => chat.id === data.id);
+      const lastMessage = data.last_message || {};
+      const user = lastMessage.user || {};
+
       return new Chat({
         ...data,
         last_message: ChatsListBase.formatItemMessage(props, chatIndex),
-        userName: data.last_message.user.display_name,
-        avatar: data.avatar,
+        userName: user.display_name || '',
+        avatar: data.avatar || '',
         events: {
-          click: async ()=> {
-            store.set("activeChat", data)
-            Router.go(`/messenger/${data.id}`)
+          click: async () => {
+            store.set("activeChat", data);
+            Router.go(`/messenger/${data.id}`);
           }
         }
-      })
-    })
+      });
+    });
   }
 
 
-  private static formatItemMessage(props: ChatsListProps, index: number) {
-    const originalMessage: string = props.chats[index].last_message.content
 
-    return originalMessage.length > 30 ?
-      originalMessage.substring(0, 30) + '...' : originalMessage;
+  private static formatItemMessage(props: ChatsListProps, index: number) {
+    if (props.chats[index].last_message) {
+      const originalMessage: string = props.chats[index].last_message!.content
+      return originalMessage.length > 30 ?
+          originalMessage.substring(0, 30) + '...' : originalMessage;
+    } else {
+      return ""
+    }
   }
 
   private static async createChat(login: string) {

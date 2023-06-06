@@ -130,39 +130,46 @@ class DefaultMessenger extends Block<MessengerProps> {
 
 
   private createMessages(props: MessengerProps) {
-    return props.messages.map( data => {
+    return props.messages.map(data => {
+      const userName = this.props.usersInChat;
 
-
-      const userName = this.props.usersInChat
-
-      this.setLatestMessage(data.user_id, userName)
+      this.setLatestMessage(data.user_id, userName);
 
       return new Message({
-          ...data,
-          name: this.getUserNameById(data.user_id, userName),
-          content: DefaultMessenger.formatMessage(data.content),
-          myMsg: props.userId === data.user_id
-        }
-      )
-    })
+        ...data,
+        name: this.getUserNameById(data.user_id, userName) || "",
+        content: DefaultMessenger.formatMessage(data.content) || "",
+        myMsg: props.userId === data.user_id,
+      });
+    });
   }
+
 
   private getUserNameById(userId: number, users: any) {
-    const foundUser = users.find((user: { id: number; }) => user.id === userId);
-    return foundUser ? foundUser.display_name : "";
+    if (users) {
+      const foundUser = users.find((user: { id: number; }) => user.id === userId);
+      if (foundUser) {
+        return foundUser.display_name || "";
+      }
+    }
+    return "";
   }
 
-  private setLatestMessage(id: number, name: Promise<object[]>) {
-    const chatIndex = store.getState().chats
-      .findIndex((chat: Record<string, any>) => chat.id === id);
-    if (chatIndex) {
-      store.set(`chats.${chatIndex}.last_message.user.display_name`, name)
+
+  private async setLatestMessage(id: number, name: Promise<object[]>) {
+    const chatIndex = store.getState().chats.findIndex((chat: Record<string, any>) => chat.id === id);
+    if (chatIndex > -1) {
+      const userName = await name;
+      store.set(`chats.${chatIndex}.last_message.user.display_name`, userName);
     }
   }
 
+
   private static formatMessage(content: string) {
-    return  content
-      .split('').map((char, index) => (index + 1) % 21 === 0 ? char + '\n' : char).join('');
+    if (content) {
+      return content
+          .split('').map((char, index) => (index + 1) % 21 === 0 ? char + '\n' : char).join('');
+    }
   }
 
   private showModal() {
@@ -185,7 +192,7 @@ class DefaultMessenger extends Block<MessengerProps> {
 const withSelectedChatMessages = withStore(state => {
 
   const selectedChatId = state.selectedChat
-  if(!selectedChatId) {
+  if(!selectedChatId || !state.activeChat) {
     return {
       messages: [],
       selectedChat: undefined,

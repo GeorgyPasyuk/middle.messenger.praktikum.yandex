@@ -80,10 +80,13 @@ class MessagesController {
 
     store.set(`messages.${id}`, messagesToAdd)
 
-    const last_message = messagesToAdd[messagesToAdd.length - 1].content
+    if (messagesToAdd[(messagesToAdd.length - 1)]) {
 
-    storeSetMessage(id, last_message)
 
+      const last_message = messagesToAdd[messagesToAdd.length - 1].content
+
+      storeSetMessage(id, last_message)
+    }
   }
 
   private onClose(id: number) {
