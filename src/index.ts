@@ -5,7 +5,7 @@ import { ProfilePage } from './pages/Profile';
 import { ChatPage } from './pages/ChatPage';
 import AuthController  from './controllers/AuthController';
 import { StartPage } from './pages/StartPage';
-
+import "./scss/main.scss"
 
 
 enum Routes {
@@ -47,12 +47,12 @@ window.addEventListener("DOMContentLoaded", async ()=> {
     await AuthController.fetchUser()
     Router.start()
     if (validUser) {
-    Router.go(Routes.Messenger)
+      Router.go(Routes.Messenger)
     }
   } catch (e) {
     Router.start()
     if (!validUser) {
-    Router.go(Routes.Index)
+      Router.go(Routes.Index)
     }
   }
 

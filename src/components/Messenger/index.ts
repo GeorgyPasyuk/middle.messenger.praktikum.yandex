@@ -1,7 +1,6 @@
 import Block from '../../utils/Block';
 import template from './messenger.hbs';
 import styles from './messanger.module.scss';
-import { Time } from './Time';
 import { Message } from '../Message';
 import { Button } from '../Button';
 import { Input } from '../Input';
@@ -27,7 +26,6 @@ interface MessengerProps {
 
 let isShown = false
 
-let date = new Date()
 
 class DefaultMessenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
@@ -46,10 +44,7 @@ class DefaultMessenger extends Block<MessengerProps> {
 
     this.children.messages = this.createMessages(this.props)
 
-    this.children.time = new Time({
-      time: `${date.getHours()}:${date.getMinutes() < 10 ? "0" + 
-        date.getMinutes() : date.getMinutes()}`
-    })
+
 
     this.children.button = new Button({
       style: styles.footer__button,
@@ -157,7 +152,8 @@ class DefaultMessenger extends Block<MessengerProps> {
 
 
   private async setLatestMessage(id: number, name: Promise<object[]>) {
-    const chatIndex = store.getState().chats.findIndex((chat: Record<string, any>) => chat.id === id);
+    const chatIndex = store.getState()
+      .chats.findIndex((chat: Record<string, any>) => chat.id === id);
     if (chatIndex > -1) {
       const userName = await name;
       store.set(`chats.${chatIndex}.last_message.user.display_name`, userName);
@@ -207,7 +203,10 @@ const withSelectedChatMessages = withStore(state => {
     chatName: state.activeChat.title,
     chatAvatar: state.activeChat.avatar,
     usersInChat: state.activeChat.usersInChat,
-    isLoaded: true
+    isLoaded: true,
+    time: `${new Date().getHours()}:${(new Date().getMinutes()<10?'0':'')
+    + new Date().getMinutes()}`
+
   }
 })
 
