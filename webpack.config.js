@@ -15,11 +15,12 @@ const config = {
     entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
     },
     devServer: {
         open: true,
         port: '3000',
-        historyApiFallback: true
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -28,8 +29,6 @@ const config = {
 
         new MiniCssExtractPlugin(),
 
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
     module: {
         rules: [
@@ -53,8 +52,6 @@ const config = {
                 type: 'asset',
             },
 
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
     resolve: {
