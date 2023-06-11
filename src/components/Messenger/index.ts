@@ -10,6 +10,7 @@ import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
 import { addUserModal } from '../addUserToChat';
 import { Avatar } from '../Avatar';
+import ChatsController from '../../controllers/ChatsController';
 
 
 interface MessengerProps {
@@ -94,10 +95,8 @@ class DefaultMessenger extends Block<MessengerProps> {
     this.children.modal = new Modal({})
 
     this.children.addUserModal = new addUserModal({
-      userLogin: []
+      userLogin: ChatsController.getUsers(Number(chatId))
     })
-
-
 
    }
 

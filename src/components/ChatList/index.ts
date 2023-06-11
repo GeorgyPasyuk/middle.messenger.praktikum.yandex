@@ -79,9 +79,12 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
   }
 
-  protected componentDidUpdate(newProps: ChatsListProps) {
-    this.children.chats = this.createChats(newProps)
-    return true
+  protected componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps) {
+    if (oldProps !== newProps) {
+      this.children.chats = this.createChats(newProps)
+      return true
+    }
+    return false
   }
 
   private showModal() {
@@ -93,6 +96,18 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
   private createChats(props: ChatsListProps) {
+    if (!props.chats) {
+      return new Chat({
+        last_message: '',
+        userName:  'Идет загрузка...',
+        avatar: '',
+        events: {
+          click: () => {
+          }
+        }
+      });
+    }
+
     return Object.values(props.chats).map(data => {
       const chatIndex = props.chats.findIndex((chat: Record<string, any>) => chat.id === data.id);
       const lastMessage = data.last_message || {};
@@ -117,13 +132,13 @@ class ChatsListBase extends Block<ChatsListProps> {
 
   private static formatItemMessage(props: ChatsListProps, index: number) {
     if (props.chats[index].last_message) {
-      const originalMessage: string = props.chats[index].last_message!.content
-      return originalMessage.length > 30 ?
-          originalMessage.substring(0, 30) + '...' : originalMessage;
+      const originalMessage: string = props.chats[index].last_message.content;
+      return originalMessage.length > 30 ? originalMessage.substring(0, 30) + '...' : originalMessage;
     } else {
-      return ""
+      return "";
     }
   }
+
 
   private static async createChat(login: string) {
     await ChatsController.create(`${login}`)

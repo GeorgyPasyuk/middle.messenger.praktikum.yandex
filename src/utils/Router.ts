@@ -92,11 +92,14 @@ class Router {
   public go(pathname: string) {
 
     this.history.pushState({}, '', pathname);
-
-
-
     this._onRoute(pathname);
   }
+
+  public reset() {
+    this.routes = []
+    this._currentRoute = null
+  }
+
 
   private findRoute(pathname: string) {
     return this.routes.find(route => {

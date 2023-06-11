@@ -30,16 +30,20 @@ export class ChatsAPI extends BaseAPI {
   }
 
   read(): Promise<ChatsInfo[]> {
-    return this.http.get('/');
+    return this.http.get('/?limit=20');
   }
 
   async getNewMessages(id: number) {
     return await this.http.get(`/new/${id}`)
   }
 
-  getUsers(id: number): Promise<Array<unknown>> {
-    return this.http.get(`/${id}/users`)
+  getUsers(id: number): Promise<Array<unknown>> | undefined {
+    if (!id) {
+      return
+    }
+      return this.http.get(`/${id}/users`);
   }
+
 
   addUsers(id: number, users: number[]): Promise<unknown> {
     return this.http.put('/users', {users, chatId: id})

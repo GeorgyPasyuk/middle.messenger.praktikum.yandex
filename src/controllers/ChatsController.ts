@@ -68,15 +68,19 @@ class ChatsController {
   }
 
   async getUsers(id: number) {
-    const usersInChat = await this.api.getUsers(id)
-    store.set("activeChat.usersInChat", usersInChat)
+    if (!id) {
+      return
+    }
+      const usersInChat = await this.api.getUsers(id)
+      store.set("activeChat.usersInChat", usersInChat)
   }
 
   async delete(id: number) {
     await this.api.delete(id)
-    this.fetchChats()
     const chats = await this.api.read()
     store.set('chats', chats)
+    this.fetchChats()
+
   }
 
   getToken(id: number) {

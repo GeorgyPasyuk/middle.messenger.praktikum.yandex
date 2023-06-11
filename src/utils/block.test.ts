@@ -1,21 +1,32 @@
-import { expect } from 'chai';
-import sinon from "sinon"
 import Block from './Block';
-import EventBus from './EventBus';
+import { expect } from 'chai';
 
 describe("Block", ()=> {
-  class testBlock extends Block {}
+  class Component extends Block<{}>  {
+    render() {
+      return new DocumentFragment()
+    }
+  }
 
-  it("should start init event on initialization", ()=> {
-    const eventBusStub = sinon.createStubInstance(EventBus)
-    const emitSpy = eventBusStub.emit
-
-    sinon.replace(Block.prototype, 'eventBus' as any, () => eventBusStub);
-
-    new testBlock({})
-
-    expect (emitSpy.calledWith(Block.EVENTS.INIT)).to.be.true
-
-    sinon.restore()
+  it('should render a component', ()=> {
+    new Component({})
   })
+
+  describe("should get props", ()=> {
+    const component = new Component({test: 123})
+
+    it("should return an old props", ()=> {
+      expect((component as any).props).to.eql({test: 123})
+    })
+
+    it("should set a new props", ()=> {
+      (component as Block).setProps({test:321})
+    })
+
+    it("should return a new props", ()=> {
+      expect((component as any).props).to.eql({test: 321})
+    })
+  })
+
 })
+
