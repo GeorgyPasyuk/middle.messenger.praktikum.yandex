@@ -2,7 +2,7 @@
   "name": "my-webpack-project",
   "version": "1.0.0",
   "scripts": {
-    "serve": "webpack serve",
+    "start": "webpack serve",
     "build-and-start": "node src/modules/server.js",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
