@@ -2,19 +2,20 @@
   "name": "my-webpack-project",
   "version": "1.0.0",
   "scripts": {
+    "serve": "webpack serve",
     "build-and-start": "node src/modules/server.js",
     "build": "webpack --mode=production --node-env=production",
-    "eslint": "npx eslint ./src",
-    "stylelint": "npx stylelint \"**/*.scss\"",
-    "test": "ts-mocha -p ./tsconfig.json --require ./mochaSetup.js 'src/**/*.test.ts'",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "stylelint": "npx stylelint \"**/*.scss\" --fix",
+    "eslint": "eslint . --fix",
+    "tests": "ts-mocha -p ./tsconfig.json --require ./mochaSetup.js 'src/**/*.test.ts'",
+    "precommit": "npm run tests && npm run eslint && npm run stylelint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run eslint && npm run stylelint && npm run test"
+      "pre-commit": "npm run precommit"
     }
   },
   "author": "pasyukgeorgy@yandex.ru",
@@ -39,7 +40,6 @@
     "husky": "^8.0.3",
     "mini-css-extract-plugin": "^2.7.6",
     "nanoid": "^3.0.0",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.24",
     "postcss-loader": "^7.3.2",
     "prettier": "^2.8.8",

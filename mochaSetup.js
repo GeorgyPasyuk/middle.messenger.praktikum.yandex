@@ -1,6 +1,7 @@
 const { JSDOM } = require('jsdom')
 
-const dom = new JSDOM(`<!DOCTYPE html> <html><body><div id="app" class="app"></div></body></html>`, {
+const dom = new JSDOM(
+  `<!DOCTYPE html> <html><body><div id="app" class="app"></div></body></html>`, {
   url: "http://localhost:3000"
 })
 
