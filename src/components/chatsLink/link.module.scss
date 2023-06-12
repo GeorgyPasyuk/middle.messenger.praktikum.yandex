@@ -1,0 +1,12 @@
+@import "../../scss/_variables";
+
+.link {
+  position: absolute;
+  top: 21px;
+  right: 22px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  color: $font-secondary;
+  cursor: pointer;
+}

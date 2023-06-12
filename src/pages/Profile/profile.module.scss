@@ -20,12 +20,7 @@
   background-color: $second-bg;
 }
 
-.profile__arrow {
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  background-color: $blue;
-}
+
 
 .profile__component {
   width: 100%;
@@ -59,13 +54,10 @@
   background-color: $border-col;
   margin-bottom: 20px;
   color: transparent;
+  position: relative;
 }
 
-.file__avatar {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
+
 
 
 .profile__name {

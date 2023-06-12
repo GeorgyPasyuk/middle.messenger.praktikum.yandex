@@ -113,7 +113,7 @@ class Block<P extends Record<string, any> = any> {
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate(oldProps: P, newProps: P): boolean | undefined {
     if (oldProps !== newProps) {
     return true;
     }
@@ -228,7 +228,7 @@ class Block<P extends Record<string, any> = any> {
     });
   }
   show() {
-    this._element!.style.display = "block";
+    this._element!.style.display = "flex";
   }
 
   hide() {

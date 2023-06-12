@@ -1,0 +1,75 @@
+@import "../../scss/_variables";
+
+.chat__container {
+  position: relative;
+  width: 310px;
+  overflow: hidden;
+  background-color: $second-bg;
+  border-right: $border-col 1px solid;
+}
+
+.search__header {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  border-bottom: $border-col 1px solid;
+}
+
+
+.search__input {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  height: 32px;
+  border-radius: 5px;
+  text-align: center;
+  background: url('../../static/icons/search.svg') 35% no-repeat $input-bg;
+}
+
+.feed__container {
+  width: 100%;
+  max-height: 100%;
+  overflow: scroll;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 50%;
+  font-size: 14px;
+}
+
+.chat__item {
+  display: flex;
+  padding: 12px 10px;
+  justify-content: space-between;
+  height: 71px;
+  border-bottom: $input-bg 1px solid;
+}
+
+.chat__selected {
+  background-color: #e4edfd;
+}
+
+
+.add__button {
+  width: 100%;
+  height: 32px;
+  position: absolute;
+  bottom: 0;
+}
+
+
+.chat__input {
+  color: #1e1e1e;
+  height: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  transition: all .3s;
+  width: 100%;
+  text-align: center;
+}
+

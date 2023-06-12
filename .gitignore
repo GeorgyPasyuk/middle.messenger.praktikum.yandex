@@ -1,4 +1,6 @@
 node_modules
-dist
 /.parcel-cache
 .idea
+package-lock.json
+dist
+/dist/
