@@ -2,9 +2,7 @@ import Block from './Block';
 
 
 
-export interface BlockConstructable<P = any> {
-  new(props: P): Block<P>;
-}
+
 
 function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
@@ -30,7 +28,7 @@ class Route {
 
   constructor(
     public pathname: string,
-    private readonly blockClass: BlockConstructable,
+    private readonly blockClass: any,
     private readonly query: string) {
   }
 
@@ -54,7 +52,7 @@ class Route {
 
   render() {
       this.block = new this.blockClass({});
-      render(this.query, this.block);
+      render(this.query, this.block!);
       return;
   }
 }
@@ -83,7 +81,7 @@ class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: BlockConstructable | any) {
+  public use(pathname: string, block: any) {
     const route: Route = new Route(pathname, block, this.rootQuery);
 
     this.routes!.push(route);
@@ -94,11 +92,14 @@ class Router {
   public go(pathname: string) {
 
     this.history.pushState({}, '', pathname);
-
-
-
     this._onRoute(pathname);
   }
+
+  public reset() {
+    this.routes = []
+    this._currentRoute = null
+  }
+
 
   private findRoute(pathname: string) {
     return this.routes.find(route => {

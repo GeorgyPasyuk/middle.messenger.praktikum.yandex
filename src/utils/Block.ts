@@ -14,7 +14,7 @@ class Block<P extends Record<string, any> = any> {
   public id = nanoid(6);
   protected props: P;
   public children: Record<string, any>;
-  private eventBus: () => EventBus;
+  public eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
   protected _setUpdate: boolean = false
 

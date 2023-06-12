@@ -79,9 +79,12 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
   }
 
-  protected componentDidUpdate(newProps: ChatsListProps) {
-    this.children.chats = this.createChats(newProps)
-    return true
+  protected componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps) {
+    if (oldProps !== newProps) {
+      this.children.chats = this.createChats(newProps)
+      return true
+    }
+    return false
   }
 
   private showModal() {
@@ -92,23 +95,48 @@ class ChatsListBase extends Block<ChatsListProps> {
     })
   }
 
-
-
-
   private createChats(props: ChatsListProps) {
-    return Object
-      .values(props.chats)
-      .map(data => {
+    if (!props.chats) {
       return new Chat({
-        ...data,
+        last_message: '',
+        userName:  'Идет загрузка...',
+        avatar: '',
         events: {
-          click: async ()=> {
-            store.set("activeChat", data)
-            Router.go(`/messenger/${data.id}`)
+          click: () => {
           }
         }
-      })
-    })
+      });
+    }
+
+    return Object.values(props.chats).map(data => {
+      const chatIndex = props.chats.findIndex((chat: Record<string, any>) => chat.id === data.id);
+      const lastMessage = data.last_message || {};
+      const user = lastMessage.user || {};
+
+      return new Chat({
+        ...data,
+        last_message: ChatsListBase.formatItemMessage(props, chatIndex),
+        userName: user.display_name || '',
+        avatar: data.avatar || '',
+        events: {
+          click: async () => {
+            store.set("activeChat", data);
+            Router.go(`/messenger/${data.id}`);
+          }
+        }
+      });
+    });
+  }
+
+
+
+  private static formatItemMessage(props: ChatsListProps, index: number) {
+    if (props.chats[index].last_message) {
+      const originalMessage: string = props.chats[index].last_message.content;
+      return originalMessage.length > 30 ? originalMessage.substring(0, 30) + '...' : originalMessage;
+    } else {
+      return "";
+    }
   }
 
 

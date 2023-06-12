@@ -3,7 +3,7 @@
 .chat__container {
   position: relative;
   width: 310px;
-  overflow: hidden;
+  overflow: scroll;
   background-color: $second-bg;
   border-right: $border-col 1px solid;
 }
@@ -32,7 +32,6 @@
 .feed__container {
   width: 100%;
   max-height: 100%;
-  overflow: scroll;
 }
 
 .loading {

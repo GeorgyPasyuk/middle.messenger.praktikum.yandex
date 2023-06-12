@@ -53,6 +53,26 @@
   flex-direction: column;
   align-items: center;
   overflow: scroll;
+  padding: 25px;
+}
+
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 14px;
+  color: $font-secondary;
+}
+
+.main__time {
+  position: relative;
+  top: 0;
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: 42px;
+  margin-bottom: 30px;
+  color: $font-secondary;
 }
 
 

@@ -47,29 +47,33 @@ class addUserModalDefautl extends Block<addUserProps> {
 
 
 
-  private async renderUsers(props: []) {
-    //console.log(props);
-     this.children.usersInChat = props.map((name: any )=> {
-      if (name.id === store.getState().user.id) {
+  private async renderUsers(props: any) {
+    this.children.usersInChat = props.map((user: any) => {
+      if (user.id === store.getState().user.id) {
         return new LoginCard({
-          label: name.login,
-          src: name.avatar,
-          userId: name.id,
-        })
+          label: user.login,
+          src: user.avatar,
+          userId: user.id,
+        });
       }
       return new LoginCard({
-        label: name.login,
-        src: name.avatar,
-        userId: name.id,
-        toDelete: {users: [name.id], chatId: store.getState().selectedChat}
-      })
-    })
+        label: user.login,
+        src: user.avatar,
+        userId: user.id,
+        toDelete: { users: [user.id], chatId: store.getState().selectedChat },
+      });
+    });
+
   }
+
+
+
 
   protected componentDidUpdate(_oldProps:addUserProps, newProps:addUserProps): boolean{
     if (newProps.usersInChat) {
       this.renderUsers(newProps.usersInChat)
     }
+
 
     this.showLogins()
     return true
@@ -83,17 +87,18 @@ class addUserModalDefautl extends Block<addUserProps> {
 
     await searchController.getLogin(data)
 
-
     this.setProps({
       ...this.props,
       userLogin: store.getState().findedUsers
     })
-
-    this.showLogins();
+    await this.showLogins();
   }
 
 
   private showLogins(){
+    if (!Array.isArray(this.props.userLogin)) {
+      return
+    }
     this.children.users = this.props.userLogin.map((name: any )=> {
       return new LoginCard({
         label: name.login,
@@ -112,9 +117,12 @@ class addUserModalDefautl extends Block<addUserProps> {
 
 
 const addUserWithStore = withStore(state => {
-  return {
-    usersInChat: state.usersInChat
+  if (!state.activeChat) {
+    return
   }
+    return {
+      usersInChat: state.activeChat.usersInChat,
+    }
 })
 
 export const addUserModal = addUserWithStore(addUserModalDefautl)

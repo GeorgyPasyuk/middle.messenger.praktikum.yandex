@@ -24,6 +24,8 @@ class ChatsController {
     chats.map(async (chat) => {
       const token = await this.getToken(chat.id);
 
+      this.unreadCount(chat.id)
+
       await MessagesController.connect(chat.id, token);
     });
 
@@ -33,8 +35,20 @@ class ChatsController {
       .find(item => item.id === Number(chatId));
 
 
+    this.getUsers(Number(chatId))
+
     store.set("activeChat", activeChat)
-    store.set('chats', chats);
+    store.set("chats", chats);
+
+  }
+
+
+  async unreadCount(id: number) {
+    const unread = await this.api.getNewMessages(id)
+    const chatIndex = store.getState().chats
+      .findIndex((chat: Record<string, any>) => chat.id === id);
+
+    store.set(`chats.${chatIndex}.unread_count`, unread)
   }
 
   addUserToChat(id: number, userId: number) {
@@ -54,14 +68,19 @@ class ChatsController {
   }
 
   async getUsers(id: number) {
-    return await this.api.getUsers(id)
+    if (!id) {
+      return
+    }
+      const usersInChat = await this.api.getUsers(id)
+      store.set("activeChat.usersInChat", usersInChat)
   }
 
   async delete(id: number) {
     await this.api.delete(id)
-    this.fetchChats()
     const chats = await this.api.read()
     store.set('chats', chats)
+    this.fetchChats()
+
   }
 
   getToken(id: number) {

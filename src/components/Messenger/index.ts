@@ -1,7 +1,6 @@
 import Block from '../../utils/Block';
 import template from './messenger.hbs';
 import styles from './messanger.module.scss';
-import { Time } from './Time';
 import { Message } from '../Message';
 import { Button } from '../Button';
 import { Input } from '../Input';
@@ -11,6 +10,7 @@ import { TriggerModal } from '../ModalTrigger';
 import { Modal } from '../ModalTrigger/Modal';
 import { addUserModal } from '../addUserToChat';
 import { Avatar } from '../Avatar';
+import ChatsController from '../../controllers/ChatsController';
 
 
 interface MessengerProps {
@@ -19,14 +19,14 @@ interface MessengerProps {
   userId: number;
   time: string | number
   userModal: boolean,
-  usersInChat: [],
+  usersInChat:  Promise<object[]>,
   chatAvatar: string
+  isLoaded: false
 }
 
 
 let isShown = false
 
-let date = new Date()
 
 class DefaultMessenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
@@ -42,12 +42,10 @@ class DefaultMessenger extends Block<MessengerProps> {
       store.set("selectedChat", Number(chatId))
     }
 
+
     this.children.messages = this.createMessages(this.props)
 
-    this.children.time = new Time({
-      time: `${date.getHours()}:${date.getMinutes() < 10 ? "0" + 
-        date.getMinutes() : date.getMinutes()}`
-    })
+
 
     this.children.button = new Button({
       style: styles.footer__button,
@@ -57,9 +55,8 @@ class DefaultMessenger extends Block<MessengerProps> {
         click: () => {
           const message = this.children.messengerInput.getValue()
           this.children.messengerInput.setValue("")
-
+          this.children.messengerInput._element.focus()
           if (message) {
-
             MessagesController.sendMessage(this.props.selectedChat!, message)
           }
         }
@@ -84,6 +81,7 @@ class DefaultMessenger extends Block<MessengerProps> {
       }
     })
 
+
     this.children.showModal = new TriggerModal({
       events: {
         click: () => {
@@ -92,24 +90,27 @@ class DefaultMessenger extends Block<MessengerProps> {
       }
     })
 
+
+
     this.children.modal = new Modal({})
 
     this.children.addUserModal = new addUserModal({
-      userLogin: []
+      userLogin: ChatsController.getUsers(Number(chatId))
     })
-  }
 
-
-
+   }
 
   protected componentDidUpdate(_oldProps: MessengerProps, newProps: MessengerProps): boolean {
-    this.children.messages = this.createMessages(newProps);
+    if (newProps.messages) {
+      this.children.messages = this.createMessages(newProps);
+    }
     if (newProps.chatAvatar) {
       this.getAvatarLink(newProps.chatAvatar)
     }
+    this.children.messengerInput._element.focus()
+
     return true;
   }
-
 
   private getAvatarLink(link: string) {
     let avatarLink = ""
@@ -124,8 +125,46 @@ class DefaultMessenger extends Block<MessengerProps> {
 
   private createMessages(props: MessengerProps) {
     return props.messages.map(data => {
-      return new Message({ ...data, myMsg: props.userId === data.user_id})
-    })
+      const userName = this.props.usersInChat;
+
+      this.setLatestMessage(data.user_id, userName);
+
+      return new Message({
+        ...data,
+        name: this.getUserNameById(data.user_id, userName) || "",
+        content: DefaultMessenger.formatMessage(data.content) || "",
+        myMsg: props.userId === data.user_id,
+      });
+    });
+  }
+
+
+  private getUserNameById(userId: number, users: any) {
+    if (users) {
+      const foundUser = users.find((user: { id: number; }) => user.id === userId);
+      if (foundUser) {
+        return foundUser.display_name || "";
+      }
+    }
+    return "";
+  }
+
+
+  private async setLatestMessage(id: number, name: Promise<object[]>) {
+    const chatIndex = store.getState()
+      .chats.findIndex((chat: Record<string, any>) => chat.id === id);
+    if (chatIndex > -1) {
+      const userName = await name;
+      store.set(`chats.${chatIndex}.last_message.user.display_name`, userName);
+    }
+  }
+
+
+  private static formatMessage(content: string) {
+    if (content) {
+      return content
+          .split('').map((char, index) => (index + 1) % 21 === 0 ? char + '\n' : char).join('');
+    }
   }
 
   private showModal() {
@@ -148,8 +187,7 @@ class DefaultMessenger extends Block<MessengerProps> {
 const withSelectedChatMessages = withStore(state => {
 
   const selectedChatId = state.selectedChat
-
-  if(!selectedChatId) {
+  if(!selectedChatId || !state.activeChat) {
     return {
       messages: [],
       selectedChat: undefined,
@@ -162,7 +200,12 @@ const withSelectedChatMessages = withStore(state => {
     userId: state.user.id,
     userModal: state.modal,
     chatName: state.activeChat.title,
-    chatAvatar: state.activeChat.avatar
+    chatAvatar: state.activeChat.avatar,
+    usersInChat: state.activeChat.usersInChat,
+    isLoaded: true,
+    time: `${new Date().getHours()}:${(new Date().getMinutes()<10?'0':'')
+    + new Date().getMinutes()}`
+
   }
 })
 

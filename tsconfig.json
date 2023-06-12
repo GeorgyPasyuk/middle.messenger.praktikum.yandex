@@ -1,20 +1,14 @@
 {
   "compilerOptions": {
-
-
     "target": "es2016",
-    "lib": [
-      "ES6",
-      "dom"
-    ],
-
-    "module": "commonjs",
+    "lib": ["ES6", "esnext", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
     "esModuleInterop": true,
     "rootDir": "./src",
-
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-
-
+    "allowJs": true,
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
@@ -22,11 +16,11 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "include": [
-      "./src/**/*.ts"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-  }
+    "declaration": true,
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.test.ts",
+  ],
+  "exclude": ["node_modules"],
 }
