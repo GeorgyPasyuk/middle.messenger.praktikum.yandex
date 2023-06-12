@@ -23,19 +23,19 @@ describe("Router", ()=> {
     window.history.pushState = originalPushState
   })
 
-  it('forward',  ()=> {
+  it('should go forward in browser history',  ()=> {
     Router.forward()
 
     expect((window.history.forward as any).callCount).to.eq(1)
   });
 
-  it('back',  ()=> {
+  it('should go back in browser history',  ()=> {
     Router.back()
 
     expect((window.history.back as any).callCount).to.eq(1)
   });
 
-  it('go', ()=> {
+  it('it should go (locate) to route', ()=> {
     Router.use("123", Block)
     Router.go('123')
 

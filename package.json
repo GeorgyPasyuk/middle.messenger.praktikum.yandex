@@ -2,6 +2,7 @@
   "name": "my-webpack-project",
   "version": "1.0.0",
   "scripts": {
+    "prepare": "husky install",
     "start": "webpack serve",
     "build-and-start": "node src/modules/server.js",
     "build": "webpack --mode=production --node-env=production",
@@ -12,11 +13,6 @@
     "eslint": "eslint . --fix",
     "tests": "ts-mocha -p ./tsconfig.json --require ./mochaSetup.js 'src/**/*.test.ts'",
     "precommit": "npm run tests && npm run eslint && npm run stylelint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run precommit"
-    }
   },
   "author": "pasyukgeorgy@yandex.ru",
   "license": "ISC",
