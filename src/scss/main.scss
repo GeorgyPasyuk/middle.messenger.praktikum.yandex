@@ -1,8 +1,9 @@
 @import "__variables";
 @import "__fonts";
 
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,7 +11,8 @@
   flex-shrink: 0;
 }
 
-input, button {
+input,
+button {
   outline: none;
   appearance: none;
   border: 0;
@@ -20,9 +22,39 @@ a {
   text-decoration: none;
 }
 
-
 .app {
   position: relative;
-  height: 947px;
+  height: 100vh;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+
+  .app {
+    height: 827px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  /* Ваши стили для мониторов */
+}
+
+/* Стили для очень больших мониторов */
+@media (min-width: 1920px) {
+  .chat__container {
+    width: 340px;
+  }
+}

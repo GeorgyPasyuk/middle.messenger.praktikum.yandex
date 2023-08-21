@@ -1,23 +1,19 @@
-import BaseAPI from './BaseApi';
-
-export interface userLogin {
-  "login": string
-}
-
+import BaseAPI from "./BaseApi";
+import {IUserLogin} from "@shared/api/ISearch";
 
 export class SearchAPI extends BaseAPI {
   constructor() {
     super("/user");
   }
 
-  getLogin(login: userLogin) {
-    return this.http.post('/search', login)
+  getLogin(login: IUserLogin) {
+    return this.http.post("/search", login);
   }
 
-  read = undefined
-  create = undefined
-  delete = undefined
-  update = undefined
+  read = undefined;
+  create = undefined;
+  delete = undefined;
+  update = undefined;
 }
 
-export default new SearchAPI()
+export default new SearchAPI();

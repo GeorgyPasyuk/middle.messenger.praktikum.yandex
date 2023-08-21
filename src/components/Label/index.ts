@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '@utils/Block';
 import template from './label.hbs';
 import styles from './label.module.scss';
 import {Paragraph} from "./paragraph";

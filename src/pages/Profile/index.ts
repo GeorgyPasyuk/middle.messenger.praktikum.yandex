@@ -1,60 +1,65 @@
-import Block from '../../utils/Block';
-import template from "./profile.hbs"
-import styles from './profile.module.scss';
-import { Label } from '../../components/Label';
-import { Navigation } from '../../components/Navigation';
-import {Button} from "../../components/Button";
-import {Input} from "../../components/Input";
-import { Arrow } from '../../components/Arrow';
-import {  User } from '../../api/AuthAPI';
-import store, { withStore } from '../../utils/Store';
-import UpdateController from '../../controllers/UpdateController';
-import { UpdateData, UpdatePassword } from '../../api/UpdateAPI';
-import AuthController from '../../controllers/AuthController';
-import { Avatar } from '../../components/Avatar';
-import router from '../../utils/Router';
-import { AvatarInput } from '../../components/AvatarInput';
-import validation from '../../utils/Validation';
+import Block from "@utils/Block";
+import template from "./profile.hbs";
+import styles from "./profile.module.scss";
+import { Label } from "@components/Label";
+import { Navigation } from "@components/Navigation";
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
+import { Arrow } from "@components/Arrow";
+import store, { withStore } from "@utils/Store";
+import UpdateController from "@controllers/UpdateController";
+import AuthController from "@controllers/AuthController";
+import { Avatar } from "@components/Avatar";
+import router from "@utils/Router";
+import { AvatarInput } from "@components/AvatarInput";
+import validation from "@utils/Validation";
+import { IUser } from "@shared/api/IUser";
+import { IUpdateData, IUpdatePassword } from "@shared/api/IUpdate";
+import { shallowEqual } from "@utils/shallowEqual";
 
-
-
-
-
-
-interface ProfileProps extends User {
-  id: number,
-  first_name: string,
-  second_name: string,
-  display_name: string,
-  login: string,
-  avatar: any,
-  email: string,
-  phone: string,
-  dataContext: boolean[]
+interface ProfileProps extends IUser {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  avatar: any;
+  email: string;
+  phone: string;
+  dataContext: boolean[];
 }
 
+const userFields = [
+  "email",
+  "login",
+  "first_name",
+  "second_name",
+  "display_name",
+  "phone",
+] as Array<keyof ProfileProps>;
 
-
-const userFields = ['email', 'login','first_name', 'second_name', 'display_name',
-  'phone'] as Array<keyof ProfileProps>;
-
-
-
-const componentsData = ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"]
-
+const componentsData = [
+  "Почта",
+  "Логин",
+  "Имя",
+  "Фамилия",
+  "Имя в чате",
+  "Телефон",
+];
 
 const passwordsData = {
   name: ["oldPassword", "newPassword", "newPasswordAgain"],
   title: ["Старый пароль", "Новый пароль", "Новый пароль еще раз"],
-}
+};
 
-const validationData= {
-  errName: ['Пожалуйста убедитесь, что email введен корректно',
-    'Пожалуйста убедитесь, что нет спецсимволов и пробелов, минимум 4 символа',
-    'Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная',
-    'Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная',
-    '123',
-    'Пожалуйста убедитесь, что телефон введён корректно'
+const validationData = {
+  errName: [
+    "Пожалуйста убедитесь, что email введен корректно",
+    "Пожалуйста убедитесь, что нет спецсимволов и пробелов, минимум 4 символа",
+    "Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная",
+    "Пожалуйста убедитесь, что нет спецсимволов, пробелом и первая буква заглавная",
+    "123",
+    "Пожалуйста убедитесь, что телефон введён корректно",
   ],
   regExp: [
     /@[\w\d]+(\.[\w\d]+)*$/,
@@ -63,112 +68,108 @@ const validationData= {
     /^(?:[А-ЯЁ][а-яё]*|[A-Z][a-z]*)(?:-[А-ЯЁ][а-яё]*|[A-Z][a-z]*)*$/,
     /^/,
     /^\+?\d{10,15}$/,
-  ]
-}
+  ],
+};
 
 class DefaultProfilePage extends Block<ProfileProps> {
   init() {
-
-    const context = window.location.pathname.split('/').pop();
+    const context = window.location.pathname.split("/").pop();
 
     if (context === "settings") {
-      this.props.dataContext = [true, false, false]
+      this.props.dataContext = [true, false, false];
     } else if (context === "changeData") {
-      this.props.dataContext = [false, true, false]
+      this.props.dataContext = [false, true, false];
     } else if (context === "changePassword") {
-      this.props.dataContext = [false, false, true]
+      this.props.dataContext = [false, false, true];
     }
 
-
     this.children.arrow = new Arrow({
-      to: "/messenger"
-    })
-
+      to: "/messenger",
+    });
 
     this.children.button = new Button({
       type: "button",
       label: "Сохранить",
-      events:  {
-        click: async ()=> {
-          await this.onSubmit()
-          router.go('/settings')
-        }
-      }
-    })
+      events: {
+        click: async () => {
+          await this.onSubmit();
+          router.go("/settings");
+        },
+      },
+    });
 
-
-    this.children.defaultField = this.createDefaultField(this.props)
+    this.children.defaultField = this.createDefaultField(this.props);
 
     this.children.changeData = userFields.map((name, index) => {
-        return new Label({
-          name: "email",
-          title: componentsData[index],
-          custom: true,
-          value: new Input({
-            name: name,
-            type: "text",
-            value: this.props[name],
-            style: styles.profile__input,
-            events: {
-              blur: ()=> {
-                const input = this.children.changeData[index].children.value
-                const validationField = this.children.changeData[index].children.validation
-                if (!validation(validationData.regExp[index], input.getValue())) {
-                  validationField.show();
-                  input.setValue("")
-                } else {
-                  validationField.hide();
-                }
+      return new Label({
+        name: "email",
+        title: componentsData[index],
+        custom: true,
+        value: new Input({
+          name: name,
+          type: "text",
+          value: this.props[name],
+          style: styles.profile__input,
+          events: {
+            blur: () => {
+              const input = this.children.changeData[index].children.value;
+              const validationField =
+                this.children.changeData[index].children.validation;
+              if (!validation(validationData.regExp[index], input.getValue())) {
+                validationField.show();
+                input.setValue("");
+              } else {
+                validationField.hide();
               }
-            }
-          }),
-          validation: validationData.errName[index]
-        })
-    })
+            },
+          },
+        }),
+        validation: validationData.errName[index],
+      });
+    });
 
-
-      this.children.changePassword = passwordsData.name.map((name, index) => {
-        return new Label({
-          name: "password",
-          title: passwordsData.title[index],
-          custom: true,
-          value: new Input({
-            name: name,
-            type: "password",
-            events: {
-              keydown: () => {
-              }
-            }
-          })
-        })
-      })
+    this.children.changePassword = passwordsData.name.map((name, index) => {
+      return new Label({
+        name: "password",
+        title: passwordsData.title[index],
+        custom: true,
+        value: new Input({
+          name: name,
+          type: "password",
+          events: {
+            input: () => {},
+          },
+        }),
+      });
+    });
 
     this.children.changeDataNav = new Navigation({
       title: "Изменить данные",
-      events: { click: ()=> {
-          router.go('/settings/changeData')
-        }
-      }
-    })
-
-
+      events: {
+        click: () => {
+          router.go("/settings/changeData");
+        },
+      },
+    });
 
     this.children.changePasswordNav = new Navigation({
       title: "Сменить пароль",
-      events: { click: ()=> {
-          router.go('/settings/changePassword')
-        }
-      }
-    })
+      events: {
+        click: () => {
+          router.go("/settings/changePassword");
+        },
+      },
+    });
 
     this.children.exit = new Navigation({
       title: "Выход",
       isExit: true,
-      events: { click: ()=> {
+      events: {
+        click: () => {
           AuthController.logout();
-        }
-      }
-    })
+        },
+      },
+    });
 
     this.children.avatarInput = new AvatarInput({
       events: {
@@ -176,65 +177,67 @@ class DefaultProfilePage extends Block<ProfileProps> {
           await this.changeAvatar(e);
         },
       },
-      name: 'avatar'
+      name: "avatar",
     });
-
 
     this.children.avatar = new Avatar({
       src: this.getAvatarLink(this.props.avatar),
-    })
-
-
+    });
   }
 
   private async changeAvatar(event: any) {
-    const file = event.target!.files[0]
-    const formData = new FormData()
-    formData.append("avatar", file)
+    const file = event.target!.files[0];
+    const formData = new FormData();
+    formData.append("avatar", file);
 
-    await UpdateController.updateAvatar(formData)
-    await AuthController.fetchUser()
+    await UpdateController.updateAvatar(formData);
+    await AuthController.fetchUser();
   }
-
-
 
   private getAvatarLink(link: string) {
     if (link) {
-      return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
+      return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`;
     }
-    return ""
+    return "";
   }
 
   private async onSubmit() {
-    const context = window.location.pathname.split('/').pop();
-    const children = this.children
-    const child = Object.keys(children).filter(name => name === context)
+    const context = window.location.pathname.split("/").pop();
+    const children = this.children;
+    const child = Object.keys(children).filter((name) => name === context);
 
-    let items: any = []
-    children[child[0]]
-      .map((item: any) => {
-        if (item._element.lastElementChild.value !== "") {
-          items
-            .push([item._element.lastElementChild.name, item._element.lastElementChild.value])
-        }})
-    const oldData = store.getState().user
-    const newData = Object.fromEntries(items)
-
+    let items: any = [];
+    children[child[0]].map((item: any) => {
+      if (item._element.lastElementChild.value !== "") {
+        items.push([
+          item._element.lastElementChild.name,
+          item._element.lastElementChild.value,
+        ]);
+      }
+    });
+    const oldData = store.getState().user;
+    const newData = Object.fromEntries(items);
 
     if (context === "changeData") {
-      await UpdateController.updateUser(Object.assign(oldData, newData) as UpdateData)
+      await UpdateController.updateUser(
+        Object.assign(oldData, newData) as IUpdateData
+      );
     } else {
-      await UpdateController.updatePassword(newData as UpdatePassword)
+      await UpdateController.updatePassword(newData as IUpdatePassword);
     }
-    await AuthController.fetchUser()
+    await AuthController.fetchUser();
   }
 
-  protected componentDidUpdate(newProps: ProfileProps): boolean {
-    this.children.defaultField = this.createDefaultField(newProps)
-    if (newProps.avatar) {
-      this.getAvatarLink(newProps.avatar)
+  protected componentDidUpdate(
+    oldProps: ProfileProps,
+    newProps: ProfileProps
+  ): boolean {
+    if (shallowEqual(oldProps.avatar, newProps.avatar)) {
+      this.getAvatarLink(newProps.avatar);
+      this.children.defaultField = this.createDefaultField(newProps);
+      return true;
     }
-    return true;
+    return false;
   }
 
   createDefaultField(props: ProfileProps) {
@@ -243,30 +246,25 @@ class DefaultProfilePage extends Block<ProfileProps> {
         name: name,
         title: componentsData[i],
         value: props[name],
-        custom: false
-      })
-    })
+        custom: false,
+      });
+    });
   }
 
   render() {
     return this.compile(template, {
       ...this.props,
       styles,
-      accountName: `${store.getState().user.first_name + " #" +  store.getState().user.id}`,
-    })
+      accountName: `${
+        store.getState().user.first_name + " #" + store.getState().user.id
+      }`,
+    });
   }
 }
 
-
-
-
 const withUser = withStore((state) => ({
-
-    ...state.user,
-    avatar: state.user.avatar
-
-
-
-}))
+  ...state.user,
+  avatar: state.user.avatar,
+}));
 
 export const ProfilePage = withUser(DefaultProfilePage);

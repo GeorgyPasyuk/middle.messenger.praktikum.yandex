@@ -1,19 +1,7 @@
 import BaseAPI from './BaseApi';
+import {IUpdateData, IUpdatePassword} from "@shared/api/IUpdate";
 
 
-export interface UpdateData {
-  first_name: string,
-  second_name: string,
-  display_name: string,
-  login: string,
-  email: string,
-  phone: string,
-}
-
-export interface UpdatePassword {
-  oldPassword: string,
-  newPassword: string
-}
 
 
 export class UpdateAPI extends BaseAPI {
@@ -22,11 +10,11 @@ export class UpdateAPI extends BaseAPI {
   }
 
 
-  updateUser(data: UpdateData) {
+  updateUser(data: IUpdateData) {
     return this.http.put('/profile', data)
   }
 
-  updatePassword(data: UpdatePassword) {
+  updatePassword(data: IUpdatePassword) {
     return this.http.put('/password', data)
   }
 

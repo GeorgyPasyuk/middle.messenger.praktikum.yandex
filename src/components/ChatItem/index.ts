@@ -1,22 +1,23 @@
-import Block from '../../utils/Block';
-import template from './Chat.hbs';
-import styles from './chat.module.scss';
-import { ChatsInfo } from '../../api/ChatsApi';
-import { withStore } from '../../utils/Store';
-import { Avatar } from '../Avatar';
+import Block from "@utils/Block";
+import template from "./Chat.hbs";
+import styles from "./chat.module.scss";
+import { withStore } from "@utils/Store";
+import { Avatar } from "../Avatar";
+import { IChatsInfo } from "@shared/api/IChats";
+import { shallowEqual } from "@utils/shallowEqual";
 
 interface ChatProps {
   id: number;
   title: string;
   unread_count: Object;
-  selectedChat: ChatsInfo
+  selectedChat: IChatsInfo;
   last_message: string;
   time?: any;
   events: {
-    click: (e: Event) => void
-  },
-  userName: string
-  avatar: string
+    click: (e: Event) => void;
+  };
+  userName: string;
+  avatar: string;
 }
 
 export class ChatBase extends Block<ChatProps> {
@@ -25,27 +26,32 @@ export class ChatBase extends Block<ChatProps> {
   }
 
   init() {
-    this.createAvatar(this.props.avatar)
+    this.createAvatar(this.props.avatar);
   }
-
 
   protected createAvatar(avatar: string) {
     if (avatar) {
       this.children.chatAvatar = new Avatar({
-        src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`
-      })
+        src: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
+      });
     } else {
       this.children.chatAvatar = new Avatar({
-        src: ``
-      })
+        src: ``,
+      });
     }
   }
 
-  protected componentDidUpdate(_oldProps: ChatProps, newProps: ChatProps): boolean {
-    if (newProps.selectedChat) {
-      this.createAvatar(newProps.selectedChat.avatar)
+  protected componentDidUpdate(
+    oldProps: ChatProps,
+    newProps: ChatProps
+  ): boolean {
+    if (shallowEqual(oldProps.selectedChat, newProps.selectedChat)) {
+      this.createAvatar(newProps.selectedChat.avatar);
+      return true;
     }
-    return true
+    // if (newProps.selectedChat) {
+    // }
+    return false;
   }
 
   protected render() {
@@ -57,10 +63,12 @@ export class ChatBase extends Block<ChatProps> {
   }
 }
 
-const withSelectedChat = withStore(state => {
-       return {
-        selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)
-       }
-  })
+const withSelectedChat = withStore((state) => {
+  return {
+    selectedChat: (state.chats || []).find(
+      ({ id }) => id === state.selectedChat
+    ),
+  };
+});
 
 export const Chat = withSelectedChat(ChatBase);

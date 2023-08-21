@@ -5,6 +5,17 @@
     "allowSyntheticDefaultImports": true,
     "module": "CommonJS",
     "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@components/*": ["components/*"],
+      "@controllers/*": ["controllers/*"],
+      "@hocs/*": ["hocs/*"],
+      "@pages/*": ["pages/*"],
+      "@shared/*": ["shared/*"],
+      "@static/*": ["static/*"],
+      "@utils/*": ["utils/*"]
+    },
     "rootDir": "./src",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -16,11 +27,8 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "declaration": true,
+    "declaration": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.test.ts",
-  ],
-  "exclude": ["node_modules"],
+  "include": ["./src/**/*.ts", "./src/**/*.test.ts"],
+  "exclude": ["node_modules"]
 }
