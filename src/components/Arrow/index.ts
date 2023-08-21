@@ -1,7 +1,7 @@
-import Block from '../../utils/Block';
+import Block from '@utils/Block';
 import template from './arrow.hbs';
 import styles from './arrow.module.scss';
-import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
+import { PropsWithRouter, withRouter } from '@hocs/withRouter';
 
 
 interface ArrowProps extends PropsWithRouter{

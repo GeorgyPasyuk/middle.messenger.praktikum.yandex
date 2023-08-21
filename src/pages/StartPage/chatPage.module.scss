@@ -3,16 +3,16 @@
 .selectchat__container {
   width: 100%;
   height: 100%;
+  position: relative;
   display: flex;
 }
-
 
 
 .temporary {
   position: relative;
   top: 0;
-  width: calc(100% - 310px);
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,4 +24,33 @@
 }
 
 
+@media (min-width: 320px) and (max-width: 479px) {
+  .temporary {
+    min-width: 230px;
+    width: 230px;
+    max-width: 250px;
+  }
+}
 
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .temporary {
+    width: 600px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  /* Ваши стили для нетбуков */
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  /* Ваши стили для мониторов */
+}
+
+
+/* Стили для очень больших мониторов */
+@media (min-width: 1920px) {
+  .chat__container {
+    width: 340px;
+  }
+}

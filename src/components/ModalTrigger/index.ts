@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '@utils/Block';
 import template from './showModalTemplate.hbs';
 import styles from './modal.module.scss';
 
