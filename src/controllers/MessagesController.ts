@@ -1,75 +1,79 @@
-import store from '../utils/Store';
-import WS, {WSEvents} from '../utils/WS';
+import store from "../utils/Store";
+import WS, { WSEvents } from "../utils/WS";
 
 export interface Message {
-  chat_id: number,
-  time: string,
-  type: string,
-  user_id: number,
-  content: string,
+  chat_id: number;
+  time: string;
+  type: string;
+  user_id: number;
+  content: string;
   file?: {
-    id: number,
-    user_id: number,
-    path: string,
-    filename: string,
-    content_type: string,
-    content_size: number,
-    upload_date: string
-  }
+    id: number;
+    user_id: number;
+    path: string;
+    filename: string;
+    content_type: string;
+    content_size: number;
+    upload_date: string;
+  };
 }
 
 class MessagesController {
-  private sockets: Map<number, WS> = new Map()
+  private sockets: Map<number, WS> = new Map();
 
   async connect(id: number, token: string) {
     if (this.sockets.has(id)) {
-      return
+      return;
     }
 
     const userId = store.getState().user.id;
 
-    const ws = new WS(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`)
+    const ws = new WS(
+      `wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`
+    );
 
-    this.sockets.set(id, ws)
+    this.sockets.set(id, ws);
 
-    await ws.connect()
+    await ws.connect();
 
-    this.subscribe(ws, id)
-    this.fetchOldMessages(id)
+    this.subscribe(ws, id);
+    this.fetchOldMessages(id);
   }
 
   sendMessage(id: number, message: string) {
-    const socket = this.sockets.get(id)
-
-    if (!socket) {
-      throw new Error(`Chat ${id} is not connected`)
-    }
-
-    socket.send({
-      type: "message",
-      content: message
-    })
-    storeSetMessage(id, message)
-  }
-
-  fetchOldMessages(id: number) {
-    const socket = this.sockets.get(id)
+    const socket = this.sockets.get(id);
 
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
-    socket.send({type: "get old", content: "0"})
+
+    try {
+      socket.send({
+        type: "message",
+        content: message,
+      });
+      storeSetMessage(id, message);
+    } catch (e) {}
+  }
+
+  fetchOldMessages(id: number) {
+    const socket = this.sockets.get(id);
+
+    if (!socket) {
+      throw new Error(`Chat ${id} is not connected`);
+    }
+    socket.send({ type: "get old", content: "0" });
   }
 
   closeAll() {
-    Array.from(this.sockets.values()).forEach(socket => socket.close())
+    Array.from(this.sockets.values()).forEach((socket) => socket.close());
   }
 
   private onMessage(id: number, messages: Message | Message[]) {
     let messagesToAdd: Message[] = [];
 
-    if(Array.isArray(messages)) {
-      messagesToAdd = messages.reverse()
+    if (Array.isArray(messages)) {
+      messagesToAdd = messages.reverse();
     } else {
       messagesToAdd.push(messages);
     }
@@ -78,14 +82,12 @@ class MessagesController {
 
     messagesToAdd = [...currentMessages, ...messagesToAdd];
 
-    store.set(`messages.${id}`, messagesToAdd)
+    store.set(`messages.${id}`, messagesToAdd);
 
-    if (messagesToAdd[(messagesToAdd.length - 1)]) {
+    if (messagesToAdd[messagesToAdd.length - 1]) {
+      const last_message = messagesToAdd[messagesToAdd.length - 1].content;
 
-
-      const last_message = messagesToAdd[messagesToAdd.length - 1].content
-
-      storeSetMessage(id, last_message)
+      storeSetMessage(id, last_message);
     }
   }
 
@@ -94,24 +96,23 @@ class MessagesController {
   }
 
   private subscribe(transport: WS, id: number) {
-    transport.on(WSEvents.Message, (message)=> this.onMessage(id, message))
-    transport.on(WSEvents.Close, ()=> this.onClose(id))
+    transport.on(WSEvents.Message, (message) => this.onMessage(id, message));
+    transport.on(WSEvents.Close, () => this.onClose(id));
   }
-
 }
-
 
 function storeSetMessage(id: number, message: string) {
-  const chatIndex = store.getState().chats
-    .findIndex((chat: Record<string, any>) => chat.id === id);
+  const chatIndex = store
+    .getState()
+    .chats.findIndex((chat: Record<string, any>) => chat.id === id);
   if (chatIndex) {
-    store.set(`chats.${chatIndex}.last_message.content`, message)
+    store.set(`chats.${chatIndex}.last_message.content`, message);
   }
 }
 
-const controller = new MessagesController()
+const controller = new MessagesController();
 
 // @ts-ignore
-window.messagesController = controller
+window.messagesController = controller;
 
-export default controller
+export default controller;

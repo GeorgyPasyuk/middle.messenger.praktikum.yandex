@@ -78,7 +78,7 @@ export default class WS extends EventBus {
 
         this.emit(WSEvents.Message, data);
       } catch (e) {
-        console.error(e);
+
       }
     });
   }

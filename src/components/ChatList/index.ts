@@ -1,7 +1,7 @@
 import template from "./ChatList.hbs";
 import styles from "./chatList.module.scss";
 import Block from "@utils/Block";
-import { Chat } from "../ChatItem";
+import { ChatItem } from "@components/ChatItem";
 import ChatsController from "@controllers/ChatsController";
 import store, { withStore } from "@utils/Store";
 import { Input } from "../Input";
@@ -10,23 +10,22 @@ import Router from "@utils/Router";
 import { Button } from "../Button";
 import { IChatsInfo } from "@shared/api/IChats";
 import { shallowEqual } from "@utils/shallowEqual";
+import { IState } from "@shared/store/IState";
 
 interface ChatsListProps {
   chats: IChatsInfo[];
-  isLoaded: boolean;
-  userLogin: Array<string>;
-  connectedChats: number[];
+  newChatName: string;
   showChatInput: boolean;
+  isLoaded: boolean;
 }
 
 class ChatsListBase extends Block<ChatsListProps> {
   constructor(props: ChatsListProps) {
+    props.isLoaded = true;
     super({ ...props });
   }
 
-  protected async init() {
-    this.props.connectedChats = [];
-    this.props.userLogin = [];
+  protected init() {
     this.props.showChatInput = false;
 
     this.children.input = new Input({
@@ -49,7 +48,7 @@ class ChatsListBase extends Block<ChatsListProps> {
       to: "/settings",
     });
 
-    this.children.chats = this.createChats(this.props);
+    this.children.chats = this.initChats();
 
     this.children.addChat = new Button({
       events: {
@@ -66,7 +65,7 @@ class ChatsListBase extends Block<ChatsListProps> {
         keydown: (e: KeyboardEvent) => {
           const value = this.children.chatInput.getValue();
           if (e.key === "Enter" && value) {
-            ChatsListBase.createChat(value);
+            this.setProps({ ...this.props, newChatName: value });
             this.children.chatInput.setValue("");
           }
         },
@@ -82,10 +81,19 @@ class ChatsListBase extends Block<ChatsListProps> {
     oldProps: ChatsListProps,
     newProps: ChatsListProps
   ) {
-    if (!shallowEqual(oldProps, newProps)) {
-      this.children.chats = this.createChats(newProps);
-      // console.log(oldProps, newProps)
 
+
+    if (!shallowEqual(oldProps.chats.length, newProps.chats.length)) {
+      this.children.chats = this.renderNewChats(newProps);
+      return true;
+    }
+
+    if (!shallowEqual(oldProps.showChatInput, newProps.showChatInput)) {
+      return true;
+    }
+
+    if (!shallowEqual(oldProps.newChatName, newProps.newChatName)) {
+      ChatsListBase.createChat(newProps.newChatName);
       return true;
     }
 
@@ -100,9 +108,18 @@ class ChatsListBase extends Block<ChatsListProps> {
     });
   }
 
-  private createChats(props: ChatsListProps) {
-    if (!props.chats) {
-      return new Chat({
+  private initChats() {
+    try {
+      const chats: IChatsInfo = store.getState().chats;
+
+      return Object.values(chats).map((item) => {
+        return this.createChatItem(item);
+      });
+    } catch (e) {
+      return new ChatItem({
+        id: 0,
+        title: "",
+        unread_count: 0,
         last_message: "",
         userName: "Идет загрузка...",
         avatar: "",
@@ -111,32 +128,56 @@ class ChatsListBase extends Block<ChatsListProps> {
         },
       });
     }
+  }
 
-    return Object.values(props.chats).map((data) => {
-      const chatIndex = props.chats.findIndex(
-        (chat: Record<string, any>) => chat.id === data.id
-      );
-      const lastMessage = data.last_message || {};
-      const user = lastMessage.user || {};
-
-      return new Chat({
-        ...data,
-        last_message: ChatsListBase.formatItemMessage(props, chatIndex),
-        userName: user.display_name || "",
-        avatar: data.avatar || "",
-        events: {
-          click: () => {
-            store.set("activeChat", data);
-            Router.go(`/messenger/${data.id}`);
-          },
-        },
-      });
+  private renderNewChats(props: ChatsListProps) {
+    return Object.values(props.chats).map((item) => {
+      return this.createChatItem(item);
     });
   }
 
-  private static formatItemMessage(props: ChatsListProps, index: number) {
-    if (props.chats[index].last_message) {
-      const originalMessage: string = props.chats[index].last_message.content;
+  private createChatItem(chat: IChatsInfo) {
+    const lastMessage = chat.last_message;
+    const chatId = Number(window.location.pathname.split("/").pop());
+
+    try {
+      const user = lastMessage.user;
+
+      return new ChatItem({
+        ...chat,
+        last_message: ChatsListBase.formatMessage(chat),
+        userName: user.display_name || "",
+        avatar: chat.avatar,
+        events: {
+          click: () => {
+            if (chatId !== chat.id) {
+              store.set("activeChat", chat);
+              Router.go(`/messenger/${chat.id}`);
+            }
+          },
+        },
+      });
+    } catch (e) {
+      return new ChatItem({
+        ...chat,
+        last_message: "",
+        userName: "",
+        avatar: chat.avatar,
+        events: {
+          click: () => {
+            if (chatId !== chat.id) {
+              store.set("activeChat", chat);
+              Router.go(`/messenger/${chat.id}`);
+            }
+          },
+        },
+      });
+    }
+  }
+
+  private static formatMessage(chat: IChatsInfo) {
+    if (chat.last_message) {
+      const originalMessage: string = chat.last_message.content;
       return originalMessage.length > 30
         ? originalMessage.substring(0, 30) + "..."
         : originalMessage;
@@ -157,6 +198,8 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 }
 
-const withChats = withStore((state) => ({ chats: [...(state.chats || [])] }));
+const withChats = withStore((state: IState) => ({
+  chats: [...(state.chats || [])],
+}));
 
-export const ChatsList = withChats(ChatsListBase);
+export const ChatsList = withChats(ChatsListBase as typeof Block);

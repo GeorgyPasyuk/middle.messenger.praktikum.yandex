@@ -1,26 +1,27 @@
 @import "../../scss/_variables";
 
-
 .modal__box {
   width: 100%;
   height: 100%;
-  background-color: rgb(000 000 000 / 50%)  ;
+  background-color: rgb(000 000 000 / 50%);
   position: fixed;
   z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
+  left: 0;
+  top: 0;
 }
 
 .modal__container {
   width: 500px;
+
   height: 500px;
   z-index: 10000;
   background-color: #efefef;
   flex-direction: column;
   align-items: center;
   display: flex;
-  position: absolute;
   border-radius: 8px;
   padding: 20px;
   overflow: scroll;
@@ -38,4 +39,30 @@
   width: 100%;
   height: auto;
   margin-bottom: 15px;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .modal__box {
+    right: 0;
+  }
+
+  .modal__container {
+    width: 350px;
+    height: 500px;
+    right: 5%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .modal__container {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+/* Стили для очень больших мониторов */
+@media (min-width: 1920px) {
+  .modal__container {
+    right: 45%;
+  }
 }

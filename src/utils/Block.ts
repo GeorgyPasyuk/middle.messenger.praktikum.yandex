@@ -1,14 +1,13 @@
-import  EventBus  from './EventBus';
-import { nanoid } from 'nanoid';
+import EventBus from "./EventBus";
+import { nanoid } from "nanoid";
 
-
-// Нельзя создавать экземпляр данного класса
 class Block<P extends Record<string, any> = any> {
   static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    INIT: "init",
+    FLOW_CDM: "flow:component-did-mount",
+    FLOW_CDU: "flow:component-did-update",
+    FLOW_RENDER: "flow:render",
+    FLOW_UNMOUNT: "flow:unmount",
   } as const;
 
   public id = nanoid(6);
@@ -16,18 +15,12 @@ class Block<P extends Record<string, any> = any> {
   public children: Record<string, any>;
   public eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  protected _setUpdate: boolean = false
+  protected _setUpdate: boolean = false;
 
-  /** JSDoc
-   * @param {string} tagName
-   * @param {Object} props
-   *
-   * @returns {void}
-   */
   constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
-    const {props, children} = this._getChildrenAndProps(propsWithChildren!);
+    const { props, children } = this._getChildrenAndProps(propsWithChildren!);
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -39,12 +32,19 @@ class Block<P extends Record<string, any> = any> {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: P):
-    { props: P, children: Record<string, Block | Block[]> } {
+  _getChildrenAndProps(childrenAndProps: P): {
+    props: P;
+    children: Record<string, Block | Block[]>;
+  } {
     const props: Record<string, unknown> = {};
     const children: Record<string, Block | Block[]> = {};
+
     Object.entries(childrenAndProps).forEach(([key, value]) => {
-      if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
+      if (
+        Array.isArray(value) &&
+        value.length > 0 &&
+        value.every((v) => v instanceof Block)
+      ) {
         children[key as string] = value;
       } else if (value instanceof Block) {
         children[key as string] = value;
@@ -53,21 +53,25 @@ class Block<P extends Record<string, any> = any> {
       }
     });
 
-    return {props: props as P, children};
+    return { props: props as P, children };
   }
 
   _addEvents() {
-    const {events = {}} = this.props as P & { events: Record<string, () => void> };
+    const { events = {} } = this.props as P & {
+      events: Record<string, () => void>;
+    };
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
   _removeEvents() {
-    const {events = {}} = this.props as P & { events: Record<string, () => void> };
+    const { events = {} } = this.props as P & {
+      events: Record<string, () => void>;
+    };
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
@@ -77,30 +81,49 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(
+      Block.EVENTS.FLOW_UNMOUNT,
+      this._componentWillUnmount.bind(this)
+    );
   }
 
   private _init() {
     this.init();
-
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init() {
-  }
+  protected init() {}
 
   _componentDidMount() {
     this.componentDidMount();
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  public dispatchComponentWillUnmount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_UNMOUNT);
+
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((ch) => ch.dispatchComponentWillUnmount());
+      } else {
+        child.dispatchComponentWillUnmount();
+      }
+    });
+  }
+
+  protected _componentWillUnmount() {
+    this._removeEvents();
+    if (this._element) {
+      this._element.innerHTML = "";
+    }
   }
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-
-    Object.values(this.children).forEach(child => {
+    Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
-        child.forEach(ch => ch.dispatchComponentDidMount());
+        child.forEach((ch) => ch.dispatchComponentDidMount());
       } else {
         child.dispatchComponentDidMount();
       }
@@ -114,9 +137,7 @@ class Block<P extends Record<string, any> = any> {
   }
 
   protected componentDidUpdate(oldProps: P, newProps: P): boolean | undefined {
-    if (oldProps !== newProps) {
-    return true;
-    }
+    return oldProps != newProps;
   }
 
   get element() {
@@ -129,21 +150,25 @@ class Block<P extends Record<string, any> = any> {
     const newElement = fragment.firstElementChild as HTMLElement;
 
     if (this._element && newElement) {
+      this._componentWillUnmount();
+
       this._element.replaceWith(newElement);
     }
 
     this._element = newElement;
+    this.dispatchComponentDidMount();
 
     this._addEvents();
-
   }
 
   protected compile(template: (context: any) => string, context: any) {
-    const contextAndStubs = {...context};
+    const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`).join("")
+        contextAndStubs[name] = component
+          .map((child) => `<div data-id="${child.id}"></div>`)
+          .join("");
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -151,21 +176,19 @@ class Block<P extends Record<string, any> = any> {
 
     const html = template(contextAndStubs);
 
-    const temp = document.createElement('template');
+    const temp = document.createElement("template");
 
     temp.innerHTML = html;
 
     const replaceStub = (component: Block) => {
       const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-
       if (!stub) {
         return;
       }
-
       component.getContent()?.append(...Array.from(stub.childNodes));
 
       stub.replaceWith(component.getContent()!);
-    }
+    };
 
     Object.entries(this.children).forEach(([, component]) => {
       if (Array.isArray(component)) {
@@ -190,18 +213,18 @@ class Block<P extends Record<string, any> = any> {
     if (!nextProps) {
       return;
     }
-    this._setUpdate = false
-    const oldValue = { ... this.props}
-    const {children, props} = this._getChildrenAndProps(nextProps)
-    if(Object.values(children).length) {
-      Object.assign(this.children, children)
+    this._setUpdate = false;
+    const oldValue = { ...this.props };
+    const { children, props } = this._getChildrenAndProps(nextProps);
+    if (Object.values(children).length) {
+      Object.assign(this.children, children);
     }
-    if(Object.values(props).length) {
-      Object.assign(this.props, props)
+    if (Object.values(props).length) {
+      Object.assign(this.props, props);
     }
-    if(this._setUpdate) {
+    if (this._setUpdate) {
       this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldValue, nextProps);
-      this._setUpdate = false
+      this._setUpdate = false;
     }
     Object.assign(this.props, nextProps);
   };
@@ -212,19 +235,19 @@ class Block<P extends Record<string, any> = any> {
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
+        return typeof value === "function" ? value.bind(target) : value;
       },
       set(target: Record<string, any>, prop: string, value) {
-        if(target[prop] !== value) {
-          target[prop] = value
-          self._setUpdate = true
+        if (target[prop] !== value) {
+          target[prop] = value;
+          self._setUpdate = true;
         }
 
         return true;
       },
       deleteProperty() {
-        throw new Error('Нет доступа');
-      }
+        throw new Error("Нет доступа");
+      },
     });
   }
   show() {

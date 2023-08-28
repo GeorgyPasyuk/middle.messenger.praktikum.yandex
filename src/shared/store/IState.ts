@@ -5,9 +5,8 @@ import { IChatsInfo } from "@shared/api/IChats";
 export interface IState {
   user: IUser;
   chats: IChatsInfo[];
-  messages: Record<number, Message[]>;
   activeChat: Record<string, string | number>;
-  selectedChat?: number;
+  messages: Record<number, Message[]>;
   modal?: boolean;
   usersInChat: any;
 }

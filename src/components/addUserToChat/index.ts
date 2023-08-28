@@ -4,24 +4,26 @@ import styles from "./addUsers.module.scss";
 import { Input } from "../Input";
 import { LoginCard } from "../LoginCard";
 import searchController from "@controllers/SearchController";
-import store, { withStore } from "@utils/Store";
+import store from "@utils/Store";
 import { Button } from "../Button";
-import { shallowEqual } from "@utils/shallowEqual";
+import ChatsController from "@controllers/ChatsController";
+import {shallowEqual} from "@utils/shallowEqual";
 
 interface addUserProps {
-  userLogin: [];
-  usersInChat?: [];
+  userLogin?: [];
+  usersInChat?: any;
 }
 
-class addUserModalDefautl extends Block<addUserProps> {
+export class addUserModal extends Block<addUserProps> {
   constructor(props: addUserProps) {
     super(props);
+    this.getUsers();
   }
 
   protected init() {
     this.children.input = new Input({
       events: {
-        input: (e: KeyboardEvent) => {
+        keydown: (e: KeyboardEvent) => {
           if (e.code === "Enter") {
             this.getLogin();
             const input = this.children.input as Input;
@@ -38,41 +40,39 @@ class addUserModalDefautl extends Block<addUserProps> {
       label: "Закрыть окно",
       events: {
         click: () => {
-          store.set("modal", false);
+          this.hide();
         },
       },
     });
+
+    this.renderUsers(this.props.usersInChat);
+    this.showLogins();
   }
 
-  private async renderUsers(props: any) {
+  private renderUsers(props: any) {
     this.children.usersInChat = props.map((user: any) => {
       if (user.id === store.getState().user.id) {
         return new LoginCard({
           label: user.login,
           src: user.avatar,
           userId: user.id,
+          avatar: user.avatar,
         });
       }
       return new LoginCard({
         label: user.login,
         src: user.avatar,
         userId: user.id,
+        avatar: user.avatar,
         toDelete: { users: [user.id], chatId: store.getState().selectedChat },
       });
     });
   }
 
-  protected componentDidUpdate(
-    oldProps: addUserProps,
-    newProps: addUserProps
-  ): boolean {
-    if (shallowEqual(oldProps.usersInChat, newProps.usersInChat)) {
-      this.renderUsers(newProps.usersInChat);
-      this.showLogins();
-      return true;
-    }
-
-    return false;
+  private async getUsers() {
+    let chatId = Number(window.location.pathname.split("/").pop());
+    let users = await ChatsController.getUsers(chatId);
+    this.setProps({ ...this.props, usersInChat: users });
   }
 
   private async getLogin() {
@@ -85,9 +85,9 @@ class addUserModalDefautl extends Block<addUserProps> {
 
     this.setProps({
       ...this.props,
-      userLogin: store.getState().findedUsers,
+      userLogin: store.getState(),
     });
-    await this.showLogins();
+    this.showLogins();
   }
 
   private showLogins() {
@@ -99,22 +99,23 @@ class addUserModalDefautl extends Block<addUserProps> {
         label: name.login,
         src: name.avatar,
         userId: name.id,
+        avatar: name.avatar,
       });
     });
+  }
+
+  protected componentDidUpdate(
+    oldProps: addUserProps,
+    newProps: addUserProps
+  ): boolean {
+    if (!shallowEqual(oldProps.usersInChat, newProps.usersInChat)) {
+      this.renderUsers(newProps.usersInChat)
+      return true
+    }
+    return false
   }
 
   protected render(): DocumentFragment {
     return this.compile(template, { ...this.props, styles });
   }
 }
-
-const addUserWithStore = withStore((state) => {
-  if (!state.activeChat) {
-    return;
-  }
-  return {
-    usersInChat: state.activeChat.usersInChat,
-  };
-});
-
-export const addUserModal = addUserWithStore(addUserModalDefautl);

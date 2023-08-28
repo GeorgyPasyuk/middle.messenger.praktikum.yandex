@@ -6,7 +6,7 @@ export class ChatsAPI extends BaseAPI {
     super("/chats");
   }
 
-  create(title: string) {
+  create(title: string): Promise<IChatsInfo> {
     return this.http.post("/", { title });
   }
 
@@ -14,19 +14,23 @@ export class ChatsAPI extends BaseAPI {
     return this.http.delete("/", { chatId: id });
   }
 
-  read(): Promise<IChatsInfo[]> {
-    return this.http.get("/?limit=20");
+  read(limit: number): Promise<IChatsInfo[]> {
+    return this.http.get(`/?limit=${limit}`);
+  }
+
+  readByTitle(title: string): Promise<IChatsInfo> {
+    return this.http.get(`/?title=${title}`);
   }
 
   async getNewMessages(id: number) {
     return await this.http.get(`/new/${id}`);
   }
 
-  getUsers(id: number): Promise<Array<unknown>> | undefined {
+  async getUsers(id: number): Promise<unknown> {
     if (!id) {
       return;
     }
-    return this.http.get(`/${id}/users`);
+    return await this.http.get(`/${id}/users`);
   }
 
   addUsers(id: number, users: number[]): Promise<unknown> {
@@ -43,7 +47,6 @@ export class ChatsAPI extends BaseAPI {
 
   async getToken(id: number): Promise<string> {
     const response = await this.http.post<{ token: string }>(`/token/${id}`);
-
     return response.token;
   }
 
