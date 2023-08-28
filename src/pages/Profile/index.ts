@@ -181,7 +181,7 @@ class DefaultProfilePage extends Block<ProfileProps> {
     });
 
     this.children.avatar = new Avatar({
-      src: this.getAvatarLink(this.props.avatar),
+      avatar: this.props.avatar,
     });
   }
 
@@ -192,13 +192,6 @@ class DefaultProfilePage extends Block<ProfileProps> {
 
     await UpdateController.updateAvatar(formData);
     await AuthController.fetchUser();
-  }
-
-  private getAvatarLink(link: string) {
-    if (link) {
-      return `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`;
-    }
-    return "";
   }
 
   private async onSubmit() {
@@ -233,7 +226,9 @@ class DefaultProfilePage extends Block<ProfileProps> {
     newProps: ProfileProps
   ): boolean {
     if (shallowEqual(oldProps.avatar, newProps.avatar)) {
-      this.getAvatarLink(newProps.avatar);
+      this.children.avatar = new Avatar({
+        avatar: newProps.avatar,
+      });
       this.children.defaultField = this.createDefaultField(newProps);
       return true;
     }
@@ -267,4 +262,4 @@ const withUser = withStore((state) => ({
   avatar: state.user.avatar,
 }));
 
-export const ProfilePage = withUser(DefaultProfilePage);
+export const ProfilePage = withUser(DefaultProfilePage as typeof Block);

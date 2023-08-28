@@ -10,7 +10,7 @@ import MessagesController, {
 import store, { withStore } from "@utils/Store";
 import { TriggerModal } from "../ModalTrigger";
 import { Modal } from "../ModalTrigger/Modal";
-import { addUserModal } from "../addUserToChat";
+
 import { Avatar } from "../Avatar";
 import ChatsController from "@controllers/ChatsController";
 import { shallowEqual } from "@utils/shallowEqual";
@@ -23,7 +23,8 @@ interface MessengerProps {
   userModal: boolean;
   usersInChat: Promise<object[]>;
   chatAvatar: string;
-  isLoaded: false;
+  chatName: string;
+  isLoaded: boolean;
 }
 
 let isShown = false;
@@ -34,13 +35,17 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 
   init() {
-    this.children.messages = this.createMessages(this.props);
+    if (!store.getState().chats) {
+      ChatsController.fetchChats();
+    }
 
-    const chatId = window.location.pathname.split("/").pop();
+    const chatId = Number(window.location.pathname.split("/").pop());
 
     if (chatId) {
       store.set("selectedChat", Number(chatId));
     }
+
+    this.children.messages = this.createMessages(this.props);
 
     this.children.messages = this.createMessages(this.props);
 
@@ -86,40 +91,34 @@ class DefaultMessenger extends Block<MessengerProps> {
       },
     });
 
-    this.children.modal = new Modal({});
+    this.children.modal = new Modal({ avatar: null });
 
-    this.children.addUserModal = new addUserModal({
-      userLogin: ChatsController.getUsers(Number(chatId)),
-    });
+    if (this.props.chatAvatar) {
+      this.children.chatAvatar = new Avatar({
+        avatar: `${this.props.chatAvatar}`,
+      });
+    } else {
+      this.children.chatAvatar = new Avatar({});
+    }
   }
 
   protected componentDidUpdate(
     oldProps: MessengerProps,
     newProps: MessengerProps
   ): boolean {
-    if (shallowEqual(oldProps.messages, newProps.messages)) {
-      console.log(1);
-    }
-
-    if (newProps.messages) {
+    if (!shallowEqual(oldProps.messages, newProps.messages)) {
       this.children.messages = this.createMessages(newProps);
+      return true;
     }
-    if (newProps.chatAvatar) {
-      this.getAvatarLink(newProps.chatAvatar);
+    // console.log(oldProps.chatAvatar, newProps.chatAvatar)
+    if (!shallowEqual(oldProps.chatAvatar, newProps.chatAvatar)) {
+      this.children.chatAvatar = new Avatar({
+        avatar: newProps.chatAvatar,
+      });
+      return true;
     }
-    this.children.messengerInput._element.focus();
 
-    return true;
-  }
-
-  private getAvatarLink(link: string) {
-    let avatarLink = "";
-    if (link) {
-      avatarLink = `https://ya-praktikum.tech/api/v2/resources${link}`;
-    }
-    return (this.children.chatAvatar = new Avatar({
-      src: `${avatarLink}`,
-    }));
+    return false;
   }
 
   private createMessages(props: MessengerProps) {
@@ -184,27 +183,29 @@ class DefaultMessenger extends Block<MessengerProps> {
 }
 
 const withSelectedChatMessages = withStore((state) => {
-  const selectedChatId = state.selectedChat;
-  if (!selectedChatId || !state.activeChat) {
+  const chatId = Number(window.location.pathname.split("/").pop());
+  if (!chatId || !state.activeChat) {
     return {
       messages: [],
       selectedChat: undefined,
       userId: state.user.id,
     };
   }
-  return {
-    messages: (state.messages || {})[selectedChatId] || [],
-    selectedChat: state.selectedChat,
-    userId: state.user.id,
-    userModal: state.modal,
-    chatName: state.activeChat.title,
-    chatAvatar: state.activeChat.avatar,
-    usersInChat: state.activeChat.usersInChat,
-    isLoaded: true,
-    time: `${new Date().getHours()}:${
-      (new Date().getMinutes() < 10 ? "0" : "") + new Date().getMinutes()
-    }`,
-  };
+  {
+    return {
+      messages: (state.messages || {})[chatId] || [],
+      selectedChat: state.activeChat.id,
+      userId: state.user.id,
+      userModal: state.modal,
+      chatName: state.activeChat.title,
+      chatAvatar: state.activeChat.avatar,
+      usersInChat: state.activeChat.usersInChat,
+      isLoaded: true,
+      time: `${new Date().getHours()}:${
+        (new Date().getMinutes() < 10 ? "0" : "") + new Date().getMinutes()
+      }`,
+    };
+  }
 });
 
-export const Messenger = withSelectedChatMessages(DefaultMessenger);
+export const Messenger = withSelectedChatMessages(DefaultMessenger as typeof Block);

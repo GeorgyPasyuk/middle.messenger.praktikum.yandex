@@ -1,12 +1,11 @@
-import Router from '@utils/Router';
-import { SingInPage } from '@pages/SignUp';
-import { LogInPage } from '@pages/LogIn';
-import { ProfilePage } from '@pages/Profile';
-import { ChatPage } from '@pages/ChatPage';
-import AuthController  from '@controllers/AuthController';
-import { StartPage } from '@pages/StartPage';
-import "./scss/main.scss"
-
+import Router from "@utils/Router";
+import { SingInPage } from "@pages/SignUp";
+import { LogInPage } from "@pages/LogIn";
+import { ProfilePage } from "@pages/Profile";
+import { ChatPage } from "@pages/ChatPage";
+import AuthController from "@controllers/AuthController";
+import { StartPage } from "@pages/StartPage";
+import "./scss/main.scss";
 
 enum Routes {
   Index = "/",
@@ -19,41 +18,41 @@ enum Routes {
   Error404 = "/err404",
 }
 
-
-window.addEventListener("DOMContentLoaded", async ()=> {
-  Router
-    .use(Routes.Index, LogInPage)
+window.addEventListener("DOMContentLoaded", async () => {
+  Router.use(Routes.Index, LogInPage)
     .use(Routes.SignUp, SingInPage)
     .use(Routes.Profile, ProfilePage)
     .use(Routes.ChangeData, ProfilePage)
     .use(Routes.ChangePassword, ProfilePage)
     .use(Routes.Messenger, StartPage)
-    .use(Routes.Chat, ChatPage)
+    .use(Routes.Chat, ChatPage);
 
-  let currentRoute = window.location.pathname
-  let validUser = true
+  let currentRoute = window.location.pathname;
+  let validUser = true;
 
   switch (currentRoute) {
     case Routes.Index:
-      validUser = false
+      validUser = false;
       break;
     case Routes.SignUp:
-      validUser = false
+      validUser = false;
       break;
   }
 
-
   try {
-    await AuthController.fetchUser()
-    Router.start()
+    await AuthController.fetchUser();
+
+    Router.start();
     if (validUser) {
-      Router.go(Routes.Messenger)
+      Router.go(Routes.Messenger);
     }
   } catch (e) {
-    Router.start()
+    Router.start();
     if (!validUser) {
-      Router.go(Routes.Index)
+      Router.go(Routes.Index);
     }
   }
+
+
 
 });

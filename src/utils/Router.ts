@@ -1,20 +1,14 @@
-import Block from './Block';
-
-
-
-
+import Block from "./Block";
 
 function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
 }
 
-
 function render(query: string, block: Block) {
   const root = document.querySelector(query);
 
-
   if (root === null) {
-    throw new Error(`root not found by selector "${query}"`)
+    throw new Error(`root not found by selector "${query}"`);
   }
 
   root.innerHTML = "";
@@ -22,15 +16,14 @@ function render(query: string, block: Block) {
   return root;
 }
 
-
 class Route {
   private block: Block | null = null;
 
   constructor(
     public pathname: string,
     private readonly blockClass: any,
-    private readonly query: string) {
-  }
+    private readonly query: string
+  ) {}
 
   navigate(pathname: string) {
     if (this.match(pathname)) {
@@ -43,7 +36,7 @@ class Route {
     if (this.block) {
       this.block.hide();
     }
-    this.block = null
+    this.block = null;
   }
 
   match(pathname: string) {
@@ -51,21 +44,18 @@ class Route {
   }
 
   render() {
-      this.block = new this.blockClass({});
-      render(this.query, this.block!);
-      return;
+    this.block = new this.blockClass({});
+    render(this.query, this.block!);
+    return;
   }
 }
 
-
-
 class Router {
-  private routes: Route[]= [];
+  private routes: Route[] = [];
   //@ts-ignore
   private history: window.history;
   private _currentRoute: Route | null = null;
   private static __instance: Router;
-
 
   constructor(private readonly rootQuery: string) {
     if (Router.__instance) {
@@ -73,7 +63,7 @@ class Router {
     }
 
     this.routes = [];
-    Router.__instance = this
+    Router.__instance = this;
 
     this.history = window.history;
     this._currentRoute = null;
@@ -90,25 +80,22 @@ class Router {
   }
 
   public go(pathname: string) {
-
-    this.history.pushState({}, '', pathname);
+    this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
 
   public reset() {
-    this.routes = []
-    this._currentRoute = null
+    this.routes = [];
+    this._currentRoute = null;
   }
 
-
   private findRoute(pathname: string) {
-    return this.routes.find(route => {
-      const routePaths = route.pathname.split('/');
-      const currentPaths = pathname.split('/');
+    return this.routes.find((route) => {
+      const routePaths = route.pathname.split("/");
+      const currentPaths = pathname.split("/");
       if (routePaths.length !== currentPaths.length) return false;
       const match = routePaths.every((routePath, i) => {
-        if (routePath.startsWith(':')) {
-
+        if (routePath.startsWith(":")) {
           return true;
         }
         return routePath === currentPaths[i];
@@ -129,7 +116,7 @@ class Router {
     window.onpopstate = (event: PopStateEvent) => {
       const target = event.currentTarget as Window;
       this._onRoute(target.location.pathname);
-    }
+    };
     this._onRoute(window.location.pathname);
   }
 
@@ -147,10 +134,8 @@ class Router {
       this._currentRoute.leave();
     }
 
-
     route!.render();
   }
-
 }
 
-export default new Router('#app');
+export default new Router("#app");

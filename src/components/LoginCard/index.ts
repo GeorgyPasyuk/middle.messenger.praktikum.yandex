@@ -14,6 +14,7 @@ interface LoginCardProps {
     users: [number];
     chatId: number;
   };
+  avatar: string
 }
 
 export class LoginCard extends Block<LoginCardProps> {
@@ -44,7 +45,7 @@ export class LoginCard extends Block<LoginCardProps> {
     });
 
     this.children.avatar = new Avatar({
-      src: this.getLink(),
+      avatar: this.props.avatar,
     });
   }
 
@@ -54,13 +55,7 @@ export class LoginCard extends Block<LoginCardProps> {
     store.set("modal", false);
   }
 
-  private getLink() {
-    if (this.props.src) {
-      return `https://ya-praktikum.tech/api/v2/resources${this.props.src}`;
-    } else {
-      return "";
-    }
-  }
+
 
   render() {
     return this.compile(template, { ...this.props, styles });

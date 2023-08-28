@@ -6,8 +6,12 @@ import ChatsController from "@controllers/ChatsController";
 import router from "@utils/Router";
 import store from "@utils/Store";
 import { AvatarInput } from "../../AvatarInput";
+import { shallowEqual } from "@utils/shallowEqual";
+import { addUserModal } from "@components/addUserToChat";
 
-interface ModalProps {}
+interface ModalProps {
+  avatar: any | null;
+}
 
 export class Modal extends Block<ModalProps> {
   constructor(props: ModalProps) {
@@ -19,12 +23,17 @@ export class Modal extends Block<ModalProps> {
       label: "Добавить пользователя",
       events: {
         click: async () => {
-          store.set("modal", true);
-          this.fetchUsers();
+          this.children.addUserModal = new addUserModal({
+            userLogin: [],
+            usersInChat: [],
+          });
         },
       },
       style: styles.modal__window,
     });
+
+
+
 
     this.children.deleteChat = new Button({
       label: "Удалить чат",
@@ -42,7 +51,7 @@ export class Modal extends Block<ModalProps> {
       name: "chatAvatar",
       events: {
         change: async (event: InputEvent) => {
-          await Modal.updateAvatar(event);
+          this.setProps({ avatar: event });
         },
       },
       style: styles.modal__avatar,
@@ -54,18 +63,20 @@ export class Modal extends Block<ModalProps> {
     });
   }
 
-  private async fetchUsers() {
-    const chatId = store.getState().selectedChat;
-
-    try {
-      const usersInChat = await ChatsController.getUsers(chatId);
-      store.set("usersInChat", usersInChat);
-    } catch (e) {
-      console.error(e);
+  protected componentDidUpdate(
+    oldProps: ModalProps,
+    newProps: ModalProps
+  ): boolean {
+    if (!shallowEqual(oldProps.avatar, newProps.avatar)) {
+      Modal.updateAvatar(newProps.avatar);
+      return true;
     }
+    return false;
   }
 
   private static async updateAvatar(event: any) {
+    // const chat = store.getState().activeChat.title;
+
     const file = event.target!.files[0];
     const formData = new FormData();
     formData.append("avatar", file);

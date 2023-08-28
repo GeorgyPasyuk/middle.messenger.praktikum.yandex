@@ -5,8 +5,8 @@
   width: 28px;
   height: 28px;
   border-radius: 100%;
-  background-color: $blue;
   cursor: pointer;
+  background: $blue url("../../static/icons/arrow.svg") no-repeat 50% 50%;
+  rotate: 180deg;
 }
-
 
