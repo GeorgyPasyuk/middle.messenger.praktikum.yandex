@@ -24,11 +24,12 @@
   height: 47px;
   background: $input-bg;
   border-radius: 100%;
+  margin-right: 10px;
 }
 
 .user__info {
   display: flex;
-  width: 193px;
+  width: 85px;
   height: 32px;
   flex-direction: column;
   justify-content: space-between;

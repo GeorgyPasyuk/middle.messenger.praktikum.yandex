@@ -4,7 +4,6 @@ import { LogInPage } from "@pages/LogIn";
 import { ProfilePage } from "@pages/Profile";
 import { ChatPage } from "@pages/ChatPage";
 import AuthController from "@controllers/AuthController";
-import { StartPage } from "@pages/StartPage";
 import "./scss/main.scss";
 
 enum Routes {
@@ -24,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(Routes.Profile, ProfilePage)
     .use(Routes.ChangeData, ProfilePage)
     .use(Routes.ChangePassword, ProfilePage)
-    .use(Routes.Messenger, StartPage)
+    .use(Routes.Messenger, ChatPage)
     .use(Routes.Chat, ChatPage);
 
   let currentRoute = window.location.pathname;

@@ -20,12 +20,8 @@ class ChatsController {
 
     await this.getUsers(Number(chatId));
 
-    const chats = await this.api.read(20);
 
-    store.set("activeChat", chat);
-    store.set("chats", chats);
-
-    return this.fetchChats();
+    await this.fetchChats();
   }
 
   async fetchChats() {
@@ -34,14 +30,14 @@ class ChatsController {
     chats.map(async (chat) => {
       const token = await this.getToken(chat.id);
 
-      this.unreadCount(chat.id);
+      await this.unreadCount(chat.id);
 
       await MessagesController.connect(chat.id, token);
     });
 
     const chatId = window.location.pathname.split("/").pop();
 
-    this.getUsers(Number(chatId));
+    await this.getUsers(Number(chatId));
 
     const activeChat = Object.values(chats).find(
       (item) => item.id === Number(chatId)
@@ -104,7 +100,7 @@ class ChatsController {
     await this.api.delete(id);
     const chats = await this.api.read(20);
     store.set("chats", chats);
-    this.fetchChats();
+    await this.fetchChats();
   }
 
   getToken(id: number) {

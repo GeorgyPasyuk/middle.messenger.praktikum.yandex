@@ -4,15 +4,13 @@ import styles from "./messanger.module.scss";
 import { Message } from "../Message";
 import { Button } from "../Button";
 import { Input } from "../Input";
-import MessagesController, {
-  Message as MessageData,
-} from "@controllers/MessagesController";
+import MessagesController from "@controllers/MessagesController";
+import { Message as MessageData } from "@shared/controllers/IMessage";
 import store, { withStore } from "@utils/Store";
 import { TriggerModal } from "../ModalTrigger";
 import { Modal } from "../ModalTrigger/Modal";
 
 import { Avatar } from "../Avatar";
-import ChatsController from "@controllers/ChatsController";
 import { shallowEqual } from "@utils/shallowEqual";
 
 interface MessengerProps {
@@ -35,17 +33,11 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 
   init() {
-    if (!store.getState().chats) {
-      ChatsController.fetchChats();
-    }
-
     const chatId = Number(window.location.pathname.split("/").pop());
 
     if (chatId) {
       store.set("selectedChat", Number(chatId));
     }
-
-    this.children.messages = this.createMessages(this.props);
 
     this.children.messages = this.createMessages(this.props);
 
@@ -110,7 +102,6 @@ class DefaultMessenger extends Block<MessengerProps> {
       this.children.messages = this.createMessages(newProps);
       return true;
     }
-    // console.log(oldProps.chatAvatar, newProps.chatAvatar)
     if (!shallowEqual(oldProps.chatAvatar, newProps.chatAvatar)) {
       this.children.chatAvatar = new Avatar({
         avatar: newProps.chatAvatar,
@@ -124,7 +115,6 @@ class DefaultMessenger extends Block<MessengerProps> {
   private createMessages(props: MessengerProps) {
     return props.messages.map((data) => {
       const userName = this.props.usersInChat;
-
       this.setLatestMessage(data.user_id, userName);
 
       return new Message({
@@ -199,7 +189,6 @@ const withSelectedChatMessages = withStore((state) => {
       userModal: state.modal,
       chatName: state.activeChat.title,
       chatAvatar: state.activeChat.avatar,
-      usersInChat: state.activeChat.usersInChat,
       isLoaded: true,
       time: `${new Date().getHours()}:${
         (new Date().getMinutes() < 10 ? "0" : "") + new Date().getMinutes()
@@ -208,4 +197,6 @@ const withSelectedChatMessages = withStore((state) => {
   }
 });
 
-export const Messenger = withSelectedChatMessages(DefaultMessenger as typeof Block);
+export const Messenger = withSelectedChatMessages(
+  DefaultMessenger as typeof Block
+);

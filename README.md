@@ -3,6 +3,7 @@
 ---
 
 ## [Хостинг проекта](https://middle-messenger-yandex-yandex.netlify.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/48c1e74e-1f60-4873-827a-5a85413cdff3/deploy-status)](https://app.netlify.com/sites/middle-messenger-yandex-yandex/deploys)
 
 ---
 
