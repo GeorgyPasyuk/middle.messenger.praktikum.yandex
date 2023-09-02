@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(Routes.ChangeData, ProfilePage)
     .use(Routes.ChangePassword, ProfilePage)
     .use(Routes.Messenger, ChatPage)
-    .use(Routes.Chat, ChatPage);
+    .use(Routes.Chat, ChatPage)
 
   let currentRoute = window.location.pathname;
   let validUser = true;
@@ -51,7 +51,4 @@ window.addEventListener("DOMContentLoaded", async () => {
       Router.go(Routes.Index);
     }
   }
-
-
-
 });
