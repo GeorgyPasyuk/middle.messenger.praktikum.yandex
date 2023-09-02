@@ -29,7 +29,7 @@ export class ChatPage extends Block {
           });
 
           messenger.setProps({
-            messages: updatedState.messages[chatId],
+            //messages: updatedState.messages[chatId],
             userId: updatedState.user.id,
           });
         });

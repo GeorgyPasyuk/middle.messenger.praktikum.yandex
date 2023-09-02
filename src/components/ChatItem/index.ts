@@ -15,6 +15,7 @@ interface ChatProps {
   chatItem?: IChatsInfo;
   chatId: number;
   lastMessage: string | undefined;
+  isSelected: boolean
 }
 
 class ChatItem extends Block<ChatProps> {
@@ -32,7 +33,6 @@ class ChatItem extends Block<ChatProps> {
         ...this.props,
         events: {
           click: () => {
-            console.log(store.getState().activeChat)
             const urlId = Number(window.location.pathname.split("/").pop());
             if (this.props.chatId !== urlId) {
               store.set("activeChat", this.props.chatItem);
@@ -45,20 +45,20 @@ class ChatItem extends Block<ChatProps> {
     } catch (e) {}
 
     this.createAvatar(this.props.chatItem?.avatar);
+
   }
 
   protected componentDidUpdate(
     _oldProps: ChatProps,
     newProps: ChatProps
   ): boolean | undefined {
-    console.log(newProps.lastMessage);
-
     if (newProps.lastMessage) {
       this.setProps({
         ...this.props,
         chatItem: newProps.chatItem,
         lastMessage: newProps.lastMessage,
       });
+      return true
     }
     return false;
   }
@@ -99,15 +99,13 @@ class ChatItem extends Block<ChatProps> {
       this.props.chatItem?.last_message.content
     );
     const time = this.formatTime(this.props.chatItem?.last_message.time);
-
     return this.compile(template, {
       title: this.props.chatItem?.title,
       userName: this.props.chatItem?.last_message.user.first_name || "",
       last_message: lastMessage,
       time: time,
       unread_count: this.props.chatItem?.unread_count || "",
-      selectedChat:
-        Number(window.location.pathname.split("/").pop()) === this.props.chatId,
+      selectedChat: this.props.isSelected,
       styles,
     });
   }
@@ -115,7 +113,6 @@ class ChatItem extends Block<ChatProps> {
 
 const ChatItemWithStoreTest = withStore((state: IState) => ({
   chat: state.activeChat,
-  lastMessage: (state.activeChat.last_message!.content || "")
 }));
 
 export const ChatItemWithStore = ChatItemWithStoreTest(

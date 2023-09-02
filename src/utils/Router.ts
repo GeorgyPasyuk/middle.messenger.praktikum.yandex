@@ -44,8 +44,11 @@ class Route {
   }
 
   render() {
-    this.block = new this.blockClass({});
-    render(this.query, this.block!);
+    if (!this.block) {
+      this.block = new this.blockClass({});
+      render(this.query, this.block!);
+    }
+
     return;
   }
 }
@@ -133,7 +136,6 @@ class Router {
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
-
     route!.render();
   }
 }
