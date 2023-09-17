@@ -6,7 +6,7 @@ export class SearchAPI extends BaseAPI {
     super("/user");
   }
 
-  getLogin(login: IUserLogin) {
+  getLogin(login: IUserLogin): Promise<[]> {
     return this.http.post("/search", login);
   }
 

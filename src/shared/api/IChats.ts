@@ -10,4 +10,5 @@ export interface IChatsInfo {
         time: string,
         content: string
     }
+    usersInChat: any
 }

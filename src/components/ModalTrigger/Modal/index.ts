@@ -22,26 +22,25 @@ export class Modal extends Block<ModalProps> {
     this.children.addUser = new Button({
       label: "Добавить пользователя",
       events: {
-        click: async () => {
-          this.children.addUserModal = new addUserModal({
-            userLogin: [],
-            usersInChat: [],
-          });
+        click: () => {
+          if (this.children.addUserModal) {
+            this.children.addUserModal.show();
+          }
         },
       },
       style: styles.modal__window,
     });
 
 
-
+    this.children.addUserModal = new addUserModal({});
 
     this.children.deleteChat = new Button({
       label: "Удалить чат",
       events: {
         click: async () => {
           const chatId = window.location.pathname.split("/").pop();
-          await ChatsController.delete(Number(chatId));
           router.go("/messenger");
+          await ChatsController.delete(Number(chatId));
         },
       },
       style: styles.modal__window__red,
@@ -75,8 +74,6 @@ export class Modal extends Block<ModalProps> {
   }
 
   private static async updateAvatar(event: any) {
-    // const chat = store.getState().activeChat.title;
-
     const file = event.target!.files[0];
     const formData = new FormData();
     formData.append("avatar", file);

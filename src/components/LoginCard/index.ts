@@ -5,6 +5,7 @@ import { Button } from "../Button";
 import { Avatar } from "../Avatar";
 import ChatsController from "@controllers/ChatsController";
 import store from "@utils/Store";
+import router from "@utils/Router";
 
 interface LoginCardProps {
   label: string;
@@ -15,6 +16,8 @@ interface LoginCardProps {
     chatId: number;
   };
   avatar: string
+  addUser?: ()=> void
+  deleteUser?: ()=> void
 }
 
 export class LoginCard extends Block<LoginCardProps> {
@@ -23,12 +26,17 @@ export class LoginCard extends Block<LoginCardProps> {
   }
 
   init() {
+    const chatId = window.location.pathname.split('/').pop()
+
     this.children.button = new Button({
       label: this.props.label,
       style: styles.button,
       events: {
         click: async () => {
-          await LoginCard.addUserToChat(this.props.userId);
+          if (this.props.userId !== store.getState().user.id) {
+            await this.addUserToChat(this.props.userId);
+            router.go(`/messenger/${chatId}`)
+          }
         },
       },
     });
@@ -38,7 +46,7 @@ export class LoginCard extends Block<LoginCardProps> {
       events: {
         click: async () => {
           await ChatsController.deleteUser(this.props.toDelete!);
-          store.set("modal", false);
+          router.go(`/messenger/${chatId}`)
         },
       },
       style: styles.deleteButton,
@@ -49,13 +57,11 @@ export class LoginCard extends Block<LoginCardProps> {
     });
   }
 
-  private static async addUserToChat(userId: number) {
+
+  private async addUserToChat(userId: number) {
     const chatId = window.location.pathname.split("/").pop();
     await ChatsController.addUserToChat(Number(chatId), userId);
-    store.set("modal", false);
   }
-
-
 
   render() {
     return this.compile(template, { ...this.props, styles });

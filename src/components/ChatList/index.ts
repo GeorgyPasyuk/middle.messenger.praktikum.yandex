@@ -1,14 +1,11 @@
 import template from "./ChatList.hbs";
 import styles from "./chatList.module.scss";
 import Block from "@utils/Block";
-import { ChatItemWithStore as ChatItem } from "@components/ChatItem";
-import ChatsController from "@controllers/ChatsController";
+import { ChatItem as ChatItem } from "@components/ChatItem";
 import store, { withStore } from "@utils/Store";
+import ChatsController from "@controllers/ChatsController";
 import { Input } from "../Input";
 import { chatsLink } from "../chatsLink";
-/*
-import Router from "@utils/Router";
-*/
 import { Button } from "../Button";
 import { IChatsInfo } from "@shared/api/IChats";
 import { shallowEqual } from "@utils/shallowEqual";
@@ -28,12 +25,13 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 
   protected init() {
-    if (store.getState().chats) {
-      this.setProps({
-        ...this.props,
-        chats: store.getState().chats,
-      });
-    }
+    const chats = store.getState().chats;
+
+    try {
+      if (chats) {
+        this.setProps({ ...this.props, chats: store.getState().chats });
+      }
+    } catch (e) {}
 
     this.props.showChatInput = false;
 
@@ -72,7 +70,13 @@ class ChatsListBase extends Block<ChatsListProps> {
         keydown: (e: KeyboardEvent) => {
           const value = this.children.chatInput.getValue();
           if (e.key === "Enter" && value) {
-            this.createChat(value);
+            this.createChat(value).then(() => {
+              this.setProps({
+                ...this.props,
+                chats: store.getState().chats,
+              });
+            });
+
             this.children.chatInput.setValue("");
           }
         },
@@ -88,14 +92,25 @@ class ChatsListBase extends Block<ChatsListProps> {
     oldProps: ChatsListProps,
     newProps: ChatsListProps
   ) {
-    if (!shallowEqual(oldProps.chats.length, newProps.chats.length)) {
+    console.log(newProps.lastMessage)
+    if (
+      !shallowEqual(oldProps.chats, newProps.chats) ||
+      (newProps.lastMessage && newProps.chats.length > 0)
+    ) {
       this.children.chats = this.initChats();
       return true;
     }
+
+    if (!shallowEqual(oldProps.showChatInput, newProps.showChatInput)) {
+      return true;
+    }
+
     if (newProps.isLoaded) {
       this.children.chats = this.initChats();
+      return true;
     }
-    return !shallowEqual(oldProps.showChatInput, newProps.showChatInput);
+
+    return false;
   }
 
   private showModal() {
@@ -108,10 +123,16 @@ class ChatsListBase extends Block<ChatsListProps> {
 
   private initChats() {
     try {
-      const chats: IChatsInfo = store.getState().chats;
-      return Object.values(chats).map((item) => {
+      const chats: IChatsInfo[] = store.getState().chats || [];
+      return chats.map((item) => {
         return new ChatItem({
+          avatar: item.avatar,
           chatId: item.id,
+          events: {
+            click: () => {},
+          },
+          isSelected: false,
+          last_message: item.last_message,
         });
       });
     } catch (e) {}
@@ -129,8 +150,17 @@ class ChatsListBase extends Block<ChatsListProps> {
   }
 }
 
-const withChats = withStore((state: IState) => ({
-  chats: [...(state.chats || [])],
-}));
+const withChats = withStore((state: IState) => {
+  const chats = state.chats || [];
+
+  if (state.activeChat) {
+    return {
+      lastMessage: state.activeChat.last_message ? state.activeChat.last_message.content : ''
+    }
+  }
+  return {
+    chats: [...chats],
+  };
+});
 
 export const ChatsList = withChats(ChatsListBase as typeof Block);

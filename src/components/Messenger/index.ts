@@ -1,7 +1,6 @@
 import Block from "@utils/Block";
 import template from "./messenger.hbs";
 import styles from "./messanger.module.scss";
-import { Message } from "../Message";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import MessagesController from "@controllers/MessagesController";
@@ -12,17 +11,17 @@ import { Modal } from "../ModalTrigger/Modal";
 
 import { Avatar } from "../Avatar";
 import { shallowEqual } from "@utils/shallowEqual";
+import { IState } from "@shared/store/IState";
+import { IUser } from "@shared/api/IUser";
+import { IChatsInfo } from "@shared/api/IChats";
+import { Message } from "@components/Message";
 
 interface MessengerProps {
-  selectedChat: number | undefined;
   messages: MessageData[];
-  userId: number;
-  time: string | number;
-  userModal: boolean;
-  usersInChat: Promise<object[]>;
-  chatAvatar: string;
+  user: IUser;
+  activeChat: IChatsInfo;
   chatName: string;
-  isLoaded: boolean;
+  chatAvatar: string;
 }
 
 let isShown = false;
@@ -33,13 +32,20 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 
   init() {
-    const chatId = Number(window.location.pathname.split("/").pop());
+    try {
+      if (store.getState().activeChat) {
+        const state = store.getState();
+        this.setProps({
+          activeChat: state.activeChat,
+          chatName: state.activeChat.title,
+          chatAvatar: state.activeChat.avatar,
+          messages: state.messages[state.activeChat.id],
+          user: state.user,
+        });
 
-    if (chatId) {
-      store.set("selectedChat", Number(chatId));
-    }
-
-    this.children.messages = this.createMessages(this.props);
+        this.createMessages(this.props.messages);
+      }
+    } catch (e) {}
 
     this.children.button = new Button({
       style: styles.footer__button,
@@ -51,7 +57,7 @@ class DefaultMessenger extends Block<MessengerProps> {
           this.children.messengerInput.setValue("");
           this.children.messengerInput._element.focus();
           if (message) {
-            MessagesController.sendMessage(this.props.selectedChat!, message);
+            MessagesController.sendMessage(this.props.activeChat.id, message);
           }
         },
       },
@@ -68,7 +74,7 @@ class DefaultMessenger extends Block<MessengerProps> {
             const message = this.children.messengerInput.getValue();
             this.children.messengerInput.setValue("");
             if (message) {
-              MessagesController.sendMessage(this.props.selectedChat!, message);
+              MessagesController.sendMessage(this.props.activeChat.id, message);
             }
           }
         },
@@ -95,60 +101,42 @@ class DefaultMessenger extends Block<MessengerProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: MessengerProps,
-    newProps: MessengerProps
+      oldProps: MessengerProps,
+      newProps: MessengerProps
   ): boolean {
-    if (!shallowEqual(oldProps.messages, newProps.messages)) {
-      this.children.messages = this.createMessages(newProps);
-      return true;
-    }
+    let shouldUpdate = false;
+
     if (!shallowEqual(oldProps.chatAvatar, newProps.chatAvatar)) {
       this.children.chatAvatar = new Avatar({
         avatar: newProps.chatAvatar,
       });
-      return true;
+      shouldUpdate = true;
     }
 
-    return false;
+    if (newProps.messages) {
+      this.createMessages(newProps.messages);
+      shouldUpdate = true;
+    }
+
+    return shouldUpdate;
   }
 
-  private createMessages(props: MessengerProps) {
-    return props.messages.map((data) => {
-      const userName = this.props.usersInChat;
-      this.setLatestMessage(data.user_id, userName);
 
-      return new Message({
-        ...data,
-        name: this.getUserNameById(data.user_id, userName) || "",
-        content: DefaultMessenger.formatMessage(data.content) || "",
-        myMsg: props.userId === data.user_id,
+  private createMessages(messagesToAdd: any) {
+    const user = store.getState().user;
+    if (Array.isArray(messagesToAdd)) {
+      this.children.messages = messagesToAdd.map((data: MessageData) => {
+        return new Message({
+          ...data,
+          name: user.display_name || "Anon",
+          content: this.formatMessage(data.content) || "",
+          myMsg: user.id === data.user_id,
+        });
       });
-    });
-  }
-
-  private getUserNameById(userId: number, users: any) {
-    if (users) {
-      const foundUser = users.find(
-        (user: { id: number }) => user.id === userId
-      );
-      if (foundUser) {
-        return foundUser.display_name || "";
-      }
-    }
-    return "";
-  }
-
-  private async setLatestMessage(id: number, name: Promise<object[]>) {
-    const chatIndex = store
-      .getState()
-      .chats.findIndex((chat: Record<string, any>) => chat.id === id);
-    if (chatIndex > -1) {
-      const userName = await name;
-      store.set(`chats.${chatIndex}.last_message.user.display_name`, userName);
     }
   }
 
-  private static formatMessage(content: string) {
+  private formatMessage(content: string) {
     if (content) {
       return content
         .split("")
@@ -156,7 +144,6 @@ class DefaultMessenger extends Block<MessengerProps> {
         .join("");
     }
   }
-
   private showModal() {
     if (!isShown) {
       this.children.modal.show();
@@ -167,36 +154,37 @@ class DefaultMessenger extends Block<MessengerProps> {
     }
   }
 
+  private formatTime() {
+    return `${new Date().getHours()}:${
+      (new Date().getMinutes() < 10 ? "0" : "") + new Date().getMinutes()
+    }`;
+  }
+
   protected render(): DocumentFragment {
-    return this.compile(template, { ...this.props, styles });
+    return this.compile(template, {
+      ...this.props,
+      time: this.formatTime(),
+      isLoaded: true,
+      styles,
+    });
   }
 }
 
-const withSelectedChatMessages = withStore((state) => {
-  const chatId = Number(window.location.pathname.split("/").pop());
-  if (!chatId || !state.activeChat) {
-    return {
-      messages: [],
-      selectedChat: undefined,
-      userId: state.user.id,
-    };
-  }
-  {
-    return {
-      messages: (state.messages || {})[chatId] || [],
-      selectedChat: state.activeChat.id,
-      userId: state.user.id,
-      userModal: state.modal,
-      chatName: state.activeChat.title,
-      chatAvatar: state.activeChat.avatar,
-      isLoaded: true,
-      time: `${new Date().getHours()}:${
-        (new Date().getMinutes() < 10 ? "0" : "") + new Date().getMinutes()
-      }`,
-    };
+const withStoreMessenger = withStore((state: IState) => {
+  const chatId = window.location.pathname.split("/").pop();
+  if (state.activeChat) {
+    for (const key in state.messages) {
+      if (state.messages.hasOwnProperty(key) && key === chatId) {
+        return {
+          messages: state.messages[key],
+          activeChat: state.activeChat,
+          chatName: state.activeChat.title,
+          chatAvatar: state.activeChat.avatar,
+          user: state.user,
+        };
+      }
+    }
   }
 });
 
-export const Messenger = withSelectedChatMessages(
-  DefaultMessenger as typeof Block
-);
+export const Messenger = withStoreMessenger(DefaultMessenger as typeof Block);
