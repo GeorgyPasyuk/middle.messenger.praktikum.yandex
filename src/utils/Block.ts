@@ -102,8 +102,8 @@ class Block<P extends Record<string, any> = any> {
 
   public dispatchComponentWillUnmount() {
     this.eventBus().emit(Block.EVENTS.FLOW_UNMOUNT);
-
     Object.values(this.children).forEach((child) => {
+
       if (Array.isArray(child)) {
         child.forEach((ch) => ch.dispatchComponentWillUnmount());
       } else {
@@ -112,13 +112,7 @@ class Block<P extends Record<string, any> = any> {
     });
   }
 
-  protected _componentWillUnmount() {
-    this._removeEvents();
-    if (this._element) {
-      this._element.innerHTML = "";
-    }
-  }
-
+  protected _componentWillUnmount() {}
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     Object.values(this.children).forEach((child) => {
@@ -145,18 +139,19 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _render() {
-    const fragment = this.render();
+    this._removeEvents()
 
+    const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
     if (this._element && newElement) {
-      this._componentWillUnmount();
-
+      this.dispatchComponentWillUnmount()
       this._element.replaceWith(newElement);
     }
 
     this._element = newElement;
     this.dispatchComponentDidMount();
+
 
     this._addEvents();
   }

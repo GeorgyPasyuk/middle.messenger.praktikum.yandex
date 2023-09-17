@@ -11,30 +11,24 @@ export class ChatPage extends Block {
     super({});
   }
 
-  protected async init() {
-    this.children.chatsList = new ChatsList({});
+  protected init() {
     this.children.messenger = new Messenger({});
-    const chatId = Number(window.location.pathname.split("/").pop());
+    this.children.chatsList = new ChatsList({
+      chats: [],
+      isLoaded: false,
+      lastMessage: [],
+      showChatInput: false,
+    });
 
-    try {
-      const currentState = store.getState();
-      if (!currentState.chats || !currentState.messages[chatId]) {
-        ChatsController.fetchChats().finally(() => {
-          const updatedState = store.getState();
-          const chatsList = this.children.chatsList as Block;
-          const messenger = this.children.messenger as Block;
-
-          chatsList.setProps({
-            chats: updatedState.chats,
-          });
-
-          messenger.setProps({
-            //messages: updatedState.messages[chatId],
-            userId: updatedState.user.id,
-          });
+    const currentState = store.getState();
+    if (!currentState.chats) {
+      ChatsController.fetchChats().finally(() => {
+        const state = store.getState();
+        (this.children.messenger as Block).setProps({
+          activeChat: state.activeChat,
         });
-      }
-    } catch (e) {}
+      });
+    }
   }
 
   protected render(): DocumentFragment {

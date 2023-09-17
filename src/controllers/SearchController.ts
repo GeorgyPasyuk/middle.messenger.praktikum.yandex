@@ -1,5 +1,4 @@
 import API, { SearchAPI } from '../api/SearchAPI';
-import store from '../utils/Store';
 import {IUserLogin} from "@shared/api/ISearch";
 
 export class SearchController {
@@ -9,9 +8,8 @@ export class SearchController {
     this.api = API
   }
 
-  async getLogin(login: IUserLogin) {
-    const logins = await this.api.getLogin(login)
-    store.set('findedUsers', logins)
+  async getLogin(login: IUserLogin): Promise<[]> {
+    return await this.api.getLogin(login)
   }
 
 }

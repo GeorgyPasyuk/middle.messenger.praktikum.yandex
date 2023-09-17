@@ -21,7 +21,7 @@ class Route {
 
   constructor(
     public pathname: string,
-    private readonly blockClass: any,
+    private readonly blockClass: typeof Block,
     private readonly query: string
   ) {}
 
@@ -44,12 +44,10 @@ class Route {
   }
 
   render() {
-    if (!this.block) {
+    if (!this.block || this.block! instanceof this.blockClass) {
       this.block = new this.blockClass({});
-      render(this.query, this.block!);
+      render(this.query, this.block);
     }
-
-    return;
   }
 }
 

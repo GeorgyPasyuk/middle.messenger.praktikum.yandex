@@ -21,12 +21,12 @@ class MessagesController {
     await ws.connect();
 
     this.subscribe(ws, id);
+
     this.fetchOldMessages(id);
   }
 
   sendMessage(id: number, message: string) {
     const socket = this.sockets.get(id);
-
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
@@ -35,18 +35,16 @@ class MessagesController {
       type: "message",
       content: message,
     });
-    storeSetMessage(id, message);
   }
 
   fetchOldMessages(id: number) {
-    const socket =  this.sockets.get(id);
+    const socket = this.sockets.get(id);
 
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
+
     socket.send({ type: "get old", content: "0" });
-
-
   }
 
   closeAll() {
@@ -65,7 +63,6 @@ class MessagesController {
     const currentMessages = (store.getState().messages || {})[id] || [];
 
     messagesToAdd = [...currentMessages, ...messagesToAdd];
-
     store.set(`messages.${id}`, messagesToAdd);
 
     if (messagesToAdd[messagesToAdd.length - 1]) {
@@ -88,8 +85,9 @@ function storeSetMessage(id: number, message: string) {
   const chatIndex = store
     .getState()
     .chats.findIndex((chat: Record<string, any>) => chat.id === id);
-  if (chatIndex) {
-    store.set(`chats.${chatIndex}.last_message.content`, message);
+  if (chatIndex > -1) {
+    console.log(chatIndex)
+    store.set(`activeChat.last_message.content`, message);
   }
 }
 

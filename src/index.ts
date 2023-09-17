@@ -5,6 +5,7 @@ import { ProfilePage } from "@pages/Profile";
 import { ChatPage } from "@pages/ChatPage";
 import AuthController from "@controllers/AuthController";
 import "./scss/main.scss";
+import { ErrorsComponent } from "@components/Errors";
 
 enum Routes {
   Index = "/",
@@ -25,6 +26,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(Routes.ChangePassword, ProfilePage)
     .use(Routes.Messenger, ChatPage)
     .use(Routes.Chat, ChatPage)
+    .use(Routes.Error404, ErrorsComponent);
 
   let currentRoute = window.location.pathname;
   let validUser = true;
@@ -40,7 +42,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   try {
     await AuthController.fetchUser();
-
     Router.start();
     if (validUser) {
       Router.go(Routes.Messenger);

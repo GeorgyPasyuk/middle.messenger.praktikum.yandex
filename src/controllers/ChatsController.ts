@@ -10,53 +10,30 @@ class ChatsController {
   }
 
   async create(title: string) {
-    const chat = await this.api.create(title);
-
-    const token = await this.getToken(chat.id);
-
-    await MessagesController.connect(chat.id, token);
-
-    const chatId = window.location.pathname.split("/").pop();
-
-    await this.getUsers(Number(chatId));
-
-
-    await this.fetchChats();
+    await this.api.create(title)
+    await this.fetchChats()
   }
 
   async fetchChats() {
     const chats = await this.api.read(20);
 
-    chats.map(async (chat) => {
+    for (const chat of chats) {
       const token = await this.getToken(chat.id);
-
       await this.unreadCount(chat.id);
-
       await MessagesController.connect(chat.id, token);
-    });
 
-    const chatId = window.location.pathname.split("/").pop();
+      store.set("chats", chats);
+      await this.getUsers(chat.id)
+    }
 
-    await this.getUsers(Number(chatId));
+    const chatId = Number(window.location.pathname.split("/").pop());
 
-    const activeChat = Object.values(chats).find(
-      (item) => item.id === Number(chatId)
-    );
+    const activeChat = chats.find((item) => item.id === chatId);
 
     store.set("activeChat", activeChat);
-    store.set("chats", chats);
   }
 
-  async fetchChatByTitle(title: string) {
-    const chat = await this.api.readByTitle(title);
-    const token = await this.getToken(chat.id);
-    await this.unreadCount(chat.id);
-    await MessagesController.connect(chat.id, token);
 
-    store.set(`chats.${chat.id}`, chat);
-
-    return chat;
-  }
 
   async unreadCount(id: number) {
     const unread = await this.api.getNewMessages(id);
@@ -70,8 +47,10 @@ class ChatsController {
     } catch (e) {}
   }
 
-  addUserToChat(id: number, userId: number) {
-    return this.api.addUsers(id, [userId]);
+  async addUserToChat(id: number, userId: number) {
+    const users = await this.api.addUsers(id, [userId]);
+    await this.getUsers(id)
+    return users
   }
 
   async updateAvatar(data: FormData) {
@@ -87,13 +66,14 @@ class ChatsController {
   }
 
   async getUsers(id: number): Promise<unknown> {
-    if (!id) {
-      return;
-    }
     const usersInChat = await this.api.getUsers(id);
-    store.set("activeChat.usersInChat", usersInChat);
-
-    return usersInChat;
+    try {
+      const chatIndex = store
+          .getState()
+          .chats.findIndex((chat: Record<string, any>) => chat.id === id);
+      store.set(`chats.${chatIndex}.usersInChat`, usersInChat);
+    } catch (e) {}
+    return usersInChat
   }
 
   async delete(id: number) {
@@ -105,10 +85,6 @@ class ChatsController {
 
   getToken(id: number) {
     return this.api.getToken(id);
-  }
-
-  selectChat(id: number) {
-    store.set("selectedChat", id);
   }
 }
 

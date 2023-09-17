@@ -6,11 +6,15 @@
   background-color: rgb(000 000 000 / 50%);
   position: fixed;
   z-index: 10000;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   left: 0;
   top: 0;
+}
+
+.isShown {
+  display: flex;
 }
 
 .modal__container {

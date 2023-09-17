@@ -2,11 +2,10 @@ import Block from "@utils/Block";
 import template from "./Chat.hbs";
 import styles from "./chat.module.scss";
 import { Avatar } from "../Avatar";
-import store, { withStore } from "@utils/Store";
-import { IState } from "@shared/store/IState";
+import store from "@utils/Store";
 import { IChatsInfo } from "@shared/api/IChats";
 import Router from "@utils/Router";
-// import { shallowEqual } from "@utils/shallowEqual";
+import { shallowEqual } from "@utils/shallowEqual";
 
 interface ChatProps {
   events: {
@@ -14,11 +13,12 @@ interface ChatProps {
   };
   chatItem?: IChatsInfo;
   chatId: number;
-  lastMessage: string | undefined;
-  isSelected: boolean
+  avatar: string | undefined;
+  isSelected: boolean;
+  last_message: any;
 }
 
-class ChatItem extends Block<ChatProps> {
+export class ChatItem extends Block<ChatProps> {
   constructor(props: ChatProps) {
     super(props);
   }
@@ -26,9 +26,10 @@ class ChatItem extends Block<ChatProps> {
   init() {
     try {
       const chats = store.getState().chats;
-      const chat = chats.filter(
+      const chat = chats.find(
         (item: IChatsInfo) => item.id === this.props.chatId
       );
+
       this.setProps({
         ...this.props,
         events: {
@@ -40,32 +41,24 @@ class ChatItem extends Block<ChatProps> {
             }
           },
         },
-        chatItem: chat[0],
+        chatItem: chat,
       });
     } catch (e) {}
 
-    this.createAvatar(this.props.chatItem?.avatar);
-
+    this.createAvatar(this.props.chatItem!.avatar);
   }
 
   protected componentDidUpdate(
-    _oldProps: ChatProps,
+    oldProps: ChatProps,
     newProps: ChatProps
-  ): boolean | undefined {
-    if (newProps.lastMessage) {
-      this.setProps({
-        ...this.props,
-        chatItem: newProps.chatItem,
-        lastMessage: newProps.lastMessage,
-      });
+  ): boolean {
+    if (!shallowEqual(oldProps.avatar, newProps.avatar)) {
+      this.createAvatar(newProps.avatar);
       return true
     }
+
     return false;
   }
-
-  /*protected createChatItem (chatItem: IChatsInfo) {
-
-  }*/
 
   protected createAvatar(avatar: string | undefined) {
     if (avatar) {
@@ -96,25 +89,28 @@ class ChatItem extends Block<ChatProps> {
 
   protected render() {
     const lastMessage = this.formatMessage(
-      this.props.chatItem?.last_message.content
+      this.props.chatItem?.last_message
+        ? this.props.chatItem?.last_message.content
+        : ""
     );
-    const time = this.formatTime(this.props.chatItem?.last_message.time);
+    const time = this.formatTime(
+      this.props.chatItem?.last_message
+        ? this.props.chatItem.last_message.time
+        : ""
+    );
+
     return this.compile(template, {
+      ...this.props,
       title: this.props.chatItem?.title,
-      userName: this.props.chatItem?.last_message.user.first_name || "",
+      userName: this.props.chatItem?.last_message
+        ? this.props.chatItem?.last_message.user.first_name
+        : "",
       last_message: lastMessage,
       time: time,
       unread_count: this.props.chatItem?.unread_count || "",
-      selectedChat: this.props.isSelected,
+      isSelected:
+        this.props.chatId === Number(window.location.pathname.split("/").pop()),
       styles,
     });
   }
 }
-
-const ChatItemWithStoreTest = withStore((state: IState) => ({
-  chat: state.activeChat,
-}));
-
-export const ChatItemWithStore = ChatItemWithStoreTest(
-  ChatItem as typeof Block
-);
